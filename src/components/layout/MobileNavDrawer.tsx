@@ -1,10 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import type { NavLink } from './nav-links';
+
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
 export function MobileNavDrawer({
   open,
@@ -16,14 +19,46 @@ export function MobileNavDrawer({
   navLinks: NavLink[];
 }) {
   const [watchOpen, setWatchOpen] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const previouslyFocused = useRef<HTMLElement | null>(null);
 
+  // Focus trap: move focus into the drawer on open, cycle Tab/Shift+Tab
+  // within it while open, and restore focus to whatever triggered it
+  // (the hamburger button) on close — standard modal-dialog behavior.
   useEffect(() => {
     if (!open) return;
+
+    previouslyFocused.current = document.activeElement as HTMLElement | null;
+    const panel = panelRef.current;
+    const focusable = panel?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
+    focusable?.[0]?.focus();
+
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') onClose();
+      if (event.key === 'Escape') {
+        onClose();
+        return;
+      }
+      if (event.key !== 'Tab' || !panel) return;
+
+      const items = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR));
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     }
+
     window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      previouslyFocused.current?.focus();
+    };
   }, [open, onClose]);
 
   return (
@@ -32,7 +67,7 @@ export function MobileNavDrawer({
         <>
           <motion.div
             key="backdrop"
-            className="fixed inset-0 z-40 bg-ink/70 md:hidden"
+            className="fixed inset-0 z-40 bg-ink/70 lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -41,10 +76,11 @@ export function MobileNavDrawer({
           />
           <motion.div
             key="drawer"
+            ref={panelRef}
             role="dialog"
             aria-modal="true"
             aria-label="Site menu"
-            className="fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col overflow-y-auto bg-crimson-deep p-8 md:hidden"
+            className="fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col overflow-y-auto bg-charcoal-deep p-8 lg:hidden"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}

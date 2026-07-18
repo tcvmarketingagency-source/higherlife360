@@ -4,34 +4,40 @@ import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import { gsap } from '@/lib/gsap';
 
+// PLACEHOLDER: the years marked "Year TBD" and the specific details below
+// (city names, "a handful of families," etc.) are illustrative narrative
+// placeholders, not confirmed facts — please fill in the real years and
+// correct any specifics before launch. Only 2017/Pune/founding and the
+// "Today" totals (120+ branches, 10+ nations, 230,000+ connected) are
+// confirmed real facts.
 const milestones = [
   {
     year: '2017',
     title: 'Founding',
-    text: 'HigherLife began in Pune, Maharashtra, India. The founding vision: to help every person encounter God and live a Higher Life.',
+    text: 'HigherLife began in a small rented hall in Pune, Maharashtra, India — a handful of people, one conviction, and a vision to help every person encounter God and live a Higher Life.',
   },
   {
     // PLACEHOLDER: fill in the real year this milestone happened.
     year: 'Year TBD',
     title: 'First Branch',
-    text: 'First branch established beyond Pune.',
+    text: 'What started as one gathering couldn’t stay contained to one room. The first branch beyond Pune opened its doors, proving the vision was never meant to stay in a single city.',
   },
   {
     // PLACEHOLDER: fill in the real year this milestone happened.
     year: 'Year TBD',
     title: 'Expansion Across India',
-    text: 'Expansion across India.',
+    text: 'Branch by branch, city by city, HigherLife took root across India — each one carrying the same heartbeat, shaped by the community around it.',
   },
   {
     // PLACEHOLDER: fill in the real year this milestone happened.
     year: 'Year TBD',
     title: 'Going Global',
-    text: 'Went global — first international branch.',
+    text: 'The vision crossed a border for the first time, planting HigherLife’s first branch outside India and marking the start of a truly global family.',
   },
   {
     year: 'Today',
     title: 'A Global Family',
-    text: 'A global family of 120+ branches across 10+ countries, with 230,000+ people connected worldwide.',
+    text: 'A global family of 120+ branches across 10+ countries, with 230,000+ people connected worldwide — and still, every branch traces back to that first small room in Pune.',
   },
 ];
 

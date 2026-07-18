@@ -94,7 +94,11 @@ export function EventsExplorer({
         <p className="font-display text-h3 font-semibold text-ink">
           No events scheduled right now — but something&rsquo;s always coming.
         </p>
-        <p className="mt-3 text-body text-ink/70">Check back soon.</p>
+        <p className="mx-auto mt-3 max-w-md text-body text-ink/70">
+          We&rsquo;re planning the next conference, worship night, and outreach as you read this. In
+          the meantime, a Sunday service is the easiest way to stay in the loop — join us live or
+          find a branch near you.
+        </p>
       </Container>
     );
   }
@@ -102,7 +106,11 @@ export function EventsExplorer({
   return (
     <Section tone="cream">
       <Container>
-        <SectionTitle eyebrow="Browse" title="All Events" />
+        <SectionTitle
+          eyebrow="Browse"
+          title="All Events"
+          subtitle="Conferences to grow your faith, worship nights to reset your soul, outreach days to serve your city — filter by category or branch to find what fits."
+        />
 
         <div className="mt-14 flex flex-col gap-6 border-t border-ink/10 pt-10">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">

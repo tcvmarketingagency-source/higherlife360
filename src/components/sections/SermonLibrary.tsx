@@ -134,7 +134,10 @@ export function SermonLibrary({ sermons }: { sermons: SermonRow[] }) {
     return (
       <Container className="py-24 text-center">
         <p className="font-display text-h3 font-semibold text-ink">New messages coming soon.</p>
-        <p className="mt-3 text-body text-ink/70">Check back after this Sunday.</p>
+        <p className="mx-auto mt-3 max-w-md text-body text-ink/70">
+          We&rsquo;re building out the library so you can catch up any time, from anywhere. In the
+          meantime, come experience a message live — check back after this Sunday.
+        </p>
       </Container>
     );
   }
@@ -277,7 +280,11 @@ export function SermonLibrary({ sermons }: { sermons: SermonRow[] }) {
       {/* All messages grid */}
       <Section tone="cream">
         <Container>
-          <SectionTitle eyebrow="Browse" title="All Messages" />
+          <SectionTitle
+            eyebrow="Browse"
+            title="All Messages"
+            subtitle="Search by title, speaker, or scripture — or filter by series and topic to find exactly what you need."
+          />
           {visibleSermons.length > 0 ? (
             <>
               <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

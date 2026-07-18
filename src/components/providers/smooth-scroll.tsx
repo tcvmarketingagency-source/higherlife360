@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import Lenis from 'lenis';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 const LenisContext = createContext<Lenis | null>(null);
 
@@ -19,15 +20,16 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     });
     setLenis(instance);
 
-    let frameId: number;
-    function raf(time: number) {
-      instance.raf(time);
-      frameId = requestAnimationFrame(raf);
-    }
-    frameId = requestAnimationFrame(raf);
+    // Keep GSAP ScrollTrigger (pinning/scrubbing on the homepage's cinematic
+    // hero) perfectly in sync with Lenis's eased scroll position — without
+    // this, pinned/scrubbed animations lag a frame behind and feel janky.
+    const onTick = (time: number) => instance.raf(time * 1000);
+    instance.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(onTick);
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
-      cancelAnimationFrame(frameId);
+      gsap.ticker.remove(onTick);
       instance.destroy();
       setLenis(null);
     };

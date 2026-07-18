@@ -8,10 +8,12 @@ import { JoinPageProvider } from '@/components/sections/JoinPageProvider';
 import { JoinActionButton } from '@/components/sections/JoinActionButton';
 import { ConnectCardForm } from '@/components/forms/ConnectCardForm';
 import {
-  UNSPLASH_COMMUNITY,
-  UNSPLASH_CONGREGATION,
-  UNSPLASH_WORSHIP,
-  UNSPLASH_OUTREACH,
+  UNSPLASH_HERO_FELLOWSHIP,
+  UNSPLASH_FELLOWSHIP,
+  UNSPLASH_OPEN_BIBLE,
+  UNSPLASH_SMALL_GROUP,
+  UNSPLASH_FAMILY_PEWS,
+  UNSPLASH_CANDLE,
 } from '@/lib/unsplash-placeholders';
 
 export const metadata: Metadata = {
@@ -29,31 +31,31 @@ const nextSteps = [
   {
     mark: 'P',
     title: 'Plan a Visit',
-    text: 'New here? Let us roll out the welcome. We’ll help you feel at home.',
+    text: 'New here? Let us roll out the welcome. Find a branch, check the service times, and come see what a Sunday actually feels like — no pressure, just an open door.',
     action: { type: 'link' as const, href: '/branches' },
   },
   {
     mark: 'G',
     title: 'Join a Small Group',
-    text: 'Life is better in community. Find your people.',
+    text: 'Life is better in community. A small group is where faith stops being a Sunday-only thing — real conversations, real friendship, and people who’ll walk with you.',
     action: { type: 'scroll' as const, target: '#small-groups' },
   },
   {
     mark: 'B',
     title: 'Get Baptized',
-    text: 'Ready to take a public step of faith? We’ll walk with you.',
+    text: 'Ready to take a public step of faith? Baptism is a simple, meaningful declaration of what God has already done in you — we’d be honored to walk with you through it.',
     action: { type: 'prefill' as const, interest: 'Baptism' },
   },
   {
     mark: 'S',
     title: 'Serve on a Team',
-    text: 'Use your gifts to make a difference. There’s a place for you.',
+    text: 'Use your gifts to make a difference. Whatever you’re good at — hospitality, tech, kids, worship — there’s a team here that needs exactly that.',
     action: { type: 'scroll' as const, target: '#volunteer' },
   },
   {
     mark: 'M',
     title: 'Become a Member',
-    text: 'Make HigherLife your home and go deeper.',
+    text: 'Make HigherLife your home and go deeper. Membership is less a formality and more a commitment — to belong, to serve, and to be known here for the long haul.',
     action: { type: 'prefill' as const, interest: 'Membership' },
   },
 ];
@@ -67,32 +69,36 @@ const sampleGroups = [
     day: 'Tuesdays',
     time: '7:00 PM',
     location: 'HigherLife Pune',
-    description: 'A space for 20s & 30s to grow in faith and friendship together.',
-    photo: UNSPLASH_COMMUNITY,
+    description:
+      'A space for 20s & 30s to grow in faith and friendship together — real talk about work, relationships, and figuring out life, held together by scripture and community.',
+    photo: UNSPLASH_FELLOWSHIP,
   },
   {
     name: 'Women’s Bible Study',
     day: 'Wednesdays',
     time: '10:00 AM',
     location: 'HigherLife Mumbai',
-    description: 'Digging into scripture together in a warm, honest environment.',
-    photo: UNSPLASH_CONGREGATION,
+    description:
+      'Digging into scripture together in a warm, honest environment where questions are welcome and nobody has to have it all figured out.',
+    photo: UNSPLASH_OPEN_BIBLE,
   },
   {
     name: 'Men’s Fellowship',
     day: 'Thursdays',
     time: '6:30 PM',
     location: 'HigherLife Pune',
-    description: 'Real conversations, real accountability, real brotherhood.',
-    photo: UNSPLASH_WORSHIP,
+    description:
+      'Real conversations, real accountability, real brotherhood — a place to be honest about the pressures of work, family, and faith, without performing for anyone.',
+    photo: UNSPLASH_SMALL_GROUP,
   },
   {
     name: 'Young Families',
     day: 'Saturdays',
     time: '4:00 PM',
     location: 'HigherLife Bengaluru',
-    description: 'Connecting parents navigating faith and family life together.',
-    photo: UNSPLASH_OUTREACH,
+    description:
+      'Connecting parents navigating faith and family life together — practical support, honest friendship, and kids welcome (in fact, expected).',
+    photo: UNSPLASH_FAMILY_PEWS,
   },
 ];
 
@@ -100,23 +106,27 @@ const volunteerTeams = [
   {
     mark: 'W',
     title: 'Worship',
-    text: 'Music & production — help lead people into God’s presence.',
+    text: 'Music & production — if you sing, play, or simply love creating an atmosphere where people can meet God, this team turns that gift into leadership every single week.',
   },
   {
     mark: 'M',
     title: 'Media & Tech',
-    text: 'Streaming, sound, and cameras — the tech behind every service.',
+    text: 'Streaming, sound, and cameras — the quiet, essential work that makes sure no one misses a word, whether they’re in the room or watching from another country.',
   },
   {
     mark: 'H',
     title: 'Hospitality',
-    text: 'Welcome & connect — be the first friendly face someone meets.',
+    text: 'Welcome & connect — be the first friendly face someone meets on what might be the most nervous, hopeful walk of their week. Small kindness, huge impact.',
   },
-  { mark: 'K', title: 'Kids', text: 'HigherLife Kids ministry — invest in the next generation.' },
+  {
+    mark: 'K',
+    title: 'Kids',
+    text: 'HigherLife Kids ministry — invest in the next generation with games, stories, and truth that sticks, so every child who walks through our doors feels seen and loved.',
+  },
   {
     mark: 'O',
     title: 'Outreach',
-    text: 'Serving the community — carry HigherLife beyond our walls.',
+    text: 'Serving the community — carry HigherLife beyond our walls through food drives, practical help, and simply showing up for our neighbors, no strings attached.',
   },
 ];
 
@@ -127,14 +137,14 @@ export default function JoinPage() {
         {/* Hero */}
         <section className="relative overflow-hidden bg-crimson-deep pb-16 pt-40 text-center">
           {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360
-              community/welcome photo. Verified free (non-Unsplash+) at time
-              of writing. See src/lib/unsplash-placeholders.ts for the source. */}
+              community/welcome photo. See src/lib/unsplash-placeholders.ts
+              for the source. */}
           <div
             aria-hidden
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${UNSPLASH_COMMUNITY})` }}
+            style={{ backgroundImage: `url(${UNSPLASH_HERO_FELLOWSHIP})` }}
           />
-          <div aria-hidden className="absolute inset-0 bg-crimson-deep/85" />
+          <div aria-hidden className="absolute inset-0 bg-crimson-deep/90" />
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0"
@@ -144,7 +154,9 @@ export default function JoinPage() {
             }}
           />
           <Container className="relative">
-            <p className="text-eyebrow font-semibold uppercase text-gold">Join Us</p>
+            <p className="text-eyebrow font-semibold uppercase text-gold [text-shadow:0_1px_10px_rgb(0_0_0_/_60%)]">
+              Join Us
+            </p>
             <h1 className="mx-auto mt-4 max-w-2xl font-display text-h1 font-semibold text-cream">
               You Belong Here.
             </h1>
@@ -201,20 +213,34 @@ export default function JoinPage() {
         </Section>
 
         {/* New here? / New believer path */}
-        <Section tone="crimson-deep">
-          <Container className="text-center">
+        <Section tone="crimson-deep" className="relative overflow-hidden">
+          {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 photo.
+              See src/lib/unsplash-placeholders.ts for the source. */}
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-cover bg-fixed bg-center opacity-25"
+            style={{ backgroundImage: `url(${UNSPLASH_CANDLE})` }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-crimson-deep via-crimson-deep/85 to-crimson-deep"
+          />
+          <Container className="relative text-center">
             <div className="mx-auto max-w-2xl">
               <p className="text-eyebrow font-semibold uppercase text-gold">New Here?</p>
               <h2 className="mt-3 font-display text-h2 font-semibold text-cream">
                 Just Started Your Journey with Jesus?
               </h2>
               <p className="mt-6 text-body text-cream/80">
-                Whatever brought you here — a question, a quiet curiosity, or a decision you’ve
-                already made — there’s no wrong way to start. We’d love to walk this next part with
-                you.
+                Whatever brought you here — a question, a quiet curiosity, a hard season, or a
+                decision you’ve already made — there’s no wrong way to start. This isn’t a test you
+                can fail or a club you have to earn your way into. It’s simply the beginning of a
+                relationship.
               </p>
               <p className="mt-4 text-body text-cream/80">
-                You don’t need to have it figured out. You just need to take one step.
+                You don’t need to have your doubts resolved, your habits fixed, or your questions
+                answered before you take this step. You just need to take it — and we’ll walk the
+                rest with you, at whatever pace you need.
               </p>
               <div className="mt-8">
                 <JoinActionButton

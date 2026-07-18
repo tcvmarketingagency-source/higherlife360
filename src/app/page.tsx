@@ -1,136 +1,195 @@
 import type { Metadata } from 'next';
 import nextDynamic from 'next/dynamic';
-import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { SectionTitle } from '@/components/ui/SectionTitle';
-import { HeroParticlesCanvas } from '@/components/three/HeroParticlesCanvas';
+import { CinematicHero } from '@/components/sections/CinematicHero';
 import { SermonCard } from '@/components/sections/SermonCard';
+import { EventCard } from '@/components/sections/EventCard';
+import { HigherLifePathway } from '@/components/sections/HigherLifePathway';
+import { MinistriesShowcase } from '@/components/sections/MinistriesShowcase';
+import { ministries } from '@/lib/ministries-data';
+import { isPastEvent } from '@/lib/event-time';
 import { supabase } from '@/lib/supabase';
+import { UNSPLASH_WORSHIP, UNSPLASH_HERO_CHURCH_EXTERIOR } from '@/lib/unsplash-placeholders';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Welcome Home',
   description:
-    'HigherLife360 is a global church family, rooted in Pune, India, with 120+ branches across 10+ nations. Watch live, find a branch, and take your next step toward a Higher Life.',
+    'HigherLife360 is a global church family, founded in 2017 in Pune, India — now 120+ branches across 10+ nations with 230,000+ people connected worldwide. Watch live, find a branch, and take your next step toward a Higher Life.',
 };
 
 const ScrollReveal = nextDynamic(() =>
   import('@/components/motion/ScrollReveal').then((mod) => mod.ScrollReveal)
 );
+const StaggerReveal = nextDynamic(() =>
+  import('@/components/motion/StaggerReveal').then((mod) => mod.StaggerReveal)
+);
 const StatCounters = nextDynamic(() =>
   import('@/components/sections/StatCounters').then((mod) => mod.StatCounters)
 );
 
+// Real facts (must match /vision exactly) — founded 2017 in Pune, Maharashtra.
 const impactStats = [
-  { value: 5000, suffix: '+', label: 'Lives Changed' },
-  { value: 12, suffix: '', label: 'Branches' },
-  { value: 8, suffix: '', label: 'Nations' },
+  { value: 120, suffix: '+', label: 'Branches' },
+  { value: 230000, suffix: '+', label: 'Lives Connected' },
+  { value: 10, suffix: '+', label: 'Nations' },
 ];
 
-const connectCards = [
-  { title: 'Live', description: 'Join us in real time from anywhere in the world.', href: '/live' },
-  { title: 'Branches', description: 'Find a HigherLife360 campus near you.', href: '/branches' },
-  { title: 'Events', description: 'See what’s happening this month and beyond.', href: '/events' },
+// The Summit-style closing trio — three clear front doors into the church,
+// regardless of where someone is starting from.
+const pathwaysTrio = [
   {
-    title: 'Join Us',
-    description: 'Take your next step into community and calling.',
-    href: '/join',
+    eyebrow: 'New Here',
+    title: 'Where to Start',
+    text: 'Not sure what a first visit looks like? We’ll walk you through exactly what to expect, so you can show up knowing.',
+    href: '/branches',
+    cta: 'Plan Your Visit',
+  },
+  {
+    eyebrow: 'Get Involved',
+    title: 'Start Serving',
+    text: 'Every gift matters here. Find a team that fits how you’re wired, and put it to use for something bigger.',
+    href: '/join#volunteer',
+    cta: 'Find a Team',
+  },
+  {
+    eyebrow: 'Generosity',
+    title: 'Online Giving',
+    text: 'Give a one-time or recurring gift in seconds — every gift helps a soul encounter God, near and far.',
+    href: '/donate',
+    cta: 'Give Now',
   },
 ];
 
 export default async function Home() {
-  const { data: latestSermon } = await supabase
-    .from('sermons')
-    .select('*')
-    .order('published_at', { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  const [{ data: latestSermon }, { data: eventsData }, { data: branchesData }] = await Promise.all([
+    supabase
+      .from('sermons')
+      .select('*')
+      .order('published_at', { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+    supabase.from('events').select('*').order('start_time', { ascending: true }),
+    supabase.from('branches').select('*'),
+  ]);
+
+  const events = eventsData ?? [];
+  const branches = branchesData ?? [];
+  const branchNameById = new Map(branches.map((branch) => [branch.id, branch.name]));
+  const upcomingEvents = events.filter((event) => !isPastEvent(event)).slice(0, 3);
 
   return (
     <main>
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-b from-crimson via-crimson-deep to-ink">
+      <CinematicHero />
+
+      {/* First-time-visitor welcome — short and warm; the fuller "what to
+          expect" reassurance detail (parking, dress, service length) lives
+          on /branches, since it's realistically branch-specific. */}
+      <Section tone="cream" id="visit">
+        <Container>
+          <SectionTitle
+            eyebrow="First Time?"
+            title="We’re Excited"
+            titleAccent="That You’re Here"
+            subtitle="Whether you’ve never set foot in a church before or it’s just been a while, there’s no dress code, no pressure, and no wrong way to show up."
+          />
+          <div className="mx-auto mt-8 max-w-2xl text-center">
+            <p className="text-body text-ink/80">
+              Come as you are, sit where you like — our team will help you find coffee, kids&rsquo;
+              check-in, and a seat, and we&rsquo;re praying for you before you even walk through the
+              door.
+              {/* PLACEHOLDER: if you'd like a specific service length or format
+                  stated here, confirm it and we'll add it — kept general for now
+                  since it can vary by branch. */}
+            </p>
+            <div className="mt-8">
+              <Button href="/join" variant="primary" showArrow>
+                New Here? Start Here
+              </Button>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <Section tone="cream" id="message" className="pt-0">
+        <Container>
+          <div className="border-t border-ink/10 pt-16">
+            <SectionTitle
+              eyebrow="This Week"
+              title="Watch Our"
+              titleAccent="Latest Message"
+              subtitle="Missed Sunday? You can still catch what God is saying — wherever you are."
+            />
+            <p className="mx-auto mt-6 max-w-2xl text-center text-body text-ink/70">
+              Every message is prayed over before it&rsquo;s preached — practical, honest, and
+              rooted in Scripture. Give it fifteen minutes and see if it doesn&rsquo;t speak to
+              exactly where you are today.
+            </p>
+            <div className="mx-auto mt-10 max-w-2xl">
+              <ScrollReveal>
+                {latestSermon ? (
+                  <SermonCard sermon={latestSermon} />
+                ) : (
+                  <div className="relative overflow-hidden border border-gold/30">
+                    <div className="relative aspect-video">
+                      <Image
+                        src={UNSPLASH_WORSHIP}
+                        alt=""
+                        fill
+                        sizes="(min-width: 768px) 672px, 100vw"
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent" />
+                    </div>
+                    <div className="bg-white p-8 text-center">
+                      <p className="font-display text-h4 font-semibold text-ink">
+                        New messages are on their way.
+                      </p>
+                      <p className="mt-2 text-sm text-ink/70">
+                        In the meantime, come experience it live — same presence, same power.
+                      </p>
+                      <div className="mt-6">
+                        <Button href="/live" variant="outline">
+                          Watch Live
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </ScrollReveal>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <Section tone="charcoal-deep" id="vision-teaser" className="relative overflow-hidden">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(circle at 50% 35%, rgba(232,200,120,0.16), transparent 60%)',
+              'radial-gradient(circle at 50% 30%, rgba(232,200,120,0.16), transparent 60%)',
           }}
         />
-        <HeroParticlesCanvas />
-
-        <Container className="relative py-32 text-center">
-          <div className="mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-full border border-gold/60 sm:h-28 sm:w-28">
-            <span className="font-display text-2xl font-semibold text-gold">HL</span>
-          </div>
-          <h1 className="mx-auto max-w-4xl font-display text-hero font-semibold text-cream">
-            Welcome Home.
-          </h1>
-          <p className="mx-auto mt-6 max-w-xl text-body-lg text-cream/75">
-            A place to encounter God, find family, and live a Higher Life.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-6">
-            <Button href="/#visit" variant="primary">
-              Plan Your Visit
-            </Button>
-            <Button href="/live" variant="secondary">
-              Watch Live
-            </Button>
-          </div>
-        </Container>
-
-        <a
-          href="#visit"
-          aria-label="Scroll down"
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-cream/60 transition-colors hover:text-gold"
-        >
-          <span aria-hidden className="text-2xl">
-            &#8595;
-          </span>
-        </a>
-      </section>
-
-      <section id="visit" className="border-b border-gold/10 bg-crimson-deep py-6">
-        <Container className="flex flex-col items-center justify-center gap-2 text-center sm:flex-row sm:gap-4">
-          <p className="font-sans text-sm text-cream/80">New here? We’d love to meet you.</p>
-          <Link
-            href="/join"
-            className="inline-flex items-center gap-2 font-sans text-sm font-semibold uppercase tracking-widest text-gold transition-colors hover:text-gold-light"
-          >
-            I’m New <span aria-hidden>&rarr;</span>
-          </Link>
-        </Container>
-      </section>
-
-      <Section tone="cream" id="message">
-        <Container>
-          <SectionTitle eyebrow="This Week" title="Current Message" />
-          <div className="mx-auto mt-14 max-w-2xl">
-            {latestSermon ? (
-              <SermonCard sermon={latestSermon} />
-            ) : (
-              <p className="text-center font-sans text-body text-ink/70">
-                Check back soon for our latest message.
-              </p>
-            )}
-          </div>
-        </Container>
-      </Section>
-
-      <Section tone="crimson-deep" id="vision-teaser">
-        <Container className="text-center">
+        <Container className="relative text-center">
           <ScrollReveal>
             <p className="mx-auto max-w-2xl font-display text-h2 font-semibold text-cream">
               We believe every soul was made to rise.
             </p>
             <p className="mx-auto mt-2 max-w-2xl font-display text-h2 font-semibold text-gold">
-              This is more than church — it’s a way of life.
+              This is more than church — it&rsquo;s a way of life.
+            </p>
+            <p className="mx-auto mt-6 max-w-xl text-body-lg text-cream/75">
+              From one gathering in Pune, India to a family spanning the globe — the invitation has
+              never changed.
             </p>
             <div className="mt-8">
-              <Button href="/vision" variant="secondary">
+              <Button href="/vision" variant="secondary" showArrow>
                 Discover Our Vision
               </Button>
             </div>
@@ -138,50 +197,157 @@ export default async function Home() {
         </Container>
       </Section>
 
-      <Section tone="cream" id="connect">
+      {/* Upcoming Events preview — pulled live from Supabase. */}
+      <Section tone="cream">
         <Container>
-          <SectionTitle eyebrow="Get Involved" title="Ways to Connect" />
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {connectCards.map((card) => (
-              <Link
-                key={card.href}
-                href={card.href}
-                className="group block border border-ink/10 bg-white p-8 transition-all duration-300 hover:-translate-y-2 hover:border-gold hover:shadow-xl"
-              >
-                <h3 className="font-display text-h4 font-semibold text-ink transition-colors group-hover:text-crimson">
-                  {card.title}
-                </h3>
-                <p className="mt-3 text-sm text-ink/70">{card.description}</p>
-                <span
-                  aria-hidden
-                  className="mt-6 inline-block text-gold transition-transform group-hover:translate-x-1"
-                >
-                  &rarr;
-                </span>
-              </Link>
-            ))}
+          <SectionTitle
+            eyebrow="Mark Your Calendar"
+            title="Upcoming"
+            titleAccent="Events"
+            subtitle="Conferences, worship nights, and gatherings across the HigherLife family — find your next moment."
+          />
+          {upcomingEvents.length > 0 ? (
+            <StaggerReveal className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {upcomingEvents.map((event) => (
+                <EventCard
+                  key={event.id}
+                  event={event}
+                  branchName={event.branch_id ? branchNameById.get(event.branch_id) : null}
+                />
+              ))}
+            </StaggerReveal>
+          ) : (
+            <p className="mx-auto mt-14 max-w-md text-center text-body text-ink/70">
+              We&rsquo;re planning the next conference, worship night, and outreach as you read
+              this. Check back soon, or join us this Sunday in the meantime.
+            </p>
+          )}
+          <div className="mt-12 text-center">
+            <Button href="/events" variant="outline" showArrow>
+              See All Events
+            </Button>
           </div>
         </Container>
       </Section>
 
-      <Section tone="crimson-deep" id="impact">
+      {/* Find a Branch Near You — campus-locator-style teaser; the real
+          search/map lives on /branches. Uses a raw <section> (not the
+          <Section> component) so the bg-fixed image layer below can sit
+          behind it — SectionTitle has no color of its own for its base
+          `title` line (only `titleAccent` sets its own gold), so this
+          section must carry `text-cream` explicitly or the title silently
+          falls back to the page's default near-black body color. */}
+      <section className="relative overflow-hidden bg-charcoal-deep py-24 text-center text-cream md:py-32">
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-cover bg-fixed bg-center opacity-25"
+          style={{ backgroundImage: `url(${UNSPLASH_HERO_CHURCH_EXTERIOR})` }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-charcoal-deep via-charcoal-deep/80 to-charcoal-deep"
+        />
+        <Container className="relative">
+          <SectionTitle
+            eyebrow="One Church · Many Locations"
+            title="Find Your"
+            titleAccent="HigherLife Near You"
+            subtitle="120+ branches across 10+ nations, each one carrying the same heartbeat. Search by city, or let us find the nearest one for you."
+          />
+          <div className="mt-10">
+            <Button href="/branches" variant="primary" showArrow>
+              Find a Branch
+            </Button>
+          </div>
+        </Container>
+      </section>
+
+      {/* Get Connected and Grow — ministries showcase (subset; full list on /ministries). */}
+      <Section tone="cream">
         <Container>
           <SectionTitle
-            eyebrow="Our Impact"
-            title="Faith in Motion"
-            subtitle="A movement reaching further every year."
+            eyebrow="Get Connected"
+            title="Get Connected"
+            titleAccent="and Grow"
+            subtitle="Ministry here isn’t about filling a program — it’s about surrounding you with the right people for whatever season you’re in."
           />
+          <div className="mt-16">
+            <MinistriesShowcase items={ministries.slice(0, 8)} />
+          </div>
+          <div className="mt-12 text-center">
+            <Button href="/ministries" variant="outline" showArrow>
+              See All Ministries
+            </Button>
+          </div>
+        </Container>
+      </Section>
+
+      <HigherLifePathway tone="charcoal-deep" />
+
+      <Section tone="charcoal-deep" id="impact" className="relative overflow-hidden">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(circle at 50% 30%, rgba(232,200,120,0.16), transparent 60%)',
+          }}
+        />
+        <Container className="relative">
+          <SectionTitle
+            eyebrow="Our Impact"
+            title="Faith in"
+            titleAccent="Motion"
+            subtitle="From one gathering in Pune to a family spanning the globe."
+          />
+          <p className="mx-auto mt-6 max-w-2xl text-center text-body text-cream/75">
+            It started with a handful of people gathered in a rented hall in Pune in 2017 — one
+            Sunday, one small prayer, and a big belief that God had more. Every branch since has
+            carried the same heartbeat, and the story is still being written.
+          </p>
           <div className="mt-14">
             <StatCounters stats={impactStats} />
           </div>
         </Container>
       </Section>
 
-      <section className="bg-gold py-14 text-center">
+      {/* Where to Start / Start Serving / Online Giving — three clear front doors. */}
+      <Section tone="cream">
         <Container>
-          <p className="font-display text-h3 font-semibold text-crimson-deep">Fuel the Mission</p>
-          <div className="mt-6">
-            <Button href="/donate" variant="inverse">
+          <div className="grid gap-12 sm:grid-cols-3">
+            {pathwaysTrio.map((item) => (
+              <div key={item.title} className="text-center">
+                <p className="text-eyebrow font-semibold uppercase text-gold">{item.eyebrow}</p>
+                <h3 className="mt-3 font-display text-h3 font-semibold text-ink">{item.title}</h3>
+                <p className="mx-auto mt-3 max-w-xs text-sm text-ink/70">{item.text}</p>
+                <div className="mt-6">
+                  <Button href={item.href} variant="outline" showArrow>
+                    {item.cta}
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      <section className="relative overflow-hidden bg-gold py-16 text-center">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background: 'radial-gradient(circle at 50% 0%, rgba(92,10,24,0.12), transparent 65%)',
+          }}
+        />
+        <Container className="relative">
+          <p className="font-display text-h3 font-semibold text-crimson-deep">
+            Your Generosity Changes Everything
+          </p>
+          <p className="mx-auto mt-4 max-w-xl text-body text-crimson-deep/80">
+            Every gift helps a soul encounter God — in Pune, and everywhere HigherLife360 reaches.
+          </p>
+          <div className="mt-8">
+            <Button href="/donate" variant="inverse" showArrow>
               Give
             </Button>
           </div>

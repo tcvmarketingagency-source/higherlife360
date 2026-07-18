@@ -59,7 +59,7 @@ export default async function EventsPage() {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${UNSPLASH_EVENTS_HERO_BACKGROUND})` }}
         />
-        <div aria-hidden className="absolute inset-0 bg-crimson-deep/80" />
+        <div aria-hidden className="absolute inset-0 bg-crimson-deep/90" />
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
@@ -69,13 +69,21 @@ export default async function EventsPage() {
           }}
         />
         <Container className="relative">
-          <p className="text-eyebrow font-semibold uppercase text-gold">Events</p>
+          <p className="text-eyebrow font-semibold uppercase text-gold [text-shadow:0_1px_10px_rgb(0_0_0_/_60%)]">
+            Events
+          </p>
           <h1 className="mx-auto mt-4 max-w-2xl font-display text-h1 font-semibold text-cream">
             What&rsquo;s Happening
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-body-lg text-cream/75">
             Conferences, worship nights, and gatherings across the HigherLife family. Find your next
             moment.
+          </p>
+          <p className="mx-auto mt-6 max-w-2xl text-body text-cream/70">
+            Life happens in the room, not just on the calendar. From conferences that stretch your
+            faith to worship nights that reset your soul, to outreach days that put your hands to
+            work in your own city — every gathering here is a chance to belong a little more deeply.
+            Filter below, or just scroll and see what catches your heart.
           </p>
         </Container>
       </section>

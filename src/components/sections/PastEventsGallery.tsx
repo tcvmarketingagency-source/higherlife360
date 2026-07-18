@@ -22,8 +22,10 @@ export function PastEventsGallery({ events }: { events: EventRow[] }) {
             sizes="(min-width: 768px) 220px, 45vw"
             className="object-cover transition-transform duration-500 group-hover:scale-110"
           />
-          <div className="absolute inset-0 flex items-end bg-gradient-to-t from-ink/70 via-transparent to-transparent p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <p className="font-sans text-xs font-medium text-cream">{event.title}</p>
+          <div className="absolute inset-0 flex items-end bg-gradient-to-t from-ink/90 via-ink/20 to-transparent p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <p className="font-sans text-xs font-medium text-cream [text-shadow:0_1px_6px_rgb(0_0_0_/_70%)]">
+              {event.title}
+            </p>
           </div>
         </div>
       ))}

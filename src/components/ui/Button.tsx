@@ -7,6 +7,9 @@ type ButtonBaseProps = {
   variant?: ButtonVariant;
   className?: string;
   children: React.ReactNode;
+  /** Adds a trailing arrow that nudges right on hover — the consistent
+   * editorial CTA treatment. Opt-in so existing buttons are unaffected. */
+  showArrow?: boolean;
 };
 
 type ButtonAsButton = ButtonBaseProps &
@@ -18,7 +21,7 @@ type ButtonAsLink = ButtonBaseProps &
 export type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const baseStyles =
-  'inline-flex items-center justify-center px-8 py-3 font-sans text-sm font-medium uppercase tracking-[0.15em] transition-colors duration-300';
+  'group/btn inline-flex items-center justify-center gap-2 px-8 py-3 font-sans text-sm font-medium uppercase tracking-[0.15em] transition-colors duration-300';
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary: 'bg-gold text-crimson-deep hover:bg-gold-light',
@@ -27,7 +30,25 @@ const variantStyles: Record<ButtonVariant, string> = {
   inverse: 'bg-crimson-deep text-cream hover:bg-crimson',
 };
 
-export function Button({ variant = 'primary', className, children, href, ...props }: ButtonProps) {
+function ButtonArrow() {
+  return (
+    <span
+      aria-hidden
+      className="inline-block transition-transform duration-300 group-hover/btn:translate-x-1"
+    >
+      &rarr;
+    </span>
+  );
+}
+
+export function Button({
+  variant = 'primary',
+  className,
+  children,
+  href,
+  showArrow,
+  ...props
+}: ButtonProps) {
   const classes = cn(baseStyles, variantStyles[variant], className);
 
   if (href) {
@@ -38,6 +59,7 @@ export function Button({ variant = 'primary', className, children, href, ...prop
         {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
       >
         {children}
+        {showArrow && <ButtonArrow />}
       </Link>
     );
   }
@@ -45,6 +67,7 @@ export function Button({ variant = 'primary', className, children, href, ...prop
   return (
     <button className={classes} {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}>
       {children}
+      {showArrow && <ButtonArrow />}
     </button>
   );
 }

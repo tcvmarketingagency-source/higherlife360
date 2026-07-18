@@ -35,7 +35,7 @@ export default async function BranchesPage() {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${UNSPLASH_HERO_BACKGROUND})` }}
         />
-        <div aria-hidden className="absolute inset-0 bg-crimson-deep/80" />
+        <div aria-hidden className="absolute inset-0 bg-crimson-deep/90" />
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
@@ -45,13 +45,65 @@ export default async function BranchesPage() {
           }}
         />
         <Container className="relative">
-          <p className="text-eyebrow font-semibold uppercase text-gold">Our Branches</p>
+          <p className="text-eyebrow font-semibold uppercase text-gold [text-shadow:0_1px_10px_rgb(0_0_0_/_60%)]">
+            Our Branches
+          </p>
           <h1 className="mx-auto mt-4 max-w-2xl font-display text-h1 font-semibold text-cream">
             Find Your HigherLife
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-body-lg text-cream/75">
             120+ branches. 10+ nations. One family. Find a home near you.
           </p>
+          <p className="mx-auto mt-6 max-w-2xl text-body text-cream/70">
+            It started with one room in Pune, Maharashtra — and it kept going. Today HigherLife360
+            is a genuine global family: 120+ branches across 10+ nations, each one shaped by its own
+            city and culture, but carrying the exact same heartbeat back to where it all began.
+          </p>
+        </Container>
+      </section>
+
+      {/* What to Expect — anxiety-reducing detail for first-time visitors.
+          PLACEHOLDER: these are deliberately kept general since specifics
+          (parking, exact kids' program, dress norms) can vary branch to
+          branch — confirm and personalize per-branch detail if you'd like it
+          more specific than this. */}
+      <section className="border-b border-ink/10 bg-white py-16">
+        <Container>
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-eyebrow font-semibold uppercase text-gold">First Time Visiting?</p>
+            <h2 className="mt-3 font-display text-h2 font-semibold text-ink">
+              Here&rsquo;s What to Expect
+            </h2>
+            <p className="mt-4 text-body text-ink/70">
+              We know walking into a new church for the first time can feel like a lot. Here&rsquo;s
+              what most Sundays look like, so you can show up knowing exactly what to expect.
+            </p>
+          </div>
+          <div className="mx-auto mt-14 grid max-w-4xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                title: 'What to Wear',
+                text: 'Come as you are. You’ll see everything from jeans to traditional wear — there’s no dress code here.',
+              },
+              {
+                title: 'Kids & Family',
+                text: 'Most branches offer a kids’ program during the service — ask a greeter when you arrive and they’ll walk you through check-in.',
+              },
+              {
+                title: 'Parking & Arrival',
+                text: 'Arrive a little early on your first visit — greeters at the door can help with parking, seating, and any questions.',
+              },
+              {
+                title: 'How Long It Runs',
+                text: 'Services typically run about an hour to ninety minutes, including worship, teaching, and a time of response.',
+              },
+            ].map((item) => (
+              <div key={item.title} className="text-center">
+                <h3 className="font-display text-h4 font-semibold text-ink">{item.title}</h3>
+                <p className="mt-2 text-sm text-ink/70">{item.text}</p>
+              </div>
+            ))}
+          </div>
         </Container>
       </section>
 

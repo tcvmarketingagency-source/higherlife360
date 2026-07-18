@@ -4,6 +4,7 @@ import { NewsletterForm } from './NewsletterForm';
 
 const quickLinks = [
   { label: 'Vision', href: '/vision' },
+  { label: 'Ministries', href: '/ministries' },
   { label: 'Live', href: '/live' },
   { label: 'Messages', href: '/recording' },
   { label: 'Branches', href: '/branches' },
@@ -47,13 +48,19 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-gold/20 bg-crimson-deep text-cream">
+    <footer className="border-t border-gold/20 bg-charcoal-deep text-cream">
       <Container className="grid gap-12 py-16 md:grid-cols-12">
         <div className="md:col-span-4">
           <p className="font-display text-3xl font-semibold">
             HigherLife<span className="text-gold">360</span>
           </p>
-          <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream/70">
+          {/* PLACEHOLDER — BRAND MOTTO: "Live a Higher Life." is proposed as
+              HigherLife360's signature motto (it's already the site's title
+              tag/meta description, so using it here keeps everything
+              consistent). Two alternates, if you'd rather change it: "Rise
+              Higher." or "Higher Life Starts Here." — confirm or swap. */}
+          <p className="mt-4 font-display text-lg italic text-gold">Live a Higher Life.</p>
+          <p className="mt-2 max-w-xs text-sm leading-relaxed text-cream/70">
             Welcoming every soul home to faith, family, and purpose.
           </p>
           <div className="mt-6 flex gap-4">
