@@ -38,7 +38,7 @@ export function BranchCard({
     <div
       id={id}
       className={cn(
-        'group overflow-hidden border border-gold/20 bg-white transition-all duration-300 hover:-translate-y-2 hover:border-gold hover:shadow-[0_0_40px_-10px_rgba(201,162,75,0.5)]',
+        'group overflow-hidden border border-gold/20 bg-white transition-all duration-300 hover:-translate-y-2 hover:border-gold hover:shadow-[0_0_40px_-10px_rgba(232,163,61,0.5)]',
         highlighted && 'ring-2 ring-gold ring-offset-4 ring-offset-cream'
       )}
     >
@@ -57,7 +57,7 @@ export function BranchCard({
           {[branch.city, branch.country].filter(Boolean).join(', ')}
         </p>
         {branch.service_times && (
-          <p className="mt-3 font-sans text-xs uppercase tracking-widest text-gold">
+          <p className="mt-3 font-sans text-xs uppercase tracking-widest text-gold-deep">
             {branch.service_times}
           </p>
         )}
@@ -70,7 +70,7 @@ export function BranchCard({
               href={directions}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-sans text-sm font-semibold uppercase tracking-widest text-crimson transition-colors hover:text-gold"
+              className="font-sans text-sm font-semibold uppercase tracking-widest text-navy-elevated transition-colors hover:text-gold-deep"
             >
               Get Directions
             </a>

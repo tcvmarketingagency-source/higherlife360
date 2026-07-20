@@ -116,7 +116,14 @@ export function CinematicHero() {
   const textLayers = useRef<(HTMLDivElement | null)[]>([]);
   const ctaRef = useRef<HTMLDivElement>(null);
   const scrollCueRef = useRef<HTMLAnchorElement>(null);
-  const [cinematicReady, setCinematicReady] = useState(false);
+  // null = static single-chapter fallback (reduced-motion, or a
+  // matchMedia gate below hasn't matched yet). Otherwise, the chapter
+  // indices participating in the current breakpoint's animated,
+  // absolutely-stacked sequence — desktop uses all 5, mobile uses a
+  // lighter 3-chapter subset (see the two matchMedia branches below).
+  const [activeChapters, setActiveChapters] = useState<number[] | null>(null);
+  const isAnimated = activeChapters !== null;
+  const showChapter = (i: number) => (activeChapters ? activeChapters.includes(i) : i === 0);
 
   useGSAP(
     () => {
@@ -124,7 +131,7 @@ export function CinematicHero() {
 
       // Desktop / no-reduced-motion: full pinned, scroll-scrubbed chapter sequence.
       mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
-        setCinematicReady(true);
+        setActiveChapters([0, 1, 2, 3, 4]);
 
         const images = imageLayers.current.filter((el): el is HTMLDivElement => Boolean(el));
         const texts = textLayers.current.filter((el): el is HTMLDivElement => Boolean(el));
@@ -163,7 +170,61 @@ export function CinematicHero() {
         tl.to(ctaRef.current, { autoAlpha: 1, y: 0, duration: 0.6 }, '>-0.2');
 
         return () => {
-          setCinematicReady(false);
+          setActiveChapters(null);
+        };
+      });
+
+      // Mobile / no-reduced-motion: a lighter, non-pinned tour. GSAP's
+      // `pin` (position: fixed, recalculated every scroll tick) is a
+      // common source of touch-scroll jank, especially layered under
+      // Lenis — so mobile instead relies on CSS `position: sticky`
+      // (max-md:sticky on viewportRef below) to keep the imagery on
+      // screen for the scrub range, which is native, compositor-driven,
+      // and doesn't fight touch scrolling the way a JS-managed pin can.
+      // Only 3 of the 5 chapters play (fewer image decodes/paints on
+      // typically slower mobile hardware) — the rest never unhide, so
+      // next/image's lazy loading never fetches them on this breakpoint.
+      mm.add('(max-width: 767px) and (prefers-reduced-motion: no-preference)', () => {
+        const mobileChapters = [0, 2, 4];
+        setActiveChapters(mobileChapters);
+
+        const img = (i: number) => imageLayers.current[i];
+        const txt = (i: number) => textLayers.current[i];
+        if (!wrapperRef.current || !viewportRef.current || !img(0) || !img(2) || !img(4)) return;
+
+        gsap.set([img(2), img(4)], { autoAlpha: 0 });
+        gsap.set([txt(2), txt(4)].filter(Boolean), { autoAlpha: 0, y: 24 });
+        gsap.set(ctaRef.current, { autoAlpha: 0, y: 16 });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: wrapperRef.current,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 0.6,
+          },
+        });
+
+        tl.to(scrollCueRef.current, { autoAlpha: 0, duration: 0.3 }, 0);
+
+        for (let step = 1; step < mobileChapters.length; step++) {
+          const prev = mobileChapters[step - 1];
+          const curr = mobileChapters[step];
+          tl.to(img(prev), { autoAlpha: 0, scale: 1.12, duration: 1 }, `>-0.1`)
+            .fromTo(img(curr), { scale: 1.06 }, { autoAlpha: 1, scale: 1, duration: 1 }, '<')
+            .to(txt(prev), { autoAlpha: 0, y: -24, duration: 0.5 }, '<')
+            .fromTo(
+              txt(curr),
+              { autoAlpha: 0, y: 24 },
+              { autoAlpha: 1, y: 0, duration: 0.5 },
+              '<+=0.2'
+            );
+        }
+
+        tl.to(ctaRef.current, { autoAlpha: 1, y: 0, duration: 0.6 }, '>-0.2');
+
+        return () => {
+          setActiveChapters(null);
         };
       });
 
@@ -173,21 +234,23 @@ export function CinematicHero() {
   );
 
   return (
-    <div ref={wrapperRef} className="relative md:h-[500vh]">
+    <div ref={wrapperRef} className="relative max-md:h-[220vh] md:h-[500vh]">
       <div
         ref={viewportRef}
-        className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-charcoal-deep"
+        className="relative flex h-[100svh] w-full flex-col items-center justify-center overflow-hidden bg-navy max-md:sticky max-md:top-0"
       >
-        {/* Background chapter images — desktop cross-fades between all 5 via
-            GSAP above; on mobile only the first (lightest-weight) chapter
-            renders, as a plain static hero background. */}
+        {/* Background chapter images — desktop cross-fades between all 5 and
+            mobile cross-fades a lighter 3-chapter subset, both via GSAP
+            above; with reduced motion (or before a breakpoint has matched)
+            only the first, lightest-weight chapter renders as a plain
+            static hero background. */}
         {CHAPTERS.map((chapter, i) => (
           <div
             key={chapter.headline}
             ref={(el) => {
               imageLayers.current[i] = el;
             }}
-            className={cinematicReady || i === 0 ? 'absolute inset-0' : 'absolute inset-0 hidden'}
+            className={showChapter(i) ? 'absolute inset-0' : 'absolute inset-0 hidden'}
           >
             <Image
               src={chapter.image}
@@ -208,14 +271,14 @@ export function CinematicHero() {
             has moved it. Keep this stop strong. */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/75 via-ink/60 to-charcoal-deep/90"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/75 via-ink/60 to-navy/90"
         />
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(circle at 50% 30%, rgba(232,200,120,0.18), transparent 60%)',
+              'radial-gradient(circle at 50% 30%, rgba(242,184,94,0.18), transparent 60%)',
           }}
         />
 
@@ -231,14 +294,16 @@ export function CinematicHero() {
                 textLayers.current[i] = el;
               }}
               className={
-                cinematicReady
-                  ? 'absolute inset-x-0 px-6'
+                isAnimated
+                  ? showChapter(i)
+                    ? 'absolute inset-x-0 px-6'
+                    : 'absolute inset-x-0 hidden px-6'
                   : i === 0
                     ? 'px-6'
                     : 'absolute inset-x-0 hidden px-6'
               }
             >
-              <p className="text-eyebrow font-semibold uppercase text-gold [text-shadow:0_2px_12px_rgb(0_0_0_/_60%)]">
+              <p className="text-eyebrow font-semibold uppercase text-accent [text-shadow:0_2px_12px_rgb(0_0_0_/_60%)]">
                 {chapter.eyebrow}
               </p>
               {i === 0 ? (
@@ -256,11 +321,12 @@ export function CinematicHero() {
             </div>
           ))}
 
-          {/* Closing CTA — always visible on mobile (single-chapter hero);
-              fades in only during the final chapter on desktop. */}
+          {/* Closing CTA — fades in during the final chapter on both the
+              desktop and mobile animated sequences; always visible
+              immediately in the static (reduced-motion) fallback. */}
           <div
             ref={ctaRef}
-            className={cinematicReady ? 'absolute inset-x-0 bottom-24 px-6' : 'mt-10 px-6'}
+            className={isAnimated ? 'absolute inset-x-0 bottom-24 px-6' : 'mt-10 px-6'}
           >
             <div className="mb-6 flex justify-center">
               <NextServiceCountdown />
@@ -289,7 +355,7 @@ export function CinematicHero() {
           ref={scrollCueRef}
           href="#visit"
           aria-label="Scroll down"
-          className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 animate-bounce text-cream/60 transition-colors hover:text-gold"
+          className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-cream/60 transition-colors hover:text-gold motion-safe:animate-bounce"
         >
           <span aria-hidden className="text-2xl">
             &#8595;

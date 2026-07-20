@@ -30,7 +30,7 @@ export function ShareButton({ title }: { title: string }) {
     <button
       type="button"
       onClick={handleShare}
-      className="border border-gold px-8 py-3 font-sans text-sm font-medium uppercase tracking-[0.15em] text-crimson transition-colors hover:bg-gold hover:text-crimson-deep"
+      className="border border-gold px-8 py-3 font-sans text-sm font-medium uppercase tracking-[0.15em] text-navy-elevated transition-colors hover:bg-gold hover:text-navy"
     >
       {copied ? 'Link Copied' : 'Share'}
     </button>

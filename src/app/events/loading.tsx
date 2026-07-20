@@ -3,7 +3,7 @@ import { Container } from '@/components/ui/Container';
 export default function Loading() {
   return (
     <main>
-      <section className="bg-crimson-deep pb-16 pt-40 text-center">
+      <section className="bg-navy pb-16 pt-40 text-center">
         <Container>
           <div className="mx-auto h-4 w-24 animate-pulse bg-cream/10" />
           <div className="mx-auto mt-4 h-10 w-72 animate-pulse bg-cream/10" />

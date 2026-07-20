@@ -98,7 +98,7 @@ export default function VisionPage() {
   return (
     <main>
       {/* 1. Hero statement */}
-      <section className="relative flex min-h-screen items-center overflow-hidden bg-crimson-deep">
+      <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-navy">
         {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 sanctuary
             photo. See src/lib/unsplash-placeholders.ts for the source. */}
         <div
@@ -106,13 +106,13 @@ export default function VisionPage() {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${UNSPLASH_HERO_CATHEDRAL_INTERIOR})` }}
         />
-        <div aria-hidden className="absolute inset-0 bg-crimson-deep/90" />
+        <div aria-hidden className="absolute inset-0 bg-navy/90" />
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(circle at 50% 30%, rgba(232,200,120,0.16), transparent 60%)',
+              'radial-gradient(circle at 50% 30%, rgba(242,184,94,0.16), transparent 60%)',
           }}
         />
         <Container className="relative py-32 text-center">
@@ -130,7 +130,7 @@ export default function VisionPage() {
         <a
           href="#founder"
           aria-label="Scroll down"
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-cream/60 transition-colors hover:text-gold"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-cream/60 transition-colors hover:text-gold motion-safe:animate-bounce"
         >
           <span aria-hidden className="text-2xl">
             &#8595;
@@ -154,7 +154,7 @@ export default function VisionPage() {
                 />
               </div>
               <div>
-                <p className="text-eyebrow font-semibold uppercase text-gold">
+                <p className="text-eyebrow font-semibold uppercase text-accent">
                   A Word From Our Pastor
                 </p>
                 <h2 className="mt-3 font-display text-h2 font-semibold text-ink">
@@ -194,7 +194,7 @@ export default function VisionPage() {
                     wherever they go. I’m honored you’re here. Let’s take this next step together.
                   </p>
                 </div>
-                <p className="mt-6 font-display text-h4 italic text-crimson">
+                <p className="mt-6 font-display text-h4 italic text-navy-elevated">
                   — Pastor Sushil, Founder &amp; Lead Pastor, HigherLife
                 </p>
                 <div className="mt-6">
@@ -210,7 +210,7 @@ export default function VisionPage() {
       </Section>
 
       {/* 3. What We Believe */}
-      <Section tone="crimson-deep" id="believe">
+      <Section tone="navy" id="believe">
         <Container>
           <SectionTitle
             eyebrow="Our Foundation"
@@ -221,7 +221,7 @@ export default function VisionPage() {
             {beliefs.map((belief) => (
               <div
                 key={belief.title}
-                className="border border-gold/20 bg-crimson-deep p-8 transition-all duration-300 hover:-translate-y-2 hover:border-gold hover:shadow-[0_0_40px_-10px_rgba(201,162,75,0.5)]"
+                className="border border-gold/20 bg-navy p-8 transition-all duration-300 hover:-translate-y-2 hover:border-gold hover:shadow-[0_0_40px_-10px_rgba(232,163,61,0.5)]"
               >
                 {/* PLACEHOLDER: icon — currently a first-letter monogram */}
                 <div className="flex h-14 w-14 items-center justify-center rounded-full border border-gold/60">
@@ -244,7 +244,7 @@ export default function VisionPage() {
           <StaggerReveal className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {coreValues.map((value) => (
               <div key={value.number} className="text-center sm:text-left">
-                <p className="font-display text-h3 font-semibold text-gold/40">{value.number}</p>
+                <p className="font-display text-h3 font-semibold text-accent/40">{value.number}</p>
                 <h3 className="mt-2 font-display text-h3 font-semibold text-ink">{value.title}</h3>
                 <p className="mt-3 text-sm text-ink/70">{value.text}</p>
               </div>
@@ -256,7 +256,7 @@ export default function VisionPage() {
       <HigherLifePathway />
 
       {/* 5. Our Story — animated timeline */}
-      <Section tone="crimson-deep" id="story" className="relative overflow-hidden">
+      <Section tone="navy" id="story" className="relative overflow-hidden">
         {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 photo.
             See src/lib/unsplash-placeholders.ts for the source. */}
         <div
@@ -266,7 +266,7 @@ export default function VisionPage() {
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-crimson-deep via-crimson-deep/90 to-crimson-deep"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-navy via-navy/90 to-navy"
         />
         <Container className="relative">
           <SectionTitle
@@ -281,17 +281,17 @@ export default function VisionPage() {
       </Section>
 
       {/* 6. Our Global Reach (formerly "Vision 2030") */}
-      <Section tone="crimson-deep" id="global-reach" className="relative overflow-hidden pt-0">
+      <Section tone="navy" id="global-reach" className="relative overflow-hidden pt-0">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(circle at 50% 30%, rgba(232,200,120,0.16), transparent 60%)',
+              'radial-gradient(circle at 50% 30%, rgba(242,184,94,0.16), transparent 60%)',
           }}
         />
         <Container className="relative text-center">
-          <p className="text-eyebrow font-semibold uppercase text-gold">Our Reach</p>
+          <p className="text-eyebrow font-semibold uppercase text-accent">Our Reach</p>
           <h2 className="mx-auto mt-4 max-w-2xl font-display text-h1 font-semibold text-cream">
             Our Global Reach
           </h2>

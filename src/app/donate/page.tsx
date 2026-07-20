@@ -54,7 +54,7 @@ export default function DonatePage() {
   return (
     <main>
       {/* Emotional hero */}
-      <section className="relative overflow-hidden bg-crimson-deep pb-16 pt-40 text-center">
+      <section className="relative overflow-hidden bg-navy pb-16 pt-40 text-center">
         {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 photo.
             See src/lib/unsplash-placeholders.ts for the source. */}
         <div
@@ -62,17 +62,17 @@ export default function DonatePage() {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${UNSPLASH_HERO_FAMILY_PEWS})` }}
         />
-        <div aria-hidden className="absolute inset-0 bg-crimson-deep/90" />
+        <div aria-hidden className="absolute inset-0 bg-navy/90" />
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(circle at 50% 20%, rgba(232,200,120,0.14), transparent 55%)',
+              'radial-gradient(circle at 50% 20%, rgba(242,184,94,0.14), transparent 55%)',
           }}
         />
         <Container className="relative">
-          <p className="text-eyebrow font-semibold uppercase text-gold [text-shadow:0_1px_10px_rgb(0_0_0_/_60%)]">
+          <p className="text-eyebrow font-semibold uppercase text-accent [text-shadow:0_1px_10px_rgb(0_0_0_/_60%)]">
             Give
           </p>
           <h1 className="mx-auto mt-4 max-w-2xl font-display text-h1 font-semibold text-cream">
@@ -89,7 +89,7 @@ export default function DonatePage() {
       <Section tone="cream">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-eyebrow font-semibold uppercase text-gold">Why We Give</p>
+            <p className="text-eyebrow font-semibold uppercase text-accent">Why We Give</p>
             <h2 className="mt-3 font-display text-h2 font-semibold text-ink">
               Generosity Isn&rsquo;t a Transaction. It&rsquo;s a Way of Life.
             </h2>
@@ -128,7 +128,7 @@ export default function DonatePage() {
       </Section>
 
       {/* Where Your Gift Goes */}
-      <Section tone="crimson-deep" className="relative overflow-hidden">
+      <Section tone="navy" className="relative overflow-hidden">
         {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 photo.
             See src/lib/unsplash-placeholders.ts for the source. */}
         <div
@@ -138,7 +138,7 @@ export default function DonatePage() {
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-crimson-deep via-crimson-deep/90 to-crimson-deep"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-navy via-navy/90 to-navy"
         />
         <Container className="relative">
           <SectionTitle
@@ -167,7 +167,7 @@ export default function DonatePage() {
       <Section tone="cream">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-eyebrow font-semibold uppercase text-gold">Give Consistently</p>
+            <p className="text-eyebrow font-semibold uppercase text-accent">Give Consistently</p>
             <h2 className="mt-3 font-display text-h2 font-semibold text-ink">
               Give Your First Fruits, Automatically
             </h2>
@@ -238,7 +238,7 @@ export default function DonatePage() {
             {/* PLACEHOLDER: link to real financial statements or a finance contact. */}
             <Link
               href="#"
-              className="font-semibold text-crimson underline-offset-4 hover:underline"
+              className="font-semibold text-navy-elevated underline-offset-4 hover:underline"
             >
               View our financial statements →
             </Link>

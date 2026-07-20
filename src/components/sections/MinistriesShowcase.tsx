@@ -1,8 +1,19 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 import type { Ministry } from '@/lib/ministries-data';
 
-export function MinistriesShowcase({ items }: { items: Ministry[] }) {
+export function MinistriesShowcase({
+  items,
+  tone = 'light',
+}: {
+  items: Ministry[];
+  /** 'light' (default, unchanged) keeps the current ink-bordered card for
+   * /ministries. 'dark' swaps the card border for the navy-elevated-base theme
+   * (homepage, Phase 1) — opt-in so /ministries is untouched until approved. */
+  tone?: 'light' | 'dark';
+}) {
+  const dark = tone === 'dark';
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {items.map((ministry) => (
@@ -10,7 +21,10 @@ export function MinistriesShowcase({ items }: { items: Ministry[] }) {
           key={ministry.slug}
           id={ministry.slug}
           href={`/ministries#${ministry.slug}`}
-          className="group relative block aspect-[3/4] scroll-mt-24 overflow-hidden border border-ink/10 transition-all duration-300 hover:-translate-y-2 hover:border-gold hover:shadow-[0_0_40px_-10px_rgba(201,162,75,0.5)]"
+          className={cn(
+            'group relative block aspect-[3/4] scroll-mt-24 overflow-hidden border transition-all duration-300 hover:-translate-y-2 hover:border-gold hover:shadow-[0_0_40px_-10px_rgba(232,163,61,0.5)]',
+            dark ? 'border-cream/10' : 'border-ink/10'
+          )}
         >
           <Image
             src={ministry.image}

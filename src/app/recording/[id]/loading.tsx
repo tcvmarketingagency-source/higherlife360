@@ -3,7 +3,7 @@ import { Container } from '@/components/ui/Container';
 export default function Loading() {
   return (
     <main>
-      <div className="bg-crimson-deep pt-24">
+      <div className="bg-navy pt-24">
         <Container>
           <div className="aspect-video w-full animate-pulse bg-cream/10" />
         </Container>

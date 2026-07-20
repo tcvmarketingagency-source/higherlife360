@@ -3,14 +3,14 @@ import { Container } from '@/components/ui/Container';
 export default function Loading() {
   return (
     <main>
-      <section className="bg-crimson-deep pb-16 pt-40 text-center">
+      <section className="bg-navy pb-16 pt-40 text-center">
         <Container>
           <div className="mx-auto h-4 w-32 animate-pulse bg-cream/10" />
           <div className="mx-auto mt-4 h-10 w-72 animate-pulse bg-cream/10" />
           <div className="mx-auto mt-4 h-4 w-96 max-w-full animate-pulse bg-cream/10" />
         </Container>
       </section>
-      <div className="bg-crimson-deep pb-10">
+      <div className="bg-navy pb-10">
         <Container>
           <div className="mx-auto h-12 w-full max-w-xl animate-pulse border border-gold/20 bg-cream/5" />
         </Container>

@@ -50,7 +50,7 @@ export function LiveHero() {
   }, [countdown?.isZero]);
 
   if (!mounted) {
-    return <div className="aspect-video w-full animate-pulse bg-crimson" />;
+    return <div className="aspect-video w-full animate-pulse bg-navy-elevated" />;
   }
 
   const embed = live ? getEmbedUrl(liveStreamUrl) : null;
@@ -60,8 +60,8 @@ export function LiveHero() {
       <div className="relative aspect-video w-full overflow-hidden border border-gold/30 bg-ink">
         <div className="absolute left-4 top-4 z-10 flex items-center gap-2 bg-ink/70 px-3 py-1.5">
           <span className="relative flex h-2.5 w-2.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
-            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-500" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-75" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gold" />
           </span>
           <span className="font-sans text-xs font-semibold uppercase tracking-widest text-cream">
             Live Now
@@ -79,8 +79,8 @@ export function LiveHero() {
   }
 
   return (
-    <div className="border border-gold/30 bg-crimson-deep p-8 text-center sm:p-14">
-      <p className="text-eyebrow font-semibold uppercase text-gold">
+    <div className="border border-gold/30 bg-navy p-8 text-center sm:p-14">
+      <p className="text-eyebrow font-semibold uppercase text-accent">
         We&apos;re Not Live Right Now
       </p>
       <h2 className="mt-4 font-display text-h2 font-semibold text-cream">
@@ -95,7 +95,7 @@ export function LiveHero() {
             { value: countdown.seconds, label: 'Sec' },
           ].map((unit) => (
             <div key={unit.label} className="border border-gold/20 py-4">
-              <p className="font-display text-h2 font-semibold tabular-nums text-gold">
+              <p className="font-display text-h3 font-semibold tabular-nums text-gold">
                 {String(unit.value).padStart(2, '0')}
               </p>
               <p className="mt-1 font-sans text-xs uppercase tracking-widest text-cream/60">

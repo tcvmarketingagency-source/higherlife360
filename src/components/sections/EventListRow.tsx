@@ -37,7 +37,9 @@ export function EventListRow({
       </Link>
       <div className="min-w-0 flex-1">
         {event.category && (
-          <p className="font-sans text-xs uppercase tracking-widest text-gold">{event.category}</p>
+          <p className="font-sans text-xs uppercase tracking-widest text-gold-deep">
+            {event.category}
+          </p>
         )}
         <Link href={detailsHref}>
           <p className="truncate font-display text-h4 font-semibold text-ink">{event.title}</p>
@@ -52,14 +54,14 @@ export function EventListRow({
           href={event.register_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-shrink-0 font-sans text-xs font-semibold uppercase tracking-widest text-crimson transition-colors hover:text-gold"
+          className="flex-shrink-0 font-sans text-xs font-semibold uppercase tracking-widest text-navy-elevated transition-colors hover:text-gold-deep"
         >
           Register
         </a>
       ) : (
         <Link
           href={detailsHref}
-          className="flex-shrink-0 font-sans text-xs font-semibold uppercase tracking-widest text-crimson transition-colors hover:text-gold"
+          className="flex-shrink-0 font-sans text-xs font-semibold uppercase tracking-widest text-navy-elevated transition-colors hover:text-gold-deep"
         >
           Details
         </Link>

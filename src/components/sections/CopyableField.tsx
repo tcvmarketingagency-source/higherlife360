@@ -24,7 +24,7 @@ export function CopyableField({ label, value }: { label: string; value: string }
       <button
         type="button"
         onClick={handleCopy}
-        className="flex-shrink-0 font-sans text-xs font-semibold uppercase tracking-widest text-crimson hover:text-gold"
+        className="flex-shrink-0 font-sans text-xs font-semibold uppercase tracking-widest text-navy-elevated hover:text-gold-deep"
       >
         {copied ? 'Copied' : 'Copy'}
       </button>

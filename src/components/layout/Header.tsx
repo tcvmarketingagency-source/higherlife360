@@ -42,7 +42,7 @@ export function Header() {
       className={cn(
         'fixed inset-x-0 top-0 z-50 transition-colors duration-300',
         scrolled
-          ? 'border-b border-gold/50 bg-charcoal-deep/95 backdrop-blur'
+          ? 'border-b border-gold/50 bg-navy/95 backdrop-blur'
           : 'border-b border-transparent bg-transparent'
       )}
     >
@@ -84,7 +84,7 @@ export function Header() {
                   </span>
                 </button>
                 <div className="invisible absolute left-0 top-full w-40 pt-3 opacity-0 transition-all duration-200 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                  <div className="border border-gold/20 bg-charcoal-deep py-2 shadow-xl">
+                  <div className="border border-gold/20 bg-navy py-2 shadow-xl">
                     {link.children.map((child) => (
                       <Link
                         key={child.href}
@@ -115,10 +115,17 @@ export function Header() {
               Give
             </Button>
           </div>
-          <Button href="/#visit" variant="secondary">
-            <span className="lg:hidden">Visit</span>
-            <span className="hidden lg:inline">Plan Your Visit</span>
-          </Button>
+          {/* Below `lg` this button previously stayed in the header row
+              (as a short "Visit" label) alongside the logo and hamburger,
+              but neither the logo nor this group has room to shrink —
+              at 320px their combined width overflows the viewport. Hidden
+              here since "Plan Your Visit" is already one tap away in the
+              drawer footer (MobileNavDrawer.tsx). */}
+          <div className="hidden lg:block">
+            <Button href="/#visit" variant="secondary">
+              Plan Your Visit
+            </Button>
+          </div>
 
           <button
             type="button"

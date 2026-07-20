@@ -54,7 +54,7 @@ export function FaqAccordion() {
               <span
                 aria-hidden
                 className={cn(
-                  'flex-shrink-0 text-xl text-gold transition-transform duration-200',
+                  'flex-shrink-0 text-xl text-accent transition-transform duration-200',
                   isOpen && 'rotate-45'
                 )}
               >

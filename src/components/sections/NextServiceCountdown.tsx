@@ -47,8 +47,8 @@ export function NextServiceCountdown() {
     return (
       <div className="inline-flex items-center gap-3 border border-gold/40 bg-ink/40 px-6 py-3 backdrop-blur-sm">
         <span className="relative flex h-2.5 w-2.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
-          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-500" />
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-75" />
+          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gold" />
         </span>
         <span className="font-sans text-xs font-semibold uppercase tracking-widest text-cream">
           We&rsquo;re Live Right Now

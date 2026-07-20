@@ -90,7 +90,7 @@ export default async function Home() {
       {/* First-time-visitor welcome — short and warm; the fuller "what to
           expect" reassurance detail (parking, dress, service length) lives
           on /branches, since it's realistically branch-specific. */}
-      <Section tone="cream" id="visit">
+      <Section tone="navy-elevated" id="visit">
         <Container>
           <SectionTitle
             eyebrow="First Time?"
@@ -99,7 +99,7 @@ export default async function Home() {
             subtitle="Whether you’ve never set foot in a church before or it’s just been a while, there’s no dress code, no pressure, and no wrong way to show up."
           />
           <div className="mx-auto mt-8 max-w-2xl text-center">
-            <p className="text-body text-ink/80">
+            <p className="text-body text-cream/80">
               Come as you are, sit where you like — our team will help you find coffee, kids&rsquo;
               check-in, and a seat, and we&rsquo;re praying for you before you even walk through the
               door.
@@ -116,16 +116,16 @@ export default async function Home() {
         </Container>
       </Section>
 
-      <Section tone="cream" id="message" className="pt-0">
+      <Section tone="navy" id="message" className="pt-0">
         <Container>
-          <div className="border-t border-ink/10 pt-16">
+          <div className="border-t border-cream/10 pt-16">
             <SectionTitle
               eyebrow="This Week"
               title="Watch Our"
               titleAccent="Latest Message"
               subtitle="Missed Sunday? You can still catch what God is saying — wherever you are."
             />
-            <p className="mx-auto mt-6 max-w-2xl text-center text-body text-ink/70">
+            <p className="mx-auto mt-6 max-w-2xl text-center text-body text-cream/70">
               Every message is prayed over before it&rsquo;s preached — practical, honest, and
               rooted in Scripture. Give it fifteen minutes and see if it doesn&rsquo;t speak to
               exactly where you are today.
@@ -146,15 +146,15 @@ export default async function Home() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent" />
                     </div>
-                    <div className="bg-white p-8 text-center">
-                      <p className="font-display text-h4 font-semibold text-ink">
+                    <div className="bg-navy-elevated p-8 text-center">
+                      <p className="font-display text-h4 font-semibold text-cream">
                         New messages are on their way.
                       </p>
-                      <p className="mt-2 text-sm text-ink/70">
+                      <p className="mt-2 text-sm text-cream/70">
                         In the meantime, come experience it live — same presence, same power.
                       </p>
                       <div className="mt-6">
-                        <Button href="/live" variant="outline">
+                        <Button href="/live" variant="secondary">
                           Watch Live
                         </Button>
                       </div>
@@ -167,13 +167,13 @@ export default async function Home() {
         </Container>
       </Section>
 
-      <Section tone="charcoal-deep" id="vision-teaser" className="relative overflow-hidden">
+      <Section tone="navy-elevated" id="vision-teaser" className="relative overflow-hidden">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(circle at 50% 30%, rgba(232,200,120,0.16), transparent 60%)',
+              'radial-gradient(circle at 50% 30%, rgba(242,184,94,0.16), transparent 60%)',
           }}
         />
         <Container className="relative text-center">
@@ -198,7 +198,7 @@ export default async function Home() {
       </Section>
 
       {/* Upcoming Events preview — pulled live from Supabase. */}
-      <Section tone="cream">
+      <Section tone="navy">
         <Container>
           <SectionTitle
             eyebrow="Mark Your Calendar"
@@ -213,17 +213,18 @@ export default async function Home() {
                   key={event.id}
                   event={event}
                   branchName={event.branch_id ? branchNameById.get(event.branch_id) : null}
+                  tone="dark"
                 />
               ))}
             </StaggerReveal>
           ) : (
-            <p className="mx-auto mt-14 max-w-md text-center text-body text-ink/70">
+            <p className="mx-auto mt-14 max-w-md text-center text-body text-cream/70">
               We&rsquo;re planning the next conference, worship night, and outreach as you read
               this. Check back soon, or join us this Sunday in the meantime.
             </p>
           )}
           <div className="mt-12 text-center">
-            <Button href="/events" variant="outline" showArrow>
+            <Button href="/events" variant="outline-light" showArrow>
               See All Events
             </Button>
           </div>
@@ -237,7 +238,7 @@ export default async function Home() {
           `title` line (only `titleAccent` sets its own gold), so this
           section must carry `text-cream` explicitly or the title silently
           falls back to the page's default near-black body color. */}
-      <section className="relative overflow-hidden bg-charcoal-deep py-24 text-center text-cream md:py-32">
+      <section className="relative overflow-hidden bg-navy py-24 text-center text-cream md:py-32">
         <div
           aria-hidden
           className="absolute inset-0 bg-cover bg-fixed bg-center opacity-25"
@@ -245,7 +246,7 @@ export default async function Home() {
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-charcoal-deep via-charcoal-deep/80 to-charcoal-deep"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-navy via-navy/80 to-navy"
         />
         <Container className="relative">
           <SectionTitle
@@ -263,7 +264,7 @@ export default async function Home() {
       </section>
 
       {/* Get Connected and Grow — ministries showcase (subset; full list on /ministries). */}
-      <Section tone="cream">
+      <Section tone="navy">
         <Container>
           <SectionTitle
             eyebrow="Get Connected"
@@ -272,25 +273,25 @@ export default async function Home() {
             subtitle="Ministry here isn’t about filling a program — it’s about surrounding you with the right people for whatever season you’re in."
           />
           <div className="mt-16">
-            <MinistriesShowcase items={ministries.slice(0, 8)} />
+            <MinistriesShowcase items={ministries.slice(0, 8)} tone="dark" />
           </div>
           <div className="mt-12 text-center">
-            <Button href="/ministries" variant="outline" showArrow>
+            <Button href="/ministries" variant="outline-light" showArrow>
               See All Ministries
             </Button>
           </div>
         </Container>
       </Section>
 
-      <HigherLifePathway tone="charcoal-deep" />
+      <HigherLifePathway tone="navy" />
 
-      <Section tone="charcoal-deep" id="impact" className="relative overflow-hidden">
+      <Section tone="navy" id="impact" className="relative overflow-hidden">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(circle at 50% 30%, rgba(232,200,120,0.16), transparent 60%)',
+              'radial-gradient(circle at 50% 30%, rgba(242,184,94,0.16), transparent 60%)',
           }}
         />
         <Container className="relative">
@@ -312,16 +313,16 @@ export default async function Home() {
       </Section>
 
       {/* Where to Start / Start Serving / Online Giving — three clear front doors. */}
-      <Section tone="cream">
+      <Section tone="navy-elevated">
         <Container>
           <div className="grid gap-12 sm:grid-cols-3">
             {pathwaysTrio.map((item) => (
               <div key={item.title} className="text-center">
-                <p className="text-eyebrow font-semibold uppercase text-gold">{item.eyebrow}</p>
-                <h3 className="mt-3 font-display text-h3 font-semibold text-ink">{item.title}</h3>
-                <p className="mx-auto mt-3 max-w-xs text-sm text-ink/70">{item.text}</p>
+                <p className="text-eyebrow font-semibold uppercase text-accent">{item.eyebrow}</p>
+                <h3 className="mt-3 font-display text-h3 font-semibold text-cream">{item.title}</h3>
+                <p className="mx-auto mt-3 max-w-xs text-sm text-cream/70">{item.text}</p>
                 <div className="mt-6">
-                  <Button href={item.href} variant="outline" showArrow>
+                  <Button href={item.href} variant="outline-light" showArrow>
                     {item.cta}
                   </Button>
                 </div>
@@ -336,14 +337,14 @@ export default async function Home() {
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
-            background: 'radial-gradient(circle at 50% 0%, rgba(92,10,24,0.12), transparent 65%)',
+            background: 'radial-gradient(circle at 50% 0%, rgba(15,21,35,0.12), transparent 65%)',
           }}
         />
         <Container className="relative">
-          <p className="font-display text-h3 font-semibold text-crimson-deep">
+          <p className="font-display text-h3 font-semibold text-navy">
             Your Generosity Changes Everything
           </p>
-          <p className="mx-auto mt-4 max-w-xl text-body text-crimson-deep/80">
+          <p className="mx-auto mt-4 max-w-xl text-body text-navy">
             Every gift helps a soul encounter God — in Pune, and everywhere HigherLife360 reaches.
           </p>
           <div className="mt-8">

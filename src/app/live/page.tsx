@@ -31,7 +31,7 @@ export default function LivePage() {
 
   return (
     <main>
-      <Section tone="crimson-deep" className="relative overflow-hidden pb-16 pt-40">
+      <Section tone="navy" className="relative overflow-hidden pb-16 pt-40">
         {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 worship
             photo. See src/lib/unsplash-placeholders.ts for the source. */}
         <div
@@ -39,18 +39,18 @@ export default function LivePage() {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${UNSPLASH_HERO_WORSHIP_NIGHT})` }}
         />
-        <div aria-hidden className="absolute inset-0 bg-crimson-deep/90" />
+        <div aria-hidden className="absolute inset-0 bg-navy/90" />
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(circle at 50% 20%, rgba(232,200,120,0.14), transparent 55%)',
+              'radial-gradient(circle at 50% 20%, rgba(242,184,94,0.14), transparent 55%)',
           }}
         />
         <Container className="relative">
           <div className="mb-10 text-center">
-            <p className="text-eyebrow font-semibold uppercase text-gold [text-shadow:0_1px_10px_rgb(0_0_0_/_60%)]">
+            <p className="text-eyebrow font-semibold uppercase text-accent [text-shadow:0_1px_10px_rgb(0_0_0_/_60%)]">
               Watch Live
             </p>
             <h1 className="mt-3 font-display text-h1 font-semibold text-cream">
@@ -74,7 +74,7 @@ export default function LivePage() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-4 border border-gold/20 bg-crimson-deep/60 p-6">
+            <div className="flex flex-col gap-4 border border-gold/20 bg-navy/60 p-6">
               <div>
                 <p className="font-display text-h4 font-semibold text-cream">
                   First time watching online?
@@ -113,7 +113,10 @@ export default function LivePage() {
           />
           <div className="mx-auto mt-14 max-w-xl divide-y divide-ink/10 border border-ink/10">
             {scheduleDays.map(([day, times]) => (
-              <div key={day} className="flex items-center justify-between px-6 py-4">
+              <div
+                key={day}
+                className="flex flex-col gap-1 px-6 py-4 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left"
+              >
                 <span className="font-sans text-sm text-ink/70">{WEEKDAY_LABELS[day]}</span>
                 <span className="font-display text-h4 font-semibold text-ink">
                   {times.join(' & ')}
@@ -125,7 +128,7 @@ export default function LivePage() {
             Times shown in IST. Find your local branch&apos;s service times on our{' '}
             <Link
               href="/branches"
-              className="font-semibold text-crimson underline-offset-4 hover:underline"
+              className="font-semibold text-navy-elevated underline-offset-4 hover:underline"
             >
               Branches page →
             </Link>
@@ -135,7 +138,7 @@ export default function LivePage() {
 
       <section className="bg-gold py-14 text-center">
         <Container>
-          <p className="font-display text-h3 font-semibold text-crimson-deep">
+          <p className="font-display text-h3 font-semibold text-navy">
             Missed the service? Catch every message anytime.
           </p>
           <div className="mt-6">

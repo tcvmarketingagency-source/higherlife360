@@ -3,15 +3,55 @@
 @tailwind utilities;
 
 :root {
-  --color-crimson-deep: #5c0a18;
-  --color-crimson: #7a0c1f;
-  --color-gold: #c9a24b;
-  --color-gold-light: #e8c878;
-  --color-cream: #f5efe0;
-  --color-ink: #241512;
+  /* Single source of truth for the palette, as "R G B" triplets so Tailwind's
+     opacity modifiers (e.g. text-cream/70) can compose alpha via
+     rgb(var(--color-x) / <alpha>) — see the withOpacity() helper in
+     tailwind.config.ts, which is the only other place these values should
+     ever be duplicated.
+
+     Strict 3-color system: navy (primary base), cream (secondary base), gold
+     (sole accent) — plus shades derived from those three hues only. Every
+     pairing below has been checked against WCAG AA (4.5:1 normal text):
+       white/muted   on navy / navy-elevated  -> 18.2:1 / 6.1:1  (navy),  15.5:1 / 5.2:1 (elevated)
+       ink/slate     on cream / cream-card    -> 17.7:1 / 6.9:1 (cream), 18.2:1 / 8.6:1 (cream-card, white)
+       gold          on navy / navy-elevated  -> 8.5:1 / 7.2:1
+       gold-deep     on cream / cream-card    -> 5.5:1 / 6.2:1
+     `gold` (the bright accent) is reserved for use on navy/navy-elevated
+     backgrounds (buttons, badges, icons, links) where it has strong contrast.
+     On cream/white surfaces, use `gold-deep` for any gold-family text/icon
+     that sits directly on the light base (no solid button fill behind it). */
+  --color-navy: 15 21 35; /* #0F1523 — primary dark base + navbar */
+  --color-navy-elevated: 27 36 56; /* #1B2438 — card/panel bg on dark sections */
+  --color-cream: 245 241 232; /* #F5F1E8 — secondary light base */
+  --color-cream-card: 255 255 255; /* #FFFFFF — card/panel bg on light sections */
+  --color-gold: 232 163 61; /* #E8A33D — sole accent (buttons, badges, icons, links, dividers) */
+  --color-gold-light: 242 184 94; /* #F2B85E — gold hover/active state on dark */
+  --color-gold-deep: 133 87 8; /* #855708 — accessible gold-family text/icon on cream/white */
+  --color-white: 255 255 255; /* headings on dark */
+  --color-muted: 141 150 168; /* #8D96A8 — body/supporting text on dark (muted grey-blue) */
+  --color-ink: 15 21 35; /* #0F1523 — headings on light (same hue as navy) */
+  --color-slate: 61 68 89; /* #3D4459 — body text on light (softer dark grey-navy) */
+
+  /* Context-aware accent: components like SectionTitle's eyebrow/dividers
+     are reused verbatim on both dark (navy) and light (cream) sections.
+     Rather than threading a tone prop through every call site, `accent`
+     resolves to the bright gold on dark backgrounds and the deeper,
+     AA-accessible gold on light backgrounds automatically, based on the
+     nearest ancestor `[data-tone]` (set once, by Section.tsx). This is the
+     one place that mapping lives — see the [data-tone] overrides below. */
+  --color-accent: var(--color-gold);
 
   --font-display: 'Cormorant Garamond', serif;
   --font-sans: 'Inter', sans-serif;
+}
+
+[data-tone='cream'] {
+  --color-accent: var(--color-gold-deep);
+}
+
+[data-tone='navy'],
+[data-tone='navy-elevated'] {
+  --color-accent: var(--color-gold);
 }
 
 /* Lenis smooth scroll setup */
@@ -41,8 +81,8 @@ html.lenis body {
 }
 
 body {
-  background-color: var(--color-cream);
-  color: var(--color-ink);
+  background-color: rgb(var(--color-navy));
+  color: rgb(var(--color-white));
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
@@ -59,13 +99,13 @@ h6 {
 }
 
 ::selection {
-  background-color: var(--color-gold);
-  color: var(--color-crimson-deep);
+  background-color: rgb(var(--color-gold));
+  color: rgb(var(--color-navy));
 }
 
 /* On-brand keyboard focus indicator (invisible on mouse/touch, visible on tab). */
 :focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid rgb(var(--color-gold));
   outline-offset: 2px;
 }
 

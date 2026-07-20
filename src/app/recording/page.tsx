@@ -28,7 +28,7 @@ export default async function RecordingPage() {
 
   return (
     <main>
-      <section className="relative overflow-hidden bg-crimson-deep pb-16 pt-40 text-center">
+      <section className="relative overflow-hidden bg-navy pb-16 pt-40 text-center">
         {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 photo.
             See src/lib/unsplash-placeholders.ts for the source. */}
         <div
@@ -36,17 +36,17 @@ export default async function RecordingPage() {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${UNSPLASH_HERO_OPEN_BIBLE})` }}
         />
-        <div aria-hidden className="absolute inset-0 bg-crimson-deep/90" />
+        <div aria-hidden className="absolute inset-0 bg-navy/90" />
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(circle at 50% 20%, rgba(232,200,120,0.14), transparent 55%)',
+              'radial-gradient(circle at 50% 20%, rgba(242,184,94,0.14), transparent 55%)',
           }}
         />
         <Container className="relative">
-          <p className="text-eyebrow font-semibold uppercase text-gold [text-shadow:0_1px_10px_rgb(0_0_0_/_60%)]">
+          <p className="text-eyebrow font-semibold uppercase text-accent [text-shadow:0_1px_10px_rgb(0_0_0_/_60%)]">
             Sermon Library
           </p>
           <h1 className="mx-auto mt-4 max-w-2xl font-display text-h1 font-semibold text-cream">
@@ -66,7 +66,7 @@ export default async function RecordingPage() {
 
       <SermonLibrary sermons={sermons} />
 
-      <section className="border-t border-gold/10 bg-crimson-deep py-14 text-center">
+      <section className="border-t border-gold/10 bg-navy py-14 text-center">
         <Container>
           <p className="font-display text-h4 font-semibold text-cream">Never miss a message.</p>
           <p className="mx-auto mt-2 max-w-lg text-sm text-cream/70">

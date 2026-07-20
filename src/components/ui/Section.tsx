@@ -1,19 +1,14 @@
 import { cn } from '@/lib/utils';
 
-type SectionTone =
-  'cream' | 'crimson' | 'crimson-deep' | 'charcoal' | 'charcoal-deep' | 'transparent';
+type SectionTone = 'cream' | 'navy' | 'navy-elevated' | 'transparent';
 
-// "charcoal"/"charcoal-deep" are the new luxury dark-base tones (Phase 1:
-// homepage only). Once approved, rolling the theme out to the rest of the
-// site is just swapping each page's `tone="crimson-deep"` /
-// `tone="crimson"` to the charcoal equivalents below — the actual color
-// values live in one place (tailwind.config.ts's `charcoal` token).
+// The site alternates two base tones for its premium light/dark rhythm — the
+// actual color values live in one place (globals.css's :root block and
+// tailwind.config.ts's `navy`/`cream` tokens).
 const toneStyles: Record<SectionTone, string> = {
   cream: 'bg-cream text-ink',
-  crimson: 'bg-crimson text-cream',
-  'crimson-deep': 'bg-crimson-deep text-cream',
-  charcoal: 'bg-charcoal text-cream',
-  'charcoal-deep': 'bg-charcoal-deep text-cream',
+  navy: 'bg-navy text-white',
+  'navy-elevated': 'bg-navy-elevated text-white',
   transparent: '',
 };
 
@@ -29,7 +24,11 @@ export function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className={cn('py-24 md:py-32', toneStyles[tone], className)}>
+    <section
+      id={id}
+      data-tone={tone}
+      className={cn('py-24 md:py-32', toneStyles[tone], className)}
+    >
       {children}
     </section>
   );

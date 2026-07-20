@@ -26,7 +26,7 @@ function FilterPill({
       className={cn(
         'px-4 py-1.5 font-sans text-xs uppercase tracking-widest transition-colors',
         active
-          ? 'bg-gold text-crimson-deep'
+          ? 'bg-gold text-navy'
           : 'border border-ink/20 text-ink/70 hover:border-gold hover:text-ink'
       )}
     >
@@ -119,7 +119,7 @@ export function BranchesExplorer({ branches }: { branches: BranchRow[] }) {
   return (
     <>
       {/* Search + Find Nearest — visually continues the hero above */}
-      <div className="border-b border-gold/10 bg-crimson-deep/95 pb-10 pt-2">
+      <div className="border-b border-gold/10 bg-navy/95 pb-10 pt-2">
         <Container>
           <div className="mx-auto flex max-w-xl flex-col gap-3 sm:flex-row">
             <input
@@ -134,7 +134,7 @@ export function BranchesExplorer({ branches }: { branches: BranchRow[] }) {
               type="button"
               onClick={handleFindNearest}
               disabled={geoStatus === 'locating'}
-              className="whitespace-nowrap border border-gold px-6 py-3 font-sans text-sm font-medium uppercase tracking-[0.15em] text-gold transition-colors hover:bg-gold hover:text-crimson-deep disabled:cursor-not-allowed disabled:opacity-60"
+              className="whitespace-nowrap border border-gold px-6 py-3 font-sans text-sm font-medium uppercase tracking-[0.15em] text-gold transition-colors hover:bg-gold hover:text-navy disabled:cursor-not-allowed disabled:opacity-60"
             >
               {geoStatus === 'locating' ? 'Locating…' : 'Find Nearest Branch'}
             </button>

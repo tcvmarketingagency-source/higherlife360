@@ -16,11 +16,11 @@ export function SermonGridCard({ sermon, className }: { sermon: SermonRow; class
     <Link
       href={`/recording/${sermon.id}`}
       className={cn(
-        'group block overflow-hidden border border-gold/20 bg-white transition-all duration-300 hover:-translate-y-2 hover:border-gold hover:shadow-[0_0_40px_-10px_rgba(201,162,75,0.5)]',
+        'group block overflow-hidden border border-gold/20 bg-white transition-all duration-300 hover:-translate-y-2 hover:border-gold hover:shadow-[0_0_40px_-10px_rgba(232,163,61,0.5)]',
         className
       )}
     >
-      <div className="relative aspect-video overflow-hidden bg-crimson-deep">
+      <div className="relative aspect-video overflow-hidden bg-navy">
         {sermon.thumbnail_url ? (
           <Image
             src={sermon.thumbnail_url}
@@ -32,7 +32,7 @@ export function SermonGridCard({ sermon, className }: { sermon: SermonRow; class
         ) : (
           <div
             className="h-full w-full"
-            style={{ background: 'linear-gradient(135deg, #5C0A18 0%, #7A0C1F 100%)' }}
+            style={{ background: 'linear-gradient(135deg, #0F1523 0%, #1B2438 100%)' }}
           />
         )}
         <div className="absolute inset-0 flex items-center justify-center bg-ink/0 transition-colors duration-300 group-hover:bg-ink/30">
@@ -51,7 +51,9 @@ export function SermonGridCard({ sermon, className }: { sermon: SermonRow; class
       </div>
       <div className="p-4">
         {sermon.series && (
-          <p className="font-sans text-xs uppercase tracking-widest text-gold">{sermon.series}</p>
+          <p className="font-sans text-xs uppercase tracking-widest text-gold-deep">
+            {sermon.series}
+          </p>
         )}
         <h3 className="mt-1 line-clamp-2 font-display text-h4 font-semibold text-ink">
           {sermon.title}

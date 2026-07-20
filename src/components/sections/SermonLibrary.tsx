@@ -48,7 +48,7 @@ function FilterGroup({
             className={cn(
               'px-4 py-1.5 font-sans text-xs uppercase tracking-widest transition-colors',
               value === option
-                ? 'bg-gold text-crimson-deep'
+                ? 'bg-gold text-navy'
                 : 'border border-ink/20 text-ink/70 hover:border-gold hover:text-ink'
             )}
           >
@@ -149,7 +149,7 @@ export function SermonLibrary({ sermons }: { sermons: SermonRow[] }) {
   return (
     <>
       {/* Search — visually continues the hero band above */}
-      <div className="border-b border-gold/10 bg-crimson-deep pb-10 pt-2">
+      <div className="border-b border-gold/10 bg-navy pb-10 pt-2">
         <Container>
           <div className="mx-auto max-w-xl">
             <input
@@ -183,7 +183,7 @@ export function SermonLibrary({ sermons }: { sermons: SermonRow[] }) {
               ) : (
                 <div
                   className="h-full w-full"
-                  style={{ background: 'linear-gradient(135deg, #5C0A18 0%, #7A0C1F 100%)' }}
+                  style={{ background: 'linear-gradient(135deg, #0F1523 0%, #1B2438 100%)' }}
                 />
               )}
               <span className="absolute inset-0 flex items-center justify-center">
@@ -193,9 +193,9 @@ export function SermonLibrary({ sermons }: { sermons: SermonRow[] }) {
               </span>
             </div>
             <div className="p-6 md:p-10">
-              <p className="text-eyebrow font-semibold uppercase text-gold">Latest Message</p>
+              <p className="text-eyebrow font-semibold uppercase text-accent">Latest Message</p>
               {featured.series && (
-                <p className="mt-2 font-sans text-xs uppercase tracking-widest text-crimson">
+                <p className="mt-2 font-sans text-xs uppercase tracking-widest text-navy-elevated">
                   {featured.series}
                 </p>
               )}
@@ -210,7 +210,7 @@ export function SermonLibrary({ sermons }: { sermons: SermonRow[] }) {
                 <p className="mt-4 line-clamp-3 text-body text-ink/80">{featured.description}</p>
               )}
               <div className="mt-6">
-                <span className="inline-flex items-center justify-center bg-gold px-8 py-3 font-sans text-sm font-medium uppercase tracking-[0.15em] text-crimson-deep transition-colors group-hover:bg-gold-light">
+                <span className="inline-flex items-center justify-center bg-gold px-8 py-3 font-sans text-sm font-medium uppercase tracking-[0.15em] text-navy transition-colors group-hover:bg-gold-light">
                   Watch Now
                 </span>
               </div>
@@ -252,7 +252,7 @@ export function SermonLibrary({ sermons }: { sermons: SermonRow[] }) {
                   className={cn(
                     'px-4 py-1.5 font-sans text-xs uppercase tracking-widest transition-colors',
                     sortOrder === order
-                      ? 'bg-crimson text-cream'
+                      ? 'bg-navy-elevated text-cream'
                       : 'border border-ink/20 text-ink/70 hover:border-gold hover:text-ink'
                   )}
                 >
@@ -266,7 +266,7 @@ export function SermonLibrary({ sermons }: { sermons: SermonRow[] }) {
 
       {/* Series collections (Netflix-style rows) */}
       {seriesGroups.length > 0 && (
-        <Section tone="crimson-deep">
+        <Section tone="navy">
           <Container>
             <div className="flex flex-col gap-12">
               {seriesGroups.map(([seriesName, seriesSermons]) => (

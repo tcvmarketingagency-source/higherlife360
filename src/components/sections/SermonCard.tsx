@@ -13,13 +13,13 @@ export function SermonCard({ sermon }: { sermon: SermonRow }) {
   const meta = [sermon.speaker, formatDate(sermon.published_at)].filter(Boolean).join(' · ');
 
   return (
-    <div className="overflow-hidden border border-gold/30 bg-white">
+    <div className="overflow-hidden border border-gold/30 bg-navy-elevated">
       <div
         className="relative flex aspect-video items-center justify-center"
         style={{
           background: sermon.thumbnail_url
             ? `center / cover no-repeat url(${sermon.thumbnail_url})`
-            : 'linear-gradient(135deg, #5C0A18 0%, #7A0C1F 100%)',
+            : 'linear-gradient(135deg, #0F1523 0%, #1B2438 100%)',
         }}
       >
         <span
@@ -33,30 +33,30 @@ export function SermonCard({ sermon }: { sermon: SermonRow }) {
         {sermon.series && (
           <p className="font-sans text-xs uppercase tracking-widest text-gold">{sermon.series}</p>
         )}
-        <h3 className="mt-2 font-display text-h4 font-semibold text-ink">{sermon.title}</h3>
+        <h3 className="mt-2 font-display text-h4 font-semibold text-cream">{sermon.title}</h3>
         {meta && (
-          <p className="mt-2 font-sans text-xs uppercase tracking-widest text-ink/70">{meta}</p>
+          <p className="mt-2 font-sans text-xs uppercase tracking-widest text-cream/70">{meta}</p>
         )}
         {sermon.scripture && (
-          <p className="mt-2 font-sans text-xs text-ink/70">{sermon.scripture}</p>
+          <p className="mt-2 font-sans text-xs text-cream/70">{sermon.scripture}</p>
         )}
         <div className="mt-6 flex items-center gap-4">
           {sermon.video_url ? (
             <Button
               href={sermon.video_url}
-              variant="outline"
+              variant="secondary"
               target="_blank"
               rel="noopener noreferrer"
             >
               Watch Now
             </Button>
           ) : (
-            <span className="font-sans text-xs uppercase tracking-widest text-ink/70">
+            <span className="font-sans text-xs uppercase tracking-widest text-cream/70">
               Coming Soon
             </span>
           )}
           {sermon.duration && (
-            <span className="font-sans text-xs text-ink/70">{sermon.duration}</span>
+            <span className="font-sans text-xs text-cream/70">{sermon.duration}</span>
           )}
         </div>
       </div>

@@ -17,11 +17,11 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 });
 
-// Gold dot marker matching the brand palette (crimson/gold/cream hex values
-// straight from tailwind.config.ts — Leaflet needs raw CSS here, not classes).
+// Gold dot marker matching the brand palette (gold/cream/navy hex values
+// straight from globals.css's :root — Leaflet needs raw CSS here, not classes).
 const goldIcon = L.divIcon({
   className: '',
-  html: '<div style="width:16px;height:16px;border-radius:9999px;background:#C9A24B;border:2px solid #F5EFE0;box-shadow:0 0 0 2px #5C0A18;"></div>',
+  html: '<div style="width:16px;height:16px;border-radius:9999px;background:#E8A33D;border:2px solid #F5F1E8;box-shadow:0 0 0 2px #0F1523;"></div>',
   iconSize: [16, 16],
   iconAnchor: [8, 8],
   popupAnchor: [0, -8],
@@ -70,7 +70,7 @@ export function BranchesMap({
               )}
               <Link
                 href={`/branches/${branch.id}`}
-                className="mt-2 inline-block text-xs font-semibold uppercase tracking-widest text-crimson hover:text-gold"
+                className="mt-2 inline-block text-xs font-semibold uppercase tracking-widest text-navy-elevated hover:text-gold-deep"
               >
                 View Details →
               </Link>

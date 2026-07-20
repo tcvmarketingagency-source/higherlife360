@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default function MinistriesPage() {
   return (
     <main>
-      <section className="relative overflow-hidden bg-crimson-deep pb-16 pt-40 text-center">
+      <section className="relative overflow-hidden bg-navy pb-16 pt-40 text-center">
         {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 photo.
             See src/lib/unsplash-placeholders.ts for the source. */}
         <div
@@ -29,17 +29,17 @@ export default function MinistriesPage() {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${UNSPLASH_HERO_FELLOWSHIP})` }}
         />
-        <div aria-hidden className="absolute inset-0 bg-crimson-deep/90" />
+        <div aria-hidden className="absolute inset-0 bg-navy/90" />
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(circle at 50% 20%, rgba(232,200,120,0.14), transparent 55%)',
+              'radial-gradient(circle at 50% 20%, rgba(242,184,94,0.14), transparent 55%)',
           }}
         />
         <Container className="relative">
-          <p className="text-eyebrow font-semibold uppercase text-gold [text-shadow:0_1px_10px_rgb(0_0_0_/_60%)]">
+          <p className="text-eyebrow font-semibold uppercase text-accent [text-shadow:0_1px_10px_rgb(0_0_0_/_60%)]">
             Get Connected
           </p>
           <h1 className="mx-auto mt-4 max-w-3xl font-display text-h1 font-semibold text-cream">
@@ -69,10 +69,10 @@ export default function MinistriesPage() {
 
       <section className="bg-gold py-16 text-center">
         <Container>
-          <p className="font-display text-h3 font-semibold text-crimson-deep">
+          <p className="font-display text-h3 font-semibold text-navy">
             Not Sure Where to Start?
           </p>
-          <p className="mx-auto mt-4 max-w-xl text-body text-crimson-deep/80">
+          <p className="mx-auto mt-4 max-w-xl text-body text-navy">
             Fill out a Connect Card and tell us a little about yourself — we&rsquo;ll help point you
             toward the right ministry, no guesswork required.
           </p>

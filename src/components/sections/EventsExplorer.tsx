@@ -27,7 +27,7 @@ function FilterPill({
       className={cn(
         'px-4 py-1.5 font-sans text-xs uppercase tracking-widest transition-colors',
         active
-          ? 'bg-gold text-crimson-deep'
+          ? 'bg-gold text-navy'
           : 'border border-ink/20 text-ink/70 hover:border-gold hover:text-ink'
       )}
     >
@@ -170,7 +170,7 @@ export function EventsExplorer({
                   className={cn(
                     'px-4 py-1.5 font-sans text-xs uppercase tracking-widest transition-colors',
                     viewMode === mode
-                      ? 'bg-crimson text-cream'
+                      ? 'bg-navy-elevated text-cream'
                       : 'border border-ink/20 text-ink/70 hover:border-gold hover:text-ink'
                   )}
                 >

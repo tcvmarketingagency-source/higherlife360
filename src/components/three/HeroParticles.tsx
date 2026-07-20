@@ -87,7 +87,7 @@ function GoldDust() {
         />
       </bufferGeometry>
       <pointsMaterial
-        color="#E8C878"
+        color="#F2B85E"
         size={0.045}
         sizeAttenuation
         map={dustSprite ?? undefined}

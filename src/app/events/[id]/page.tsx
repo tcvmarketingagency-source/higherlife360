@@ -116,7 +116,7 @@ export default async function EventDetailPage({ params }: { params: { id: string
         dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
       />
       {/* Cinematic header */}
-      <section className="relative flex h-[50vh] min-h-[360px] items-end overflow-hidden bg-crimson-deep">
+      <section className="relative flex h-[50svh] min-h-[360px] items-end overflow-hidden bg-navy">
         <div
           aria-hidden
           className="absolute inset-0 bg-cover bg-center"
@@ -124,11 +124,11 @@ export default async function EventDetailPage({ params }: { params: { id: string
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-crimson-deep via-crimson-deep/60 to-crimson-deep/20"
+          className="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-navy/20"
         />
         <Container className="relative pb-10">
           {event.category && (
-            <p className="text-eyebrow font-semibold uppercase text-gold">{event.category}</p>
+            <p className="text-eyebrow font-semibold uppercase text-accent">{event.category}</p>
           )}
           <h1 className="mt-3 font-display text-h1 font-semibold text-cream">{event.title}</h1>
           {past && (
@@ -164,7 +164,7 @@ export default async function EventDetailPage({ params }: { params: { id: string
                     {branch ? (
                       <Link
                         href={`/branches/${branch.id}`}
-                        className="hover:text-gold hover:underline"
+                        className="hover:text-gold-deep hover:underline"
                       >
                         {location}
                       </Link>
@@ -232,10 +232,10 @@ export default async function EventDetailPage({ params }: { params: { id: string
 
       {/* RSVP fallback — only when there's no external registration link */}
       {!past && !event.register_url && (
-        <Section tone="crimson-deep" id="rsvp">
+        <Section tone="navy" id="rsvp">
           <Container>
             <div className="mx-auto max-w-2xl text-center">
-              <p className="text-eyebrow font-semibold uppercase text-gold">Save Your Spot</p>
+              <p className="text-eyebrow font-semibold uppercase text-accent">Save Your Spot</p>
               <h2 className="mt-3 font-display text-h2 font-semibold text-cream">RSVP</h2>
             </div>
             <div className="mx-auto mt-10 max-w-2xl">

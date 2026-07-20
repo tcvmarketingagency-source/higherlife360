@@ -13,10 +13,10 @@ const baseStyles =
   'inline-flex items-center justify-center px-8 py-3 font-sans text-sm font-medium uppercase tracking-[0.15em] transition-colors duration-300';
 
 const variantStyles: Record<Variant, string> = {
-  primary: 'bg-gold text-crimson-deep hover:bg-gold-light',
-  secondary: 'border border-gold text-gold hover:bg-gold hover:text-crimson-deep',
+  primary: 'bg-gold text-navy hover:bg-gold-light',
+  secondary: 'border border-gold text-gold hover:bg-gold hover:text-navy',
   outline: 'border border-ink/30 text-ink hover:bg-ink hover:text-cream',
-  inverse: 'bg-crimson-deep text-cream hover:bg-crimson',
+  inverse: 'bg-navy text-cream hover:bg-navy-elevated',
 };
 
 export function JoinActionButton({

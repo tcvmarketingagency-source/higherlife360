@@ -17,9 +17,9 @@ export default function Error({
   }, [error]);
 
   return (
-    <Section tone="crimson-deep" className="flex min-h-[70vh] items-center pb-24 pt-40">
+    <Section tone="navy" className="flex min-h-[70svh] items-center pb-24 pt-40">
       <Container className="text-center">
-        <p className="text-eyebrow font-semibold uppercase text-gold">Something Went Wrong</p>
+        <p className="text-eyebrow font-semibold uppercase text-accent">Something Went Wrong</p>
         <h1 className="mt-4 font-display text-h1 font-semibold text-cream">
           We hit a snag on our end.
         </h1>

@@ -5,7 +5,7 @@ import type { BranchRow } from '@/lib/database.types';
 
 const BranchesMap = dynamic(() => import('./BranchesMap').then((mod) => mod.BranchesMap), {
   ssr: false,
-  loading: () => <div className="h-full w-full animate-pulse bg-crimson" />,
+  loading: () => <div className="h-full w-full animate-pulse bg-navy-elevated" />,
 });
 
 export function BranchesMapLoader(props: {

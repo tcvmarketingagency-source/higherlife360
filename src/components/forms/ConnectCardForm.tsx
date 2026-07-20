@@ -86,7 +86,7 @@ export function ConnectCardForm() {
           <button
             type="button"
             onClick={() => setStatus('idle')}
-            className="font-sans text-sm font-semibold uppercase tracking-widest text-crimson hover:text-gold"
+            className="font-sans text-sm font-semibold uppercase tracking-widest text-navy-elevated hover:text-gold-deep"
           >
             Submit Another Connect Card
           </button>
@@ -149,7 +149,7 @@ export function ConnectCardForm() {
       </div>
 
       {status === 'error' && (
-        <p role="alert" className="font-sans text-sm text-crimson">
+        <p role="alert" className="font-sans text-sm font-semibold text-gold-deep">
           {errorMessage}
         </p>
       )}
@@ -183,7 +183,7 @@ function Field({
     <div className="flex flex-col gap-2">
       <label htmlFor={name} className="font-sans text-xs uppercase tracking-widest text-ink/70">
         {label}
-        {required && <span className="text-crimson"> *</span>}
+        {required && <span className="text-navy-elevated"> *</span>}
       </label>
       <input
         id={name}

@@ -93,7 +93,7 @@ export function DonationForm() {
           <button
             type="button"
             onClick={() => setStatus('idle')}
-            className="font-sans text-sm font-semibold uppercase tracking-widest text-crimson hover:text-gold"
+            className="font-sans text-sm font-semibold uppercase tracking-widest text-navy-elevated hover:text-gold-deep"
           >
             Make Another Gift
           </button>
@@ -118,7 +118,7 @@ export function DonationForm() {
             onClick={() => setGivingType(type)}
             className={cn(
               'py-2.5 font-sans text-sm font-medium uppercase tracking-widest transition-colors',
-              givingType === type ? 'bg-gold text-crimson-deep' : 'text-ink/70 hover:text-ink'
+              givingType === type ? 'bg-gold text-navy' : 'text-ink/70 hover:text-ink'
             )}
           >
             {type === 'one-time' ? 'One-Time' : 'Recurring'}
@@ -159,7 +159,7 @@ export function DonationForm() {
               onClick={() => handleCurrencyChange(option)}
               className={cn(
                 'px-3 py-1 font-sans text-xs font-semibold uppercase transition-colors',
-                currency === option ? 'bg-crimson text-cream' : 'text-ink/70 hover:text-ink'
+                currency === option ? 'bg-navy-elevated text-cream' : 'text-ink/70 hover:text-ink'
               )}
             >
               {CURRENCY_CONFIG[option].symbol} {option}
@@ -169,7 +169,11 @@ export function DonationForm() {
       </div>
 
       {/* Preset amounts */}
-      <div role="group" aria-label="Preset amount" className="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-5">
+      <div
+        role="group"
+        aria-label="Preset amount"
+        className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-5"
+      >
         {presets.map((amount) => (
           <button
             key={amount}
@@ -182,7 +186,7 @@ export function DonationForm() {
             className={cn(
               'border py-3 font-sans text-sm font-semibold transition-colors',
               !isCustom && selectedPreset === amount
-                ? 'border-gold bg-gold text-crimson-deep'
+                ? 'border-gold bg-gold text-navy'
                 : 'border-ink/20 text-ink hover:border-gold'
             )}
           >
@@ -197,7 +201,7 @@ export function DonationForm() {
           className={cn(
             'border py-3 font-sans text-sm font-semibold transition-colors',
             isCustom
-              ? 'border-gold bg-gold text-crimson-deep'
+              ? 'border-gold bg-gold text-navy'
               : 'border-ink/20 text-ink hover:border-gold'
           )}
         >
@@ -269,7 +273,7 @@ export function DonationForm() {
               className={cn(
                 'border py-3 font-sans text-xs font-semibold uppercase tracking-widest transition-colors',
                 paymentMethod === method
-                  ? 'border-gold bg-gold text-crimson-deep'
+                  ? 'border-gold bg-gold text-navy'
                   : 'border-ink/20 text-ink/70 hover:border-gold'
               )}
             >
@@ -289,7 +293,7 @@ export function DonationForm() {
       <button
         type="submit"
         disabled={totalAmount <= 0 || status === 'submitting'}
-        className="mt-8 w-full bg-gold px-8 py-4 font-sans text-base font-semibold uppercase tracking-[0.15em] text-crimson-deep transition-colors hover:bg-gold-light disabled:cursor-not-allowed disabled:opacity-60"
+        className="mt-8 w-full bg-gold px-8 py-4 font-sans text-base font-semibold uppercase tracking-[0.15em] text-navy transition-colors hover:bg-gold-light disabled:cursor-not-allowed disabled:opacity-60"
       >
         {status === 'submitting'
           ? 'Processing…'

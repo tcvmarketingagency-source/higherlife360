@@ -33,9 +33,9 @@ export function SectionTitle({
             align === 'center' ? 'justify-center' : 'justify-start'
           )}
         >
-          {align === 'center' && <span aria-hidden className="h-px w-8 bg-gold/50" />}
-          <p className="text-eyebrow font-semibold uppercase text-gold">{eyebrow}</p>
-          <span aria-hidden className="h-px w-8 bg-gold/50" />
+          {align === 'center' && <span aria-hidden className="h-px w-8 bg-accent/50" />}
+          <p className="text-eyebrow font-semibold uppercase text-accent">{eyebrow}</p>
+          <span aria-hidden className="h-px w-8 bg-accent/50" />
         </div>
       )}
       <h2 className="font-display text-h2 font-semibold leading-[1.08]">
@@ -43,7 +43,7 @@ export function SectionTitle({
         {titleAccent && (
           <>
             <br />
-            <span className="text-gold">{titleAccent}</span>
+            <span className="text-accent">{titleAccent}</span>
           </>
         )}
       </h2>

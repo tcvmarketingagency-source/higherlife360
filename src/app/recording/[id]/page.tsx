@@ -63,7 +63,7 @@ export default async function SermonDetailPage({ params }: { params: { id: strin
 
   return (
     <main>
-      <div className="bg-crimson-deep pt-24">
+      <div className="bg-navy pt-24">
         <Container>
           <div className="relative aspect-video w-full overflow-hidden">
             {embed ? (
@@ -75,7 +75,7 @@ export default async function SermonDetailPage({ params }: { params: { id: strin
                 className="absolute inset-0 h-full w-full border-0"
               />
             ) : (
-              <div className="flex h-full w-full flex-col items-center justify-center gap-4 bg-crimson text-center">
+              <div className="flex h-full w-full flex-col items-center justify-center gap-4 bg-navy-elevated text-center">
                 <p className="px-6 text-sm text-cream/70">
                   Video preview isn&apos;t available for this message yet.
                 </p>
@@ -99,7 +99,7 @@ export default async function SermonDetailPage({ params }: { params: { id: strin
         <Container>
           <div className="mx-auto max-w-3xl">
             {sermon.series && (
-              <p className="text-eyebrow font-semibold uppercase text-gold">{sermon.series}</p>
+              <p className="text-eyebrow font-semibold uppercase text-accent">{sermon.series}</p>
             )}
             <h1 className="mt-3 font-display text-h1 font-semibold text-ink">{sermon.title}</h1>
             <p className="mt-3 font-sans text-xs uppercase tracking-widest text-ink/70">
@@ -128,7 +128,7 @@ export default async function SermonDetailPage({ params }: { params: { id: strin
       </Section>
 
       {moreFromSeries && moreFromSeries.length > 0 && (
-        <Section tone="crimson-deep">
+        <Section tone="navy">
           <Container>
             <SeriesRow title={`More from ${sermon.series}`} sermons={moreFromSeries} />
           </Container>

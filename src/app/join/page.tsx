@@ -135,7 +135,7 @@ export default function JoinPage() {
     <JoinPageProvider>
       <main>
         {/* Hero */}
-        <section className="relative overflow-hidden bg-crimson-deep pb-16 pt-40 text-center">
+        <section className="relative overflow-hidden bg-navy pb-16 pt-40 text-center">
           {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360
               community/welcome photo. See src/lib/unsplash-placeholders.ts
               for the source. */}
@@ -144,17 +144,17 @@ export default function JoinPage() {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${UNSPLASH_HERO_FELLOWSHIP})` }}
           />
-          <div aria-hidden className="absolute inset-0 bg-crimson-deep/90" />
+          <div aria-hidden className="absolute inset-0 bg-navy/90" />
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                'radial-gradient(circle at 50% 20%, rgba(232,200,120,0.14), transparent 55%)',
+                'radial-gradient(circle at 50% 20%, rgba(242,184,94,0.14), transparent 55%)',
             }}
           />
           <Container className="relative">
-            <p className="text-eyebrow font-semibold uppercase text-gold [text-shadow:0_1px_10px_rgb(0_0_0_/_60%)]">
+            <p className="text-eyebrow font-semibold uppercase text-accent [text-shadow:0_1px_10px_rgb(0_0_0_/_60%)]">
               Join Us
             </p>
             <h1 className="mx-auto mt-4 max-w-2xl font-display text-h1 font-semibold text-cream">
@@ -180,10 +180,10 @@ export default function JoinPage() {
               {nextSteps.map((step) => (
                 <div
                   key={step.title}
-                  className="flex flex-col border border-ink/10 bg-white p-8 transition-all duration-300 hover:-translate-y-2 hover:border-gold hover:shadow-[0_0_40px_-10px_rgba(201,162,75,0.5)]"
+                  className="flex flex-col border border-ink/10 bg-white p-8 transition-all duration-300 hover:-translate-y-2 hover:border-gold hover:shadow-[0_0_40px_-10px_rgba(232,163,61,0.5)]"
                 >
                   <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/60">
-                    <span className="font-display text-lg text-gold">{step.mark}</span>
+                    <span className="font-display text-lg text-gold-deep">{step.mark}</span>
                   </div>
                   <h3 className="mt-5 font-display text-h4 font-semibold text-ink">{step.title}</h3>
                   <p className="mt-2 flex-1 text-sm text-ink/70">{step.text}</p>
@@ -213,7 +213,7 @@ export default function JoinPage() {
         </Section>
 
         {/* New here? / New believer path */}
-        <Section tone="crimson-deep" className="relative overflow-hidden">
+        <Section tone="navy" className="relative overflow-hidden">
           {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 photo.
               See src/lib/unsplash-placeholders.ts for the source. */}
           <div
@@ -223,11 +223,11 @@ export default function JoinPage() {
           />
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-crimson-deep via-crimson-deep/85 to-crimson-deep"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-navy via-navy/85 to-navy"
           />
           <Container className="relative text-center">
             <div className="mx-auto max-w-2xl">
-              <p className="text-eyebrow font-semibold uppercase text-gold">New Here?</p>
+              <p className="text-eyebrow font-semibold uppercase text-accent">New Here?</p>
               <h2 className="mt-3 font-display text-h2 font-semibold text-cream">
                 Just Started Your Journey with Jesus?
               </h2>
@@ -298,7 +298,7 @@ export default function JoinPage() {
               {sampleGroups.map((group) => (
                 <div
                   key={group.name}
-                  className="overflow-hidden border border-gold/20 bg-white transition-all duration-300 hover:-translate-y-2 hover:border-gold hover:shadow-[0_0_40px_-10px_rgba(201,162,75,0.5)]"
+                  className="overflow-hidden border border-gold/20 bg-white transition-all duration-300 hover:-translate-y-2 hover:border-gold hover:shadow-[0_0_40px_-10px_rgba(232,163,61,0.5)]"
                 >
                   <div className="relative aspect-[4/3]">
                     <Image
@@ -311,7 +311,7 @@ export default function JoinPage() {
                   </div>
                   <div className="p-6">
                     <h3 className="font-display text-h4 font-semibold text-ink">{group.name}</h3>
-                    <p className="mt-1 font-sans text-xs uppercase tracking-widest text-gold">
+                    <p className="mt-1 font-sans text-xs uppercase tracking-widest text-gold-deep">
                       {group.day} · {group.time}
                     </p>
                     <p className="mt-1 text-sm text-ink/70">{group.location}</p>
@@ -334,7 +334,7 @@ export default function JoinPage() {
         </Section>
 
         {/* Volunteer / Serve teams */}
-        <Section tone="crimson-deep" id="volunteer">
+        <Section tone="navy" id="volunteer">
           <Container>
             <SectionTitle
               eyebrow="Get Involved"

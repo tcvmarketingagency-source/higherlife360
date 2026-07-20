@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-// Site-wide default OG image, generated on-brand (crimson/gold) so shared
+// Site-wide default OG image, generated on-brand (navy-elevated/gold) so shared
 // links always preview correctly even before a real branded graphic exists.
 // PLACEHOLDER: replace with a real designed OG graphic (or real event/branch
 // photography passed via a page's own openGraph.images) when available.
@@ -32,7 +32,7 @@ export default async function OpengraphImage() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(160deg, #7A0C1F 0%, #5C0A18 100%)',
+        background: 'linear-gradient(160deg, #1B2438 0%, #0F1523 100%)',
       }}
     >
       <div
@@ -41,20 +41,20 @@ export default async function OpengraphImage() {
           width: 120,
           height: 120,
           borderRadius: '50%',
-          border: '2px solid rgba(201,162,75,0.6)',
+          border: '2px solid rgba(232,163,61,0.6)',
           alignItems: 'center',
           justifyContent: 'center',
           marginBottom: 40,
         }}
       >
-        <span style={{ fontSize: 48, fontFamily: 'Cormorant Garamond', color: '#C9A24B' }}>HL</span>
+        <span style={{ fontSize: 48, fontFamily: 'Cormorant Garamond', color: '#E8A33D' }}>HL</span>
       </div>
       <div
         style={{
           display: 'flex',
           fontSize: 72,
           fontFamily: 'Cormorant Garamond',
-          color: '#F5EFE0',
+          color: '#F5F1E8',
           fontWeight: 700,
         }}
       >
@@ -67,7 +67,7 @@ export default async function OpengraphImage() {
           fontSize: 26,
           letterSpacing: 4,
           textTransform: 'uppercase',
-          color: '#C9A24B',
+          color: '#E8A33D',
         }}
       >
         Live a Higher Life

@@ -2,7 +2,7 @@ import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 
-type HigherLifePathwayTone = 'crimson-deep' | 'charcoal-deep';
+type HigherLifePathwayTone = 'navy' | 'navy-elevated';
 
 // PLACEHOLDER — THE HIGHER LIFE PATHWAY
 // ----------------------------------------------------------------------------
@@ -40,14 +40,14 @@ const pathway = [
   },
 ];
 
-export function HigherLifePathway({ tone = 'crimson-deep' }: { tone?: HigherLifePathwayTone }) {
+export function HigherLifePathway({ tone = 'navy' }: { tone?: HigherLifePathwayTone }) {
   return (
     <Section tone={tone} className="relative overflow-hidden">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
-          background: 'radial-gradient(circle at 50% 20%, rgba(232,200,120,0.16), transparent 60%)',
+          background: 'radial-gradient(circle at 50% 20%, rgba(242,184,94,0.16), transparent 60%)',
         }}
       />
       <Container className="relative">

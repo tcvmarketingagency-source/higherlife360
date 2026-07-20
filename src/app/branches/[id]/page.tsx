@@ -80,7 +80,7 @@ export default async function BranchDetailPage({ params }: { params: { id: strin
   return (
     <main>
       {/* Cinematic header */}
-      <section className="relative flex h-[50vh] min-h-[360px] items-end overflow-hidden bg-crimson-deep">
+      <section className="relative flex h-[50svh] min-h-[360px] items-end overflow-hidden bg-navy">
         {/* TEMPORARY STOCK PHOTO fallback when this branch has no real
             photo_url yet — replace with the real branch photo in Supabase. */}
         <div
@@ -90,11 +90,11 @@ export default async function BranchDetailPage({ params }: { params: { id: strin
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-crimson-deep via-crimson-deep/60 to-crimson-deep/20"
+          className="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-navy/20"
         />
         <Container className="relative pb-10">
           {branch.country && (
-            <p className="text-eyebrow font-semibold uppercase text-gold">{branch.country}</p>
+            <p className="text-eyebrow font-semibold uppercase text-accent">{branch.country}</p>
           )}
           <h1 className="mt-3 font-display text-h1 font-semibold text-cream">{branch.name}</h1>
           {branch.city && <p className="mt-2 text-body-lg text-cream/75">{branch.city}</p>}
@@ -142,7 +142,7 @@ export default async function BranchDetailPage({ params }: { params: { id: strin
                       Phone
                     </dt>
                     <dd className="mt-1 text-body text-ink/80">
-                      <a href={`tel:${branch.phone}`} className="hover:text-gold">
+                      <a href={`tel:${branch.phone}`} className="hover:text-gold-deep">
                         {branch.phone}
                       </a>
                     </dd>
@@ -181,7 +181,7 @@ export default async function BranchDetailPage({ params }: { params: { id: strin
       </Section>
 
       {/* What to expect — PLACEHOLDER copy, same for every branch for now */}
-      <Section tone="crimson-deep">
+      <Section tone="navy">
         <Container>
           <h2 className="text-center font-display text-h2 font-semibold text-cream">
             What to Expect
@@ -221,7 +221,7 @@ export default async function BranchDetailPage({ params }: { params: { id: strin
               {upcomingEvents.map((event) => (
                 <div key={event.id} className="border border-ink/10 p-6">
                   {event.category && (
-                    <p className="font-sans text-xs uppercase tracking-widest text-gold">
+                    <p className="font-sans text-xs uppercase tracking-widest text-gold-deep">
                       {event.category}
                     </p>
                   )}

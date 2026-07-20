@@ -48,7 +48,7 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-gold/20 bg-charcoal-deep text-cream">
+    <footer className="border-t border-gold/20 bg-navy text-cream">
       <Container className="grid gap-12 py-16 md:grid-cols-12">
         <div className="md:col-span-4">
           <p className="font-display text-3xl font-semibold">
@@ -69,7 +69,7 @@ export function Footer() {
                 key={social.label}
                 href={social.href}
                 aria-label={social.label}
-                className="flex h-9 w-9 items-center justify-center border border-gold/30 text-gold transition-colors hover:bg-gold hover:text-crimson-deep"
+                className="flex h-9 w-9 items-center justify-center border border-gold/30 text-gold transition-colors hover:bg-gold hover:text-navy"
               >
                 <social.Icon className="h-4 w-4" />
               </Link>
@@ -78,7 +78,7 @@ export function Footer() {
         </div>
 
         <div className="md:col-span-3">
-          <p className="text-eyebrow font-semibold uppercase text-gold">Quick Links</p>
+          <p className="text-eyebrow font-semibold uppercase text-accent">Quick Links</p>
           <ul className="mt-4 space-y-3">
             {quickLinks.map((link) => (
               <li key={link.href}>
@@ -94,7 +94,7 @@ export function Footer() {
         </div>
 
         <div className="md:col-span-5">
-          <p className="text-eyebrow font-semibold uppercase text-gold">Stay Connected</p>
+          <p className="text-eyebrow font-semibold uppercase text-accent">Stay Connected</p>
           <p className="mt-4 text-sm text-cream/70">
             Sign up for our newsletter to receive updates on messages and events.
           </p>

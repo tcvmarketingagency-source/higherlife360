@@ -50,7 +50,7 @@ export default async function EventsPage() {
 
   return (
     <main>
-      <section className="relative overflow-hidden bg-crimson-deep pb-16 pt-40 text-center">
+      <section className="relative overflow-hidden bg-navy pb-16 pt-40 text-center">
         {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 event
             photo. Verified free (non-Unsplash+) at time of writing. See
             src/lib/unsplash-placeholders.ts for the source. */}
@@ -59,17 +59,17 @@ export default async function EventsPage() {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${UNSPLASH_EVENTS_HERO_BACKGROUND})` }}
         />
-        <div aria-hidden className="absolute inset-0 bg-crimson-deep/90" />
+        <div aria-hidden className="absolute inset-0 bg-navy/90" />
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(circle at 50% 20%, rgba(232,200,120,0.14), transparent 55%)',
+              'radial-gradient(circle at 50% 20%, rgba(242,184,94,0.14), transparent 55%)',
           }}
         />
         <Container className="relative">
-          <p className="text-eyebrow font-semibold uppercase text-gold [text-shadow:0_1px_10px_rgb(0_0_0_/_60%)]">
+          <p className="text-eyebrow font-semibold uppercase text-accent [text-shadow:0_1px_10px_rgb(0_0_0_/_60%)]">
             Events
           </p>
           <h1 className="mx-auto mt-4 max-w-2xl font-display text-h1 font-semibold text-cream">
@@ -102,9 +102,9 @@ export default async function EventsPage() {
                 />
               </div>
               <div className="p-6 md:p-10">
-                <p className="text-eyebrow font-semibold uppercase text-gold">Up Next</p>
+                <p className="text-eyebrow font-semibold uppercase text-gold-deep">Up Next</p>
                 {featured.category && (
-                  <p className="mt-2 font-sans text-xs uppercase tracking-widest text-crimson">
+                  <p className="mt-2 font-sans text-xs uppercase tracking-widest text-navy-elevated">
                     {featured.category}
                   </p>
                 )}
@@ -147,9 +147,9 @@ export default async function EventsPage() {
       <EventsExplorer events={events} branches={branches} />
 
       {pastEvents.length > 0 && (
-        <section className="bg-crimson-deep py-20">
+        <section className="bg-navy py-20">
           <Container>
-            <p className="text-center text-eyebrow font-semibold uppercase text-gold">
+            <p className="text-center text-eyebrow font-semibold uppercase text-accent">
               Looking Back
             </p>
             <h2 className="mt-3 text-center font-display text-h2 font-semibold text-cream">
@@ -167,10 +167,10 @@ export default async function EventsPage() {
 
       <section className="bg-gold py-14 text-center">
         <Container>
-          <p className="font-display text-h3 font-semibold text-crimson-deep">
+          <p className="font-display text-h3 font-semibold text-navy">
             Don&apos;t miss what&apos;s next.
           </p>
-          <p className="mt-2 text-crimson-deep">
+          <p className="mt-2 text-navy">
             Check{' '}
             <Link href="/branches" className="font-semibold underline-offset-4 hover:underline">
               your branch

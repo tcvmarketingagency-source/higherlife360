@@ -21,8 +21,8 @@ export default async function Icon() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#5C0A18',
-        color: '#C9A24B',
+        background: '#0F1523',
+        color: '#E8A33D',
         fontSize: 18,
         fontFamily: 'Cormorant Garamond',
       }}

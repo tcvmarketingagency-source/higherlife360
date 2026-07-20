@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
-type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'inverse';
+type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'outline-light' | 'inverse';
 
 type ButtonBaseProps = {
   variant?: ButtonVariant;
@@ -24,10 +24,14 @@ const baseStyles =
   'group/btn inline-flex items-center justify-center gap-2 px-8 py-3 font-sans text-sm font-medium uppercase tracking-[0.15em] transition-colors duration-300';
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: 'bg-gold text-crimson-deep hover:bg-gold-light',
-  secondary: 'border border-gold text-gold hover:bg-gold hover:text-crimson-deep',
+  primary: 'bg-gold text-navy hover:bg-gold-light',
+  secondary: 'border border-gold text-gold hover:bg-gold hover:text-navy',
   outline: 'border border-ink/30 text-ink hover:bg-ink hover:text-cream',
-  inverse: 'bg-crimson-deep text-cream hover:bg-crimson',
+  // Same "outline" treatment as above, recolored for use on dark
+  // (navy-elevated) backgrounds — `outline` itself stays ink-based since it's
+  // still used on light/cream sections elsewhere in the site.
+  'outline-light': 'border border-cream/40 text-cream hover:bg-cream hover:text-navy',
+  inverse: 'bg-navy text-cream hover:bg-navy-elevated',
 };
 
 function ButtonArrow() {

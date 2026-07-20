@@ -17,6 +17,10 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     const instance = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      // Explicit even though it's Lenis's own default: touch input should
+      // stay native/unsmoothed so the mobile scroll-scrubbed hero
+      // (CinematicHero.tsx) doesn't fight iOS/Android momentum scrolling.
+      syncTouch: false,
     });
     setLenis(instance);
 
