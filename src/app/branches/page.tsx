@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/Button';
 import { BranchesExplorer } from '@/components/sections/BranchesExplorer';
 import { supabase } from '@/lib/supabase';
 import { UNSPLASH_HERO_BACKGROUND } from '@/lib/unsplash-placeholders';
+import { getSiteImageMap } from '@/lib/site-images';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,20 +21,23 @@ export const metadata: Metadata = {
 };
 
 export default async function BranchesPage() {
-  const { data } = await supabase.from('branches').select('*').order('name', { ascending: true });
+  const [{ data }, siteImages] = await Promise.all([
+    supabase.from('branches').select('*').order('name', { ascending: true }),
+    getSiteImageMap(),
+  ]);
 
   const branches = data ?? [];
+  const heroImage = siteImages.branches_hero ?? UNSPLASH_HERO_BACKGROUND;
 
   return (
     <main>
       <section className="relative overflow-hidden bg-navy pb-16 pt-40 text-center">
         {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 worship
-            photo. Verified free (non-Unsplash+) at time of writing. See
-            src/lib/unsplash-placeholders.ts for the source. */}
+            photo, or via /admin/site-images (key: branches_hero). */}
         <div
           aria-hidden
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${UNSPLASH_HERO_BACKGROUND})` }}
+          style={{ backgroundImage: `url(${heroImage})` }}
         />
         <div aria-hidden className="absolute inset-0 bg-navy/90" />
         <div

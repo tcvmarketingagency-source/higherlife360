@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/Button';
 import { SermonLibrary } from '@/components/sections/SermonLibrary';
 import { supabase } from '@/lib/supabase';
 import { UNSPLASH_HERO_OPEN_BIBLE } from '@/lib/unsplash-placeholders';
+import { getSiteImageMap } from '@/lib/site-images';
 
 export const dynamic = 'force-dynamic';
 
@@ -19,22 +20,23 @@ export const metadata: Metadata = {
 };
 
 export default async function RecordingPage() {
-  const { data } = await supabase
-    .from('sermons')
-    .select('*')
-    .order('published_at', { ascending: false });
+  const [{ data }, siteImages] = await Promise.all([
+    supabase.from('sermons').select('*').order('published_at', { ascending: false }),
+    getSiteImageMap(),
+  ]);
 
   const sermons = data ?? [];
+  const heroImage = siteImages.recording_hero ?? UNSPLASH_HERO_OPEN_BIBLE;
 
   return (
     <main>
       <section className="relative overflow-hidden bg-navy pb-16 pt-40 text-center">
-        {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 photo.
-            See src/lib/unsplash-placeholders.ts for the source. */}
+        {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 photo,
+            or via /admin/site-images (key: recording_hero). */}
         <div
           aria-hidden
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${UNSPLASH_HERO_OPEN_BIBLE})` }}
+          style={{ backgroundImage: `url(${heroImage})` }}
         />
         <div aria-hidden className="absolute inset-0 bg-navy/90" />
         <div

@@ -10,6 +10,7 @@ import { CopyableField } from '@/components/sections/CopyableField';
 import { QrPlaceholder } from '@/components/sections/QrPlaceholder';
 import { FaqAccordion } from '@/components/sections/FaqAccordion';
 import { UNSPLASH_HERO_FAMILY_PEWS, UNSPLASH_PRAYER } from '@/lib/unsplash-placeholders';
+import { getSiteImageMap } from '@/lib/site-images';
 
 const StaggerReveal = dynamic(() =>
   import('@/components/motion/StaggerReveal').then((mod) => mod.StaggerReveal)
@@ -50,17 +51,20 @@ const impactItems = [
   },
 ];
 
-export default function DonatePage() {
+export default async function DonatePage() {
+  const siteImages = await getSiteImageMap();
+  const heroImage = siteImages.donate_hero ?? UNSPLASH_HERO_FAMILY_PEWS;
+
   return (
     <main>
       {/* Emotional hero */}
       <section className="relative overflow-hidden bg-navy pb-16 pt-40 text-center">
-        {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 photo.
-            See src/lib/unsplash-placeholders.ts for the source. */}
+        {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 photo,
+            or via /admin/site-images (key: donate_hero). */}
         <div
           aria-hidden
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${UNSPLASH_HERO_FAMILY_PEWS})` }}
+          style={{ backgroundImage: `url(${heroImage})` }}
         />
         <div aria-hidden className="absolute inset-0 bg-navy/90" />
         <div

@@ -109,7 +109,15 @@ const CHAPTERS: Chapter[] = [
   },
 ];
 
-export function CinematicHero() {
+export function CinematicHero({ images }: { images?: string[] } = {}) {
+  // Admin-replaceable chapter photos (site_images keys home_hero_chapter_1
+  // through _5) fall back to the CHAPTERS defaults above when a key hasn't
+  // been set — every other property (headline, sub, timing) is unaffected.
+  const chapters = CHAPTERS.map((chapter, i) => ({
+    ...chapter,
+    image: images?.[i] ?? chapter.image,
+  }));
+
   const wrapperRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const imageLayers = useRef<(HTMLDivElement | null)[]>([]);
@@ -244,7 +252,7 @@ export function CinematicHero() {
             above; with reduced motion (or before a breakpoint has matched)
             only the first, lightest-weight chapter renders as a plain
             static hero background. */}
-        {CHAPTERS.map((chapter, i) => (
+        {chapters.map((chapter, i) => (
           <div
             key={chapter.headline}
             ref={(el) => {
@@ -287,7 +295,7 @@ export function CinematicHero() {
         <HeroParticlesCanvas />
 
         <Container className="relative z-10 flex flex-1 flex-col items-center justify-center text-center">
-          {CHAPTERS.map((chapter, i) => (
+          {chapters.map((chapter, i) => (
             <div
               key={chapter.headline}
               ref={(el) => {

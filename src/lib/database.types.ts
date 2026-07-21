@@ -87,6 +87,34 @@ export type EventRsvpInsert = Omit<EventRsvpRow, 'id' | 'created_at'> & {
 };
 export type EventRsvpUpdate = Partial<EventRsvpInsert>;
 
+export type AdminUserRow = {
+  id: string;
+  email: string;
+  name: string | null;
+  role: string;
+  created_at: string;
+};
+export type AdminUserInsert = Omit<AdminUserRow, 'id' | 'created_at' | 'role'> & {
+  id?: string;
+  created_at?: string;
+  role?: string;
+};
+export type AdminUserUpdate = Partial<AdminUserInsert>;
+
+export type SiteImageRow = {
+  id: string;
+  key: string;
+  label: string;
+  description: string | null;
+  image_url: string;
+  updated_at: string;
+};
+export type SiteImageInsert = Omit<SiteImageRow, 'id' | 'updated_at'> & {
+  id?: string;
+  updated_at?: string;
+};
+export type SiteImageUpdate = Partial<SiteImageInsert>;
+
 export type Database = {
   public: {
     Tables: {
@@ -139,6 +167,18 @@ export type Database = {
             referencedColumns: ['id'];
           },
         ];
+      };
+      admin_users: {
+        Row: AdminUserRow;
+        Insert: AdminUserInsert;
+        Update: AdminUserUpdate;
+        Relationships: [];
+      };
+      site_images: {
+        Row: SiteImageRow;
+        Insert: SiteImageInsert;
+        Update: SiteImageUpdate;
+        Relationships: [];
       };
     };
     Views: Record<string, never>;

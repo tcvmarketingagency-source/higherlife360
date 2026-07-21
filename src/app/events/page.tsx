@@ -11,6 +11,7 @@ import {
   EVENT_PHOTO_PLACEHOLDERS,
   UNSPLASH_EVENTS_HERO_BACKGROUND,
 } from '@/lib/unsplash-placeholders';
+import { getSiteImageMap } from '@/lib/site-images';
 
 export const dynamic = 'force-dynamic';
 
@@ -33,14 +34,16 @@ function fallbackPhoto(id: string): string {
 }
 
 export default async function EventsPage() {
-  const [{ data: eventsData }, { data: branchesData }] = await Promise.all([
+  const [{ data: eventsData }, { data: branchesData }, siteImages] = await Promise.all([
     supabase.from('events').select('*').order('start_time', { ascending: true }),
     supabase.from('branches').select('*'),
+    getSiteImageMap(),
   ]);
 
   const events = eventsData ?? [];
   const branches = branchesData ?? [];
   const branchNameById = new Map(branches.map((branch) => [branch.id, branch.name]));
+  const heroImage = siteImages.events_hero ?? UNSPLASH_EVENTS_HERO_BACKGROUND;
 
   const upcoming = events.filter((event) => !isPastEvent(event));
   const featured = upcoming[0] ?? null;
@@ -52,12 +55,11 @@ export default async function EventsPage() {
     <main>
       <section className="relative overflow-hidden bg-navy pb-16 pt-40 text-center">
         {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 event
-            photo. Verified free (non-Unsplash+) at time of writing. See
-            src/lib/unsplash-placeholders.ts for the source. */}
+            photo, or via /admin/site-images (key: events_hero). */}
         <div
           aria-hidden
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${UNSPLASH_EVENTS_HERO_BACKGROUND})` }}
+          style={{ backgroundImage: `url(${heroImage})` }}
         />
         <div aria-hidden className="absolute inset-0 bg-navy/90" />
         <div

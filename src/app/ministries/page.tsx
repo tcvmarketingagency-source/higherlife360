@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { MinistriesShowcase } from '@/components/sections/MinistriesShowcase';
 import { ministries } from '@/lib/ministries-data';
 import { UNSPLASH_HERO_FELLOWSHIP } from '@/lib/unsplash-placeholders';
+import { getSiteImageMap } from '@/lib/site-images';
 
 export const metadata: Metadata = {
   title: 'Ministries',
@@ -18,16 +19,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default function MinistriesPage() {
+export default async function MinistriesPage() {
+  const siteImages = await getSiteImageMap();
+  const heroImage = siteImages.ministries_hero ?? UNSPLASH_HERO_FELLOWSHIP;
+  const resolvedMinistries = ministries.map((ministry) => ({
+    ...ministry,
+    image: siteImages[`ministry_${ministry.slug.replace(/-/g, '_')}`] ?? ministry.image,
+  }));
+
   return (
     <main>
       <section className="relative overflow-hidden bg-navy pb-16 pt-40 text-center">
-        {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 photo.
-            See src/lib/unsplash-placeholders.ts for the source. */}
+        {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 photo,
+            or via /admin/site-images (key: ministries_hero). */}
         <div
           aria-hidden
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${UNSPLASH_HERO_FELLOWSHIP})` }}
+          style={{ backgroundImage: `url(${heroImage})` }}
         />
         <div aria-hidden className="absolute inset-0 bg-navy/90" />
         <div
@@ -62,7 +70,7 @@ export default function MinistriesPage() {
             subtitle="Ministry here isn’t about filling a program — it’s about surrounding you with the right people for whatever season you’re in. Explore what’s below, and take the next step that fits."
           />
           <div className="mt-16">
-            <MinistriesShowcase items={ministries} />
+            <MinistriesShowcase items={resolvedMinistries} />
           </div>
         </Container>
       </Section>

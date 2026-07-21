@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
 import { Cormorant_Garamond, Inter } from 'next/font/google';
-import { SmoothScroll } from '@/components/providers/smooth-scroll';
-import { PageTransition } from '@/components/providers/PageTransition';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
+import { SiteChrome } from '@/components/providers/SiteChrome';
 import './globals.css';
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -72,11 +69,7 @@ export default function RootLayout({
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        <SmoothScroll>
-          <Header />
-          <PageTransition>{children}</PageTransition>
-          <Footer />
-        </SmoothScroll>
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

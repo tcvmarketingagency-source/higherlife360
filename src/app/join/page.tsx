@@ -15,6 +15,7 @@ import {
   UNSPLASH_FAMILY_PEWS,
   UNSPLASH_CANDLE,
 } from '@/lib/unsplash-placeholders';
+import { getSiteImageMap } from '@/lib/site-images';
 
 export const metadata: Metadata = {
   title: 'Join Us',
@@ -130,19 +131,21 @@ const volunteerTeams = [
   },
 ];
 
-export default function JoinPage() {
+export default async function JoinPage() {
+  const siteImages = await getSiteImageMap();
+  const heroImage = siteImages.join_hero ?? UNSPLASH_HERO_FELLOWSHIP;
+
   return (
     <JoinPageProvider>
       <main>
         {/* Hero */}
         <section className="relative overflow-hidden bg-navy pb-16 pt-40 text-center">
           {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360
-              community/welcome photo. See src/lib/unsplash-placeholders.ts
-              for the source. */}
+              community/welcome photo, or via /admin/site-images (key: join_hero). */}
           <div
             aria-hidden
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${UNSPLASH_HERO_FELLOWSHIP})` }}
+            style={{ backgroundImage: `url(${heroImage})` }}
           />
           <div aria-hidden className="absolute inset-0 bg-navy/90" />
           <div

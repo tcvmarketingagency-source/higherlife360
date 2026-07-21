@@ -14,6 +14,7 @@ import { ministries } from '@/lib/ministries-data';
 import { isPastEvent } from '@/lib/event-time';
 import { supabase } from '@/lib/supabase';
 import { UNSPLASH_WORSHIP, UNSPLASH_HERO_CHURCH_EXTERIOR } from '@/lib/unsplash-placeholders';
+import { getSiteImageMap } from '@/lib/site-images';
 
 export const dynamic = 'force-dynamic';
 
@@ -67,25 +68,40 @@ const pathwaysTrio = [
 ];
 
 export default async function Home() {
-  const [{ data: latestSermon }, { data: eventsData }, { data: branchesData }] = await Promise.all([
-    supabase
-      .from('sermons')
-      .select('*')
-      .order('published_at', { ascending: false })
-      .limit(1)
-      .maybeSingle(),
-    supabase.from('events').select('*').order('start_time', { ascending: true }),
-    supabase.from('branches').select('*'),
-  ]);
+  const [{ data: latestSermon }, { data: eventsData }, { data: branchesData }, siteImages] =
+    await Promise.all([
+      supabase
+        .from('sermons')
+        .select('*')
+        .order('published_at', { ascending: false })
+        .limit(1)
+        .maybeSingle(),
+      supabase.from('events').select('*').order('start_time', { ascending: true }),
+      supabase.from('branches').select('*'),
+      getSiteImageMap(),
+    ]);
 
   const events = eventsData ?? [];
   const branches = branchesData ?? [];
   const branchNameById = new Map(branches.map((branch) => [branch.id, branch.name]));
   const upcomingEvents = events.filter((event) => !isPastEvent(event)).slice(0, 3);
 
+  const heroChapterImages = [
+    siteImages.home_hero_chapter_1,
+    siteImages.home_hero_chapter_2,
+    siteImages.home_hero_chapter_3,
+    siteImages.home_hero_chapter_4,
+    siteImages.home_hero_chapter_5,
+  ].filter((url): url is string => Boolean(url));
+
+  const featuredMinistries = ministries.slice(0, 8).map((ministry) => ({
+    ...ministry,
+    image: siteImages[`ministry_${ministry.slug.replace(/-/g, '_')}`] ?? ministry.image,
+  }));
+
   return (
     <main>
-      <CinematicHero />
+      <CinematicHero images={heroChapterImages.length === 5 ? heroChapterImages : undefined} />
 
       {/* First-time-visitor welcome — short and warm; the fuller "what to
           expect" reassurance detail (parking, dress, service length) lives
@@ -273,7 +289,7 @@ export default async function Home() {
             subtitle="Ministry here isn’t about filling a program — it’s about surrounding you with the right people for whatever season you’re in."
           />
           <div className="mt-16">
-            <MinistriesShowcase items={ministries.slice(0, 8)} tone="dark" />
+            <MinistriesShowcase items={featuredMinistries} tone="dark" />
           </div>
           <div className="mt-12 text-center">
             <Button href="/ministries" variant="outline-light" showArrow>

@@ -9,6 +9,7 @@ import { HeroTextReveal } from '@/components/motion/HeroTextReveal';
 import { HigherLifePathway } from '@/components/sections/HigherLifePathway';
 import founderPortraitPlaceholder from '@/assets/placeholders/founder-portrait.svg';
 import { UNSPLASH_HERO_CATHEDRAL_INTERIOR, UNSPLASH_CANDLE } from '@/lib/unsplash-placeholders';
+import { getSiteImageMap } from '@/lib/site-images';
 
 const ScrollReveal = dynamic(() =>
   import('@/components/motion/ScrollReveal').then((mod) => mod.ScrollReveal)
@@ -94,17 +95,22 @@ const globalReachStats = [
   { value: 10, suffix: '+', label: 'Nations' },
 ];
 
-export default function VisionPage() {
+export default async function VisionPage() {
+  const siteImages = await getSiteImageMap();
+  const heroImage = siteImages.vision_hero ?? UNSPLASH_HERO_CATHEDRAL_INTERIOR;
+  const founderImage = siteImages.founder_portrait ?? founderPortraitPlaceholder;
+
   return (
     <main>
       {/* 1. Hero statement */}
       <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-navy">
         {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 sanctuary
-            photo. See src/lib/unsplash-placeholders.ts for the source. */}
+            photo. See src/lib/unsplash-placeholders.ts for the source. Or
+            replace it without touching code at all via /admin/site-images. */}
         <div
           aria-hidden
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${UNSPLASH_HERO_CATHEDRAL_INTERIOR})` }}
+          style={{ backgroundImage: `url(${heroImage})` }}
         />
         <div aria-hidden className="absolute inset-0 bg-navy/90" />
         <div
@@ -144,9 +150,10 @@ export default function VisionPage() {
           <ScrollReveal>
             <div className="grid items-center gap-16 md:grid-cols-2">
               <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl border-2 border-gold">
-                {/* PLACEHOLDER: replace with the real portrait photo */}
+                {/* PLACEHOLDER: replace with the real portrait photo via
+                    /admin/site-images (key: founder_portrait) */}
                 <Image
-                  src={founderPortraitPlaceholder}
+                  src={founderImage}
                   alt="Portrait of Pastor Sushil, Founder & Lead Pastor"
                   fill
                   sizes="(min-width: 768px) 400px, 100vw"

@@ -8,6 +8,7 @@ import { LiveHero } from '@/components/sections/LiveHero';
 import { serviceSchedule, WEEKDAY_LABELS } from '@/lib/live-config';
 import { formatServiceTime } from '@/lib/live-status';
 import { UNSPLASH_HERO_WORSHIP_NIGHT } from '@/lib/unsplash-placeholders';
+import { getSiteImageMap } from '@/lib/site-images';
 
 export const metadata: Metadata = {
   title: 'Watch Live',
@@ -20,7 +21,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function LivePage() {
+export default async function LivePage() {
+  const siteImages = await getSiteImageMap();
+  const heroImage = siteImages.live_hero ?? UNSPLASH_HERO_WORSHIP_NIGHT;
+
   const groupedSchedule = new Map<number, string[]>();
   serviceSchedule.forEach((service) => {
     const list = groupedSchedule.get(service.day) ?? [];
@@ -33,11 +37,11 @@ export default function LivePage() {
     <main>
       <Section tone="navy" className="relative overflow-hidden pb-16 pt-40">
         {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 worship
-            photo. See src/lib/unsplash-placeholders.ts for the source. */}
+            photo, or via /admin/site-images (key: live_hero). */}
         <div
           aria-hidden
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${UNSPLASH_HERO_WORSHIP_NIGHT})` }}
+          style={{ backgroundImage: `url(${heroImage})` }}
         />
         <div aria-hidden className="absolute inset-0 bg-navy/90" />
         <div
