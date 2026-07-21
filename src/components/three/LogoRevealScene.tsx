@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useEffect, useRef } from 'react';
+import { Suspense, useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { Canvas } from '@react-three/fiber';
 import { RoundedBox, useTexture } from '@react-three/drei';
@@ -36,13 +36,25 @@ const ROTATION_DURATION_S = SCENE_DURATION_S - ROTATION_DELAY_S;
 const ROTATION_END_RAD =
   ROTATION_START_RAD + ROTATION_TURNS * Math.PI * 2 + ROTATION_REST_OFFSET_RAD;
 
-// The crest artwork, floated just in front of the medallion's face as its
-// own transparent plane — keeping it a separate mesh (rather than a texture
-// on the medallion itself) sidesteps multi-material UV mapping on the
-// rounded box entirely.
+// The crest artwork, floated just off the medallion's front AND back faces
+// as its own transparent planes — keeping it separate from the medallion
+// body (rather than a texture on the RoundedBox itself) sidesteps
+// multi-material UV mapping on the rounded box entirely.
+//
+// Both planes share one THREE.MeshStandardMaterial instance so they're
+// visually one gold surface (same metalness/roughness/emissive, same
+// fade-in), not two independently-lit stickers.
+//
+// The back plane is positioned behind the medallion AND given its own
+// rotation.y = π. Position alone would make it face the wrong way (culled/
+// invisible from outside) or, with a naive double-sided material, show the
+// SAME UVs mirrored left-right when viewed from behind — like reading the
+// front page through the back of the paper. Rotating that plane's own
+// geometry 180° about the same axis the whole group turns on flips its UVs
+// back the other way, cancelling that mirroring, the same way a coin's
+// reverse die is engraved backwards so the minted coin reads correctly.
 function CrestEmblem() {
   const texture = useTexture(CREST_LOGO_SRC);
-  const materialRef = useRef<THREE.MeshStandardMaterial>(null);
 
   useEffect(() => {
     texture.colorSpace = THREE.SRGBColorSpace;
@@ -50,34 +62,46 @@ function CrestEmblem() {
     texture.needsUpdate = true;
   }, [texture]);
 
+  const material = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        map: texture,
+        transparent: true,
+        alphaTest: 0.05,
+        metalness: 0.25,
+        roughness: 0.4,
+        emissive: new THREE.Color(GOLD_DEEP),
+        emissiveIntensity: 0.1,
+        opacity: 0,
+      }),
+    [texture]
+  );
+
+  useEffect(() => () => material.dispose(), [material]);
+
   useGSAP(() => {
-    if (!materialRef.current) return;
     gsap.fromTo(
-      materialRef.current,
+      material,
       { opacity: 0 },
       { opacity: 1, duration: 0.6, ease: 'power2.out', delay: 0.25 }
     );
-  }, []);
+  }, [material]);
 
   const image = texture.image as { width?: number; height?: number } | undefined;
   const aspect = image?.width && image?.height ? image.width / image.height : 0.8;
   const height = 1.5;
   const width = height * aspect;
+  const offset = 0.105;
 
   return (
-    <mesh position={[0, 0, 0.105]}>
-      <planeGeometry args={[width, height]} />
-      <meshStandardMaterial
-        ref={materialRef}
-        map={texture}
-        transparent
-        alphaTest={0.05}
-        metalness={0.25}
-        roughness={0.4}
-        emissive={GOLD_DEEP}
-        emissiveIntensity={0.1}
-      />
-    </mesh>
+    <>
+      <mesh position={[0, 0, offset]} material={material}>
+        <planeGeometry args={[width, height]} />
+      </mesh>
+      <mesh position={[0, 0, -offset]} rotation={[0, Math.PI, 0]} material={material}>
+        <planeGeometry args={[width, height]} />
+      </mesh>
+    </>
   );
 }
 

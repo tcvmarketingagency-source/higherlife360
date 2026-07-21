@@ -3,7 +3,11 @@
 import { Component, type ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { gsap } from '@/lib/gsap';
 import { LogoRevealCanvas } from '@/components/three/LogoRevealCanvas';
-import { TOTAL_REVEAL_DURATION_S, DISSOLVE_DURATION_S } from '@/lib/logo-reveal-timing';
+import {
+  TOTAL_REVEAL_DURATION_S,
+  DISSOLVE_DURATION_S,
+  ENTRANCE_DURATION_S,
+} from '@/lib/logo-reveal-timing';
 
 const SEEN_KEY = 'hl360-logo-reveal-seen';
 // Hard cap on how long the overlay can hold the screen, independent of
@@ -42,6 +46,7 @@ export function LogoReveal() {
   const [shouldPlay, setShouldPlay] = useState(false);
   const [visible, setVisible] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
   const finishedRef = useRef(false);
 
   useEffect(() => {
@@ -56,6 +61,18 @@ export function LogoReveal() {
     setShouldPlay(true);
     setVisible(true);
   }, []);
+
+  // The brand text follows the crest in rather than appearing together with
+  // it — delayed to start right as the crest's own scale/rise entrance
+  // finishes (ENTRANCE_DURATION_S), so the crest visibly leads.
+  useEffect(() => {
+    if (!shouldPlay || !textRef.current) return;
+    gsap.fromTo(
+      textRef.current,
+      { autoAlpha: 0, y: 14 },
+      { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: ENTRANCE_DURATION_S }
+    );
+  }, [shouldPlay]);
 
   const finish = useCallback((fast: boolean) => {
     if (finishedRef.current) return;
@@ -104,7 +121,7 @@ export function LogoReveal() {
     <div
       ref={overlayRef}
       role="presentation"
-      className="fixed inset-0 z-[999] flex items-center justify-center bg-navy"
+      className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-navy"
     >
       <div
         aria-hidden
@@ -117,6 +134,18 @@ export function LogoReveal() {
         <RevealErrorBoundary onError={() => finish(true)}>
           <LogoRevealCanvas onSettled={() => finish(false)} />
         </RevealErrorBoundary>
+      </div>
+      {/* Flat DOM text — deliberately outside the <Canvas>, so it can never
+          inherit the crest's 3D rotation. Its own entrance/exit is the only
+          animation it gets; it just sits still and readable while the crest
+          turns, then fades out with the rest of the overlay in finish(). */}
+      <div ref={textRef} className="mt-6 max-w-xs px-6 text-center sm:mt-8 sm:max-w-sm">
+        <p className="text-balance font-display text-sm font-semibold tracking-wide text-gold sm:text-lg">
+          HigherLife Fellowship International
+        </p>
+        <p className="mt-1.5 text-balance font-display text-xs italic text-cream/75 sm:text-sm">
+          There is HigherLife in Christ!
+        </p>
       </div>
       <button
         type="button"
