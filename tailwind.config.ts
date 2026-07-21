@@ -87,6 +87,35 @@ const config: Config = {
           'clamp(2.625rem, 1.3333rem + 5.51vw, 6.5rem)',
           { lineHeight: '1.02', letterSpacing: '-0.02em' },
         ],
+        // A second, smaller hero size for the homepage's full brand name
+        // ("HigherLife Fellowship International") — `hero` above is tuned
+        // for short 1-2 word chapter headlines ("Welcome Home.", "Discover
+        // Purpose.") and is far too large for a 36-character string; at
+        // that size it would overflow/wrap into a wall of text rather than
+        // reading as a headline. Same formula/reference viewports as the
+        // rest of this scale (320px mobile floor, 1440px desktop ceiling),
+        // just with a lower floor (30px) and ceiling (60px) chosen so the
+        // full name wraps to a controlled, evenly-balanced 2-3 lines
+        // (paired with `text-balance` at the call site) instead of an
+        // arbitrary ragged break.
+        heroBrand: [
+          'clamp(1.875rem, 1.34rem + 2.68vw, 3.75rem)',
+          { lineHeight: '1.08', letterSpacing: '-0.01em' },
+        ],
+      },
+      // Slow, continuous Y-axis turn for the navbar crest (HeaderCrest.tsx)
+      // — pure CSS/compositor-driven, no WebGL/JS involved, since this runs
+      // permanently on every page rather than for a few seconds once. Only
+      // ever applied via the `motion-safe:` variant at the call site, so
+      // prefers-reduced-motion users get a static (non-spinning) crest.
+      keyframes: {
+        'crest-spin': {
+          from: { transform: 'rotateY(0deg)' },
+          to: { transform: 'rotateY(360deg)' },
+        },
+      },
+      animation: {
+        'crest-spin': 'crest-spin 9s linear infinite',
       },
     },
   },

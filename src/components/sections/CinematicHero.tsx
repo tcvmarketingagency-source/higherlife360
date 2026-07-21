@@ -65,6 +65,10 @@ type Chapter = {
   eyebrow: string;
   headline: string;
   sub: string;
+  /** Supporting brand line rendered directly beneath the headline, above
+   * `sub` — only set on the first chapter, which carries the church's
+   * official name/tagline rather than a short punchy chapter headline. */
+  tagline?: string;
   /** CSS object-position for the background image — defaults to center.
    * Set per-chapter when a photo's subject isn't centered, so it stays
    * correctly framed as object-cover crops differently at each breakpoint. */
@@ -75,7 +79,12 @@ const CHAPTERS: Chapter[] = [
   {
     image: UNSPLASH_HERO_CROSS_AURORA,
     eyebrow: 'HigherLife360',
-    headline: 'Welcome Home.',
+    // The church's official name/tagline (client-provided brand copy) — much
+    // longer than the other chapters' short punchy headlines, so it uses the
+    // dedicated `heroBrand` type size below rather than `hero` (see that
+    // scale's comment in tailwind.config.ts for why).
+    headline: 'HigherLife Fellowship International',
+    tagline: 'There is HigherLife in Christ!',
     sub: 'A place to encounter God, find true family, and live the life you were made for.',
     // Slight upward bias — the cross sits centered in the frame, but this
     // keeps a bit more headroom above it as extra margin at wide/ultra-wide
@@ -315,12 +324,17 @@ export function CinematicHero({ images }: { images?: string[] } = {}) {
                 {chapter.eyebrow}
               </p>
               {i === 0 ? (
-                <h1 className="mx-auto mt-4 max-w-4xl font-display text-hero font-semibold text-cream [text-shadow:0_4px_24px_rgb(0_0_0_/_55%)]">
+                <h1 className="text-balance mx-auto mt-4 max-w-4xl font-display text-heroBrand font-semibold text-cream [text-shadow:0_4px_24px_rgb(0_0_0_/_55%)]">
                   {chapter.headline}
                 </h1>
               ) : (
                 <p className="mx-auto mt-4 max-w-4xl font-display text-hero font-semibold text-cream [text-shadow:0_4px_24px_rgb(0_0_0_/_55%)]">
                   {chapter.headline}
+                </p>
+              )}
+              {chapter.tagline && (
+                <p className="text-balance mx-auto mt-3 max-w-2xl font-display text-h3 font-medium text-gold [text-shadow:0_2px_16px_rgb(0_0_0_/_50%)] sm:mt-4">
+                  {chapter.tagline}
                 </p>
               )}
               <p className="mx-auto mt-6 max-w-xl text-body-lg text-cream/80 [text-shadow:0_2px_12px_rgb(0_0_0_/_50%)]">

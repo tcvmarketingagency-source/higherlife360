@@ -20,7 +20,7 @@ import { getSiteImageMap } from '@/lib/site-images';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Welcome Home',
+  title: 'HigherLife Fellowship International',
   description:
     'HigherLife360 is a global church family, founded in 2017 in Pune, India — now 120+ branches across 10+ nations with 230,000+ people connected worldwide. Watch live, find a branch, and take your next step toward a Higher Life.',
 };

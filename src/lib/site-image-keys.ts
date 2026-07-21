@@ -55,7 +55,8 @@ export const SITE_IMAGE_KEYS: SiteImageKeyDef[] = [
     key: 'home_hero_chapter_1',
     group: 'Homepage',
     label: 'Homepage Hero — Chapter 1',
-    description: 'Cinematic hero, first chapter — cross silhouette under aurora, "Welcome Home."',
+    description:
+      'Cinematic hero, first chapter — cross silhouette under aurora, "HigherLife Fellowship International."',
     fallback: UNSPLASH_HERO_CROSS_AURORA,
   },
   {

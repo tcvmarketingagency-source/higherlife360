@@ -8,7 +8,7 @@
 -- re-run it later without clobbering images the team has since changed.
 
 insert into public.site_images (key, label, description, image_url) values
-  ('home_hero_chapter_1', 'Homepage Hero — Chapter 1', 'Cinematic hero, first chapter — cross silhouette under aurora, "Welcome Home."', 'https://images.unsplash.com/photo-1769088243271-d4768cd60482?q=80&w=2400&auto=format&fit=crop'),
+  ('home_hero_chapter_1', 'Homepage Hero — Chapter 1', 'Cinematic hero, first chapter — cross silhouette under aurora, "HigherLife Fellowship International."', 'https://images.unsplash.com/photo-1769088243271-d4768cd60482?q=80&w=2400&auto=format&fit=crop'),
   ('home_hero_chapter_2', 'Homepage Hero — Chapter 2', 'Cinematic hero, second chapter — worship, "Encounter God."', 'https://images.unsplash.com/photo-1776091104217-02e3732a4a81?q=80&w=2400&auto=format&fit=crop'),
   ('home_hero_chapter_3', 'Homepage Hero — Chapter 3', 'Cinematic hero, third chapter — worship band on stage, "Discover Purpose."', 'https://images.unsplash.com/photo-1510384742052-1abcb6282645?q=80&w=2400&auto=format&fit=crop'),
   ('home_hero_chapter_4', 'Homepage Hero — Chapter 4', 'Cinematic hero, fourth chapter — small group in a prayer huddle, "Find Your Family."', 'https://images.unsplash.com/photo-1609234656388-0ff363383899?q=80&w=2400&auto=format&fit=crop'),

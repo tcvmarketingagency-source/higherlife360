@@ -8,6 +8,7 @@ import { Container } from '@/components/ui/Container';
 import { cn } from '@/lib/utils';
 import { navLinks } from './nav-links';
 import { MobileNavDrawer } from './MobileNavDrawer';
+import { HeaderCrest } from './HeaderCrest';
 
 export function Header() {
   const pathname = usePathname();
@@ -62,12 +63,20 @@ export function Header() {
           don't reliably have. Below `lg`, the hamburger drawer takes over
           instead of a cramped/wrapping inline nav. */}
       <Container className="flex h-20 items-center justify-between gap-6">
-        <Link
-          href="/"
-          className="flex-shrink-0 font-display text-xl font-semibold tracking-wide text-cream lg:text-2xl"
-        >
-          HigherLife<span className="text-gold">360</span>
-        </Link>
+        <div className="flex flex-shrink-0 items-center gap-2">
+          <Link
+            href="/"
+            className="font-display text-xl font-semibold tracking-wide text-cream lg:text-2xl"
+          >
+            HigherLife<span className="text-gold">360</span>
+          </Link>
+          {/* CSS-animated, not a second WebGL canvas — this sits on every
+              page for as long as it's open, unlike the homepage-only, few-
+              seconds-long 3D reveal, so a persistent R3F/Three.js context
+              here would be a standing GPU/battery cost site-wide for a tiny
+              decorative icon. See HeaderCrest.tsx for the full reasoning. */}
+          <HeaderCrest />
+        </div>
 
         <nav className="hidden items-center gap-6 lg:flex">
           {navLinks.map((link) =>
