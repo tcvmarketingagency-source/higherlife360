@@ -1,48 +1,59 @@
 import Image from 'next/image';
 import { CREST_LOGO_SRC } from '@/lib/brand';
 
-// A small, continuously-turning version of the homepage reveal's gold
-// crest, living permanently in the header. Deliberately built with CSS 3D
-// transforms (rotateY + backface-visibility) rather than a second R3F/
-// Three.js canvas — see Header.tsx's comment on why a persistent WebGL
-// context sitewide wasn't the right call here. A compositor-driven CSS
-// animation costs effectively nothing once started (no per-frame JS, no
-// GPU context to keep alive) versus a canvas rendering continuously for
-// as long as any page is open.
+// A small, continuously-turning gold crest living permanently in the
+// header. Built with CSS 3D transforms (rotateY + backface-visibility),
+// not a second R3F/Three.js canvas — see Header.tsx's comment for why a
+// persistent WebGL context sitewide wasn't the right call for something
+// this small that runs for as long as any page is open. A compositor-
+// driven CSS animation costs effectively nothing once started (no
+// per-frame JS, no GPU context to keep alive).
 //
 // Two faces of the SAME image, not one "double-sided" image: rotateY(180deg)
 // on its own would show the front face's back MIRRORED (like reading a page
-// through the paper). Giving the back face its own extra 180° turn cancels
-// that mirroring — the same technique the 3D reveal's medallion uses (see
-// LogoRevealScene.tsx's CrestEmblem for the fuller geometric explanation) —
-// so both faces read correctly as it turns, not flipped.
+// through the paper), because rotating the whole assembly is a rigid
+// transform — it doesn't re-draw the artwork, it just re-orients the same
+// flat image, so the side now facing the viewer is its own reverse. Giving
+// the back face its own EXTRA 180° turn (on top of the shared spin) flips
+// its UVs back the other way, cancelling that mirroring — the same
+// principle as a coin's reverse die being engraved backwards so the
+// minted coin reads correctly on both faces.
 //
-// Hidden below `xl` (1280px), not just on phones: Header.tsx's own comment
-// already flags that the full inline nav (6 links + 2 buttons) has no slack
-// at the `lg` (1024px) breakpoint it deliberately switches on at — measuring
-// the real header confirmed it's already a hair tight right at 1024px on
-// its own, and adding this even at its smallest size pushes real overflow
-// out to ~1100px. `xl` was chosen (not a custom in-between value) because
-// it's comfortably clear of that measured danger zone with margin to
-// spare, while phones/tablets/small laptops (which route through the
-// hamburger drawer below `lg` anyway, with only the wordmark and hamburger
-// button competing for space) never show it at all — simplest single rule
-// that's verified safe everywhere it's visible.
+// Visible at every breakpoint (mobile included), scaled up at `sm`/`lg` to
+// stay legible without ever outsizing the wordmark — see Header.tsx for how
+// the surrounding layout was reworked to fit it in at every width instead
+// of hiding it.
 export function HeaderCrest() {
   return (
-    <div aria-hidden className="hidden h-7 w-7 flex-shrink-0 xl:block" style={{ perspective: 300 }}>
+    <div
+      aria-hidden
+      className="h-9 w-9 flex-shrink-0 sm:h-10 sm:w-10 lg:h-11 lg:w-11"
+      style={{ perspective: 300 }}
+    >
       <div
         className="relative h-full w-full motion-safe:animate-crest-spin"
         style={{ transformStyle: 'preserve-3d' }}
       >
         <div className="absolute inset-0" style={{ backfaceVisibility: 'hidden' }}>
-          <Image src={CREST_LOGO_SRC} alt="" fill sizes="28px" className="object-contain" />
+          <Image
+            src={CREST_LOGO_SRC}
+            alt=""
+            fill
+            sizes="(min-width: 1024px) 44px, (min-width: 640px) 40px, 36px"
+            className="object-contain"
+          />
         </div>
         <div
           className="absolute inset-0"
           style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
         >
-          <Image src={CREST_LOGO_SRC} alt="" fill sizes="28px" className="object-contain" />
+          <Image
+            src={CREST_LOGO_SRC}
+            alt=""
+            fill
+            sizes="(min-width: 1024px) 44px, (min-width: 640px) 40px, 36px"
+            className="object-contain"
+          />
         </div>
       </div>
     </div>

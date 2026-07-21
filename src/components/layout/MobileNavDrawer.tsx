@@ -67,7 +67,7 @@ export function MobileNavDrawer({
         <>
           <motion.div
             key="backdrop"
-            className="fixed inset-0 z-40 bg-ink/70 lg:hidden"
+            className="fixed inset-0 z-40 bg-ink/70 xl:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -80,7 +80,7 @@ export function MobileNavDrawer({
             role="dialog"
             aria-modal="true"
             aria-label="Site menu"
-            className="fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col overflow-y-auto bg-navy p-8 lg:hidden"
+            className="fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col overflow-y-auto bg-navy p-8 xl:hidden"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}

@@ -6,7 +6,6 @@ import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { CinematicHero } from '@/components/sections/CinematicHero';
-import { LogoReveal } from '@/components/motion/LogoReveal';
 import { SermonCard } from '@/components/sections/SermonCard';
 import { EventCard } from '@/components/sections/EventCard';
 import { HigherLifePathway } from '@/components/sections/HigherLifePathway';
@@ -102,7 +101,6 @@ export default async function Home() {
 
   return (
     <main>
-      <LogoReveal />
       <CinematicHero images={heroChapterImages.length === 5 ? heroChapterImages : undefined} />
 
       {/* First-time-visitor welcome — short and warm; the fuller "what to
