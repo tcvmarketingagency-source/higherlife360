@@ -17,7 +17,11 @@ import { UNSPLASH_HERO_CROSS_AURORA } from '@/lib/unsplash-placeholders';
 // matters. object-contain guarantees the full image is always visible,
 // letterboxed if the container's aspect ratio doesn't exactly match the
 // source's, regardless of what aspect ratio the admin's uploaded file
-// actually has.
+// actually has. This box carries no bg-*/border/ring of its own — only
+// `bg-navy` on the section behind it — so there is nothing here that can
+// render as a visible rectangle behind the crest; any hard-edged box
+// around the emblem is baked into the source image's own pixels, not
+// something this component is drawing.
 export function Hero({ image }: { image?: string }) {
   const crestImage = image ?? UNSPLASH_HERO_CROSS_AURORA;
 
@@ -27,28 +31,29 @@ export function Hero({ image }: { image?: string }) {
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
-          background: 'radial-gradient(circle at 50% 34%, rgba(242,184,94,0.16), transparent 60%)',
+          background: 'radial-gradient(circle at 50% 32%, rgba(242,184,94,0.2), transparent 62%)',
         }}
       />
 
-      <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-6 px-6 py-10 text-center sm:gap-8">
-        {/* Crest — sized to feel like a deliberate emblem, not a full-bleed
-            photo. aspect-[277/299] is a fixed, viewport-friendly frame
-            (not tied to any one upload's exact proportions) that keeps the
-            hero's total height predictable regardless of what the admin
-            uploads next; object-contain fits whatever image is in that
-            frame in full, never cropped. A badge-shaped image fills it
-            almost edge to edge, a tall portrait image (the current asset)
-            letterboxes left/right — invisible either way since this box has
-            no background/border of its own, just the section's bg-navy
-            showing through. */}
-        <div className="relative aspect-[277/299] w-[42vw] max-w-[170px] sm:w-[220px] sm:max-w-none lg:w-[260px] xl:w-[300px]">
+      {/* pt-24/28/36 is a deliberate floor, not vertical-centering slack —
+          it guarantees the crest always clears the fixed Header (80px on
+          mobile/tablet; ~120px on lg+ in its unscrolled, homepage-top
+          state with the "Sundays 9AM & 11AM" bar still showing), no matter
+          how large the crest itself gets. justify-center still centers the
+          crest+text block within whatever space remains below that floor. */}
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-5 px-6 pb-6 pt-24 text-center sm:gap-6 sm:pb-8 sm:pt-28 lg:pt-36">
+        {/* Crest — sized to read as a confident focal point, not a small
+            floating icon. aspect-square matches the actual current asset
+            (500x500) and the crest artwork's own natural badge shape, so
+            object-contain has no letterboxing to hide — the full box is
+            the emblem. */}
+        <div className="relative w-[52vw] max-w-[230px] aspect-square sm:w-[280px] sm:max-w-none lg:w-[340px] xl:w-[400px] 2xl:w-[440px]">
           <Image
             src={crestImage}
             alt=""
             fill
             priority
-            sizes="(min-width: 1280px) 300px, (min-width: 1024px) 260px, (min-width: 640px) 220px, 42vw"
+            sizes="(min-width: 1536px) 440px, (min-width: 1280px) 400px, (min-width: 1024px) 340px, (min-width: 640px) 280px, 52vw"
             className="object-contain"
           />
         </div>
