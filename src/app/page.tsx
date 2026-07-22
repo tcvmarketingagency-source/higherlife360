@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { SectionTitle } from '@/components/ui/SectionTitle';
+import { Hero } from '@/components/sections/Hero';
 import { CinematicHero } from '@/components/sections/CinematicHero';
 import { SermonCard } from '@/components/sections/SermonCard';
 import { EventCard } from '@/components/sections/EventCard';
@@ -86,8 +87,11 @@ export default async function Home() {
   const branchNameById = new Map(branches.map((branch) => [branch.id, branch.name]));
   const upcomingEvents = events.filter((event) => !isPastEvent(event)).slice(0, 3);
 
-  const heroChapterImages = [
-    siteImages.home_hero_chapter_1,
+  // home_hero_chapter_1 is now the standalone Hero's crest image (still the
+  // same admin-managed key/slot — nothing to re-upload); _2 through _5 feed
+  // the scroll-cross-fade tour that follows it in CinematicHero.
+  const heroImage = siteImages.home_hero_chapter_1;
+  const tourImages = [
     siteImages.home_hero_chapter_2,
     siteImages.home_hero_chapter_3,
     siteImages.home_hero_chapter_4,
@@ -101,7 +105,8 @@ export default async function Home() {
 
   return (
     <main>
-      <CinematicHero images={heroChapterImages.length === 5 ? heroChapterImages : undefined} />
+      <Hero image={heroImage} />
+      <CinematicHero images={tourImages.length === 4 ? tourImages : undefined} />
 
       {/* First-time-visitor welcome — short and warm; the fuller "what to
           expect" reassurance detail (parking, dress, service length) lives

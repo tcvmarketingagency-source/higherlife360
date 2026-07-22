@@ -10,7 +10,6 @@ import { Container } from '@/components/ui/Container';
 import { HeroParticlesCanvas } from '@/components/three/HeroParticlesCanvas';
 import { NextServiceCountdown } from '@/components/sections/NextServiceCountdown';
 import {
-  UNSPLASH_HERO_CROSS_AURORA,
   UNSPLASH_HERO_WORSHIP,
   UNSPLASH_HERO_WORSHIP_BAND,
   UNSPLASH_HERO_SMALL_GROUP,
@@ -20,7 +19,7 @@ import {
 // ============================================================================
 // FUTURE UPGRADE — REAL DRONE / INTERIOR VIDEO CHURCH TOUR
 // ----------------------------------------------------------------------------
-// This hero currently cross-fades through 5 still Unsplash photos as the user
+// This tour currently cross-fades through 4 still Unsplash photos as the user
 // scrolls, standing in for a real scroll-scrubbed video "church tour." When
 // the client supplies a real drone/interior walkthrough video, replace the
 // CHAPTERS image sequence below with a single <video> element and scrub its
@@ -65,33 +64,18 @@ type Chapter = {
   eyebrow: string;
   headline: string;
   sub: string;
-  /** Supporting brand line rendered directly beneath the headline, above
-   * `sub` — only set on the first chapter, which carries the church's
-   * official name/tagline rather than a short punchy chapter headline. */
-  tagline?: string;
   /** CSS object-position for the background image — defaults to center.
    * Set per-chapter when a photo's subject isn't centered, so it stays
    * correctly framed as object-cover crops differently at each breakpoint. */
   imagePosition?: string;
 };
 
+// The church's name/tagline moment ("HigherLife Fellowship International")
+// used to be this array's first chapter — it's since moved out to its own
+// static Hero.tsx section (a single crest + two lines needs no scroll-pin
+// machinery), so this scroll-cross-fade tour now starts from "Encounter
+// God."
 const CHAPTERS: Chapter[] = [
-  {
-    image: UNSPLASH_HERO_CROSS_AURORA,
-    eyebrow: 'HigherLife360',
-    // The church's official name/tagline (client-provided brand copy) — much
-    // longer than the other chapters' short punchy headlines, so it uses the
-    // dedicated `heroBrand` type size below rather than `hero` (see that
-    // scale's comment in tailwind.config.ts for why).
-    headline: 'HigherLife Fellowship International',
-    tagline: 'There is HigherLife in Christ!',
-    sub: 'A place to encounter God, find true family, and live the life you were made for.',
-    // Slight upward bias — the cross sits centered in the frame, but this
-    // keeps a bit more headroom above it as extra margin at wide/ultra-wide
-    // aspect ratios. See UNSPLASH_CROSS_AURORA's comment for the pixel-level
-    // position verification behind this choice.
-    imagePosition: 'center 38%',
-  },
   {
     image: UNSPLASH_HERO_WORSHIP,
     eyebrow: 'Encounter',
@@ -119,9 +103,10 @@ const CHAPTERS: Chapter[] = [
 ];
 
 export function CinematicHero({ images }: { images?: string[] } = {}) {
-  // Admin-replaceable chapter photos (site_images keys home_hero_chapter_1
-  // through _5) fall back to the CHAPTERS defaults above when a key hasn't
-  // been set — every other property (headline, sub, timing) is unaffected.
+  // Admin-replaceable chapter photos (site_images keys home_hero_chapter_2
+  // through _5 — chapter_1 now belongs to Hero.tsx's crest, not this array)
+  // fall back to the CHAPTERS defaults above when a key hasn't been set —
+  // every other property (headline, sub, timing) is unaffected.
   const chapters = CHAPTERS.map((chapter, i) => ({
     ...chapter,
     image: images?.[i] ?? chapter.image,
@@ -136,7 +121,7 @@ export function CinematicHero({ images }: { images?: string[] } = {}) {
   // null = static single-chapter fallback (reduced-motion, or a
   // matchMedia gate below hasn't matched yet). Otherwise, the chapter
   // indices participating in the current breakpoint's animated,
-  // absolutely-stacked sequence — desktop uses all 5, mobile uses a
+  // absolutely-stacked sequence — desktop uses all 4, mobile uses a
   // lighter 3-chapter subset (see the two matchMedia branches below).
   const [activeChapters, setActiveChapters] = useState<number[] | null>(null);
   const isAnimated = activeChapters !== null;
@@ -148,7 +133,7 @@ export function CinematicHero({ images }: { images?: string[] } = {}) {
 
       // Desktop / no-reduced-motion: full pinned, scroll-scrubbed chapter sequence.
       mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
-        setActiveChapters([0, 1, 2, 3, 4]);
+        setActiveChapters([0, 1, 2, 3]);
 
         const images = imageLayers.current.filter((el): el is HTMLDivElement => Boolean(el));
         const texts = textLayers.current.filter((el): el is HTMLDivElement => Boolean(el));
@@ -198,19 +183,19 @@ export function CinematicHero({ images }: { images?: string[] } = {}) {
       // (max-md:sticky on viewportRef below) to keep the imagery on
       // screen for the scrub range, which is native, compositor-driven,
       // and doesn't fight touch scrolling the way a JS-managed pin can.
-      // Only 3 of the 5 chapters play (fewer image decodes/paints on
+      // Only 3 of the 4 chapters play (fewer image decodes/paints on
       // typically slower mobile hardware) — the rest never unhide, so
       // next/image's lazy loading never fetches them on this breakpoint.
       mm.add('(max-width: 767px) and (prefers-reduced-motion: no-preference)', () => {
-        const mobileChapters = [0, 2, 4];
+        const mobileChapters = [0, 1, 3];
         setActiveChapters(mobileChapters);
 
         const img = (i: number) => imageLayers.current[i];
         const txt = (i: number) => textLayers.current[i];
-        if (!wrapperRef.current || !viewportRef.current || !img(0) || !img(2) || !img(4)) return;
+        if (!wrapperRef.current || !viewportRef.current || !img(0) || !img(1) || !img(3)) return;
 
-        gsap.set([img(2), img(4)], { autoAlpha: 0 });
-        gsap.set([txt(2), txt(4)].filter(Boolean), { autoAlpha: 0, y: 24 });
+        gsap.set([img(1), img(3)], { autoAlpha: 0 });
+        gsap.set([txt(1), txt(3)].filter(Boolean), { autoAlpha: 0, y: 24 });
         gsap.set(ctaRef.current, { autoAlpha: 0, y: 16 });
 
         const tl = gsap.timeline({
@@ -251,12 +236,12 @@ export function CinematicHero({ images }: { images?: string[] } = {}) {
   );
 
   return (
-    <div ref={wrapperRef} className="relative max-md:h-[220vh] md:h-[500vh]">
+    <div id="tour" ref={wrapperRef} className="relative max-md:h-[220vh] md:h-[500vh]">
       <div
         ref={viewportRef}
         className="relative flex h-[100svh] w-full flex-col items-center justify-center overflow-hidden bg-navy max-md:sticky max-md:top-0"
       >
-        {/* Background chapter images — desktop cross-fades between all 5 and
+        {/* Background chapter images — desktop cross-fades between all 4 and
             mobile cross-fades a lighter 3-chapter subset, both via GSAP
             above; with reduced motion (or before a breakpoint has matched)
             only the first, lightest-weight chapter renders as a plain
@@ -273,7 +258,6 @@ export function CinematicHero({ images }: { images?: string[] } = {}) {
               src={chapter.image}
               alt=""
               fill
-              priority={i === 0}
               sizes="100vw"
               className="object-cover"
               style={{ objectPosition: chapter.imagePosition ?? 'center' }}
@@ -323,20 +307,12 @@ export function CinematicHero({ images }: { images?: string[] } = {}) {
               <p className="text-eyebrow font-semibold uppercase text-accent [text-shadow:0_2px_12px_rgb(0_0_0_/_60%)]">
                 {chapter.eyebrow}
               </p>
-              {i === 0 ? (
-                <h1 className="text-balance mx-auto mt-4 max-w-4xl font-display text-heroBrand font-semibold text-cream [text-shadow:0_4px_24px_rgb(0_0_0_/_55%)]">
-                  {chapter.headline}
-                </h1>
-              ) : (
-                <p className="mx-auto mt-4 max-w-4xl font-display text-hero font-semibold text-cream [text-shadow:0_4px_24px_rgb(0_0_0_/_55%)]">
-                  {chapter.headline}
-                </p>
-              )}
-              {chapter.tagline && (
-                <p className="text-balance mx-auto mt-3 max-w-2xl font-display text-h3 font-medium text-gold [text-shadow:0_2px_16px_rgb(0_0_0_/_50%)] sm:mt-4">
-                  {chapter.tagline}
-                </p>
-              )}
+              {/* This tour's own headlines are always a <p>, never an H1 —
+                  the page's one H1 now lives in Hero.tsx, immediately
+                  above this section. */}
+              <p className="mx-auto mt-4 max-w-4xl font-display text-hero font-semibold text-cream [text-shadow:0_4px_24px_rgb(0_0_0_/_55%)]">
+                {chapter.headline}
+              </p>
               <p className="mx-auto mt-6 max-w-xl text-body-lg text-cream/80 [text-shadow:0_2px_12px_rgb(0_0_0_/_50%)]">
                 {chapter.sub}
               </p>

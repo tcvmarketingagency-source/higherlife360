@@ -89,18 +89,23 @@ const config: Config = {
         ],
         // A second, smaller hero size for the homepage's full brand name
         // ("HigherLife Fellowship International") — `hero` above is tuned
-        // for short 1-2 word chapter headlines ("Welcome Home.", "Discover
+        // for short 1-2 word chapter headlines ("Encounter God.", "Discover
         // Purpose.") and is far too large for a 36-character string; at
         // that size it would overflow/wrap into a wall of text rather than
         // reading as a headline. Same formula/reference viewports as the
-        // rest of this scale (320px mobile floor, 1440px desktop ceiling),
-        // just with a lower floor (30px) and ceiling (60px) chosen so the
-        // full name wraps to a controlled, evenly-balanced 2-3 lines
-        // (paired with `text-balance` at the call site) instead of an
-        // arbitrary ragged break.
+        // rest of this scale (320px mobile floor, 1440px desktop ceiling).
+        //
+        // The floor (22px) is deliberately tuned, not just "small enough to
+        // fit" — at this size "HigherLife Fellowship" (22 characters) sits
+        // just under a 320px screen's usable width, so paired with the H1's
+        // own max-width cap (see Hero.tsx) it wraps the same deliberate way
+        // at every breakpoint: "HigherLife Fellowship" / "International",
+        // never mid-word, never collapsing back to one line even at the
+        // widest desktop sizes. `text-balance` at the call site is a safety
+        // net for real font-metric variance, not what's doing this job.
         heroBrand: [
-          'clamp(1.875rem, 1.34rem + 2.68vw, 3.75rem)',
-          { lineHeight: '1.08', letterSpacing: '-0.01em' },
+          'clamp(1.375rem, 0.696rem + 3.393vw, 3.75rem)',
+          { lineHeight: '1.15', letterSpacing: '-0.01em' },
         ],
       },
       // Slow, continuous Y-axis turn for the navbar crest (HeaderCrest.tsx)

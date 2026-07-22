@@ -8,11 +8,11 @@
 -- re-run it later without clobbering images the team has since changed.
 
 insert into public.site_images (key, label, description, image_url) values
-  ('home_hero_chapter_1', 'Homepage Hero — Chapter 1', 'Cinematic hero, first chapter — cross silhouette under aurora, "HigherLife Fellowship International."', 'https://images.unsplash.com/photo-1769088243271-d4768cd60482?q=80&w=2400&auto=format&fit=crop'),
-  ('home_hero_chapter_2', 'Homepage Hero — Chapter 2', 'Cinematic hero, second chapter — worship, "Encounter God."', 'https://images.unsplash.com/photo-1776091104217-02e3732a4a81?q=80&w=2400&auto=format&fit=crop'),
-  ('home_hero_chapter_3', 'Homepage Hero — Chapter 3', 'Cinematic hero, third chapter — worship band on stage, "Discover Purpose."', 'https://images.unsplash.com/photo-1510384742052-1abcb6282645?q=80&w=2400&auto=format&fit=crop'),
-  ('home_hero_chapter_4', 'Homepage Hero — Chapter 4', 'Cinematic hero, fourth chapter — small group in a prayer huddle, "Find Your Family."', 'https://images.unsplash.com/photo-1609234656388-0ff363383899?q=80&w=2400&auto=format&fit=crop'),
-  ('home_hero_chapter_5', 'Homepage Hero — Chapter 5', 'Cinematic hero, fifth and final chapter — fellowship at a stone archway, "Live a Higher Life."', 'https://images.unsplash.com/photo-1569292567777-e5d61a759322?q=80&w=2400&auto=format&fit=crop'),
+  ('home_hero_chapter_1', 'Homepage Hero — Crest', 'The standalone crest hero at the very top of the homepage (above the scrolling photo tour) — displayed in full via object-contain, so any replacement can be any aspect ratio without getting cropped. Currently the church crest.', 'https://images.unsplash.com/photo-1769088243271-d4768cd60482?q=80&w=2400&auto=format&fit=crop'),
+  ('home_hero_chapter_2', 'Homepage Hero Tour — Chapter 1', 'Scrolling photo tour, first chapter — worship, "Encounter God."', 'https://images.unsplash.com/photo-1776091104217-02e3732a4a81?q=80&w=2400&auto=format&fit=crop'),
+  ('home_hero_chapter_3', 'Homepage Hero Tour — Chapter 2', 'Scrolling photo tour, second chapter — worship band on stage, "Discover Purpose."', 'https://images.unsplash.com/photo-1510384742052-1abcb6282645?q=80&w=2400&auto=format&fit=crop'),
+  ('home_hero_chapter_4', 'Homepage Hero Tour — Chapter 3', 'Scrolling photo tour, third chapter — small group in a prayer huddle, "Find Your Family."', 'https://images.unsplash.com/photo-1609234656388-0ff363383899?q=80&w=2400&auto=format&fit=crop'),
+  ('home_hero_chapter_5', 'Homepage Hero Tour — Chapter 4', 'Scrolling photo tour, fourth and final chapter — fellowship at a stone archway, "Live a Higher Life."', 'https://images.unsplash.com/photo-1569292567777-e5d61a759322?q=80&w=2400&auto=format&fit=crop'),
 
   ('vision_hero', 'Vision Page Hero', 'Full-bleed background behind "We exist to help every person encounter God and live a Higher Life."', 'https://images.unsplash.com/photo-1776864926188-124eb99610e8?q=80&w=2400&auto=format&fit=crop'),
   ('live_hero', 'Live Page Hero', 'Full-bleed background behind the Watch Live page header.', 'https://images.unsplash.com/photo-1565804951749-2426372cdc74?q=80&w=2400&auto=format&fit=crop'),
