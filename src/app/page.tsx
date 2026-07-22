@@ -87,10 +87,11 @@ export default async function Home() {
   const branchNameById = new Map(branches.map((branch) => [branch.id, branch.name]));
   const upcomingEvents = events.filter((event) => !isPastEvent(event)).slice(0, 3);
 
-  // home_hero_chapter_1 is now the standalone Hero's crest image (still the
-  // same admin-managed key/slot — nothing to re-upload); _2 through _5 feed
-  // the scroll-cross-fade tour that follows it in CinematicHero.
-  const heroImage = siteImages.home_hero_chapter_1;
+  // The standalone Hero's crest is now a static local file (see Hero.tsx),
+  // no longer read from site_images — home_hero_chapter_1 is unused as of
+  // this change (the admin panel's "Homepage Hero — Crest" slot no longer
+  // has any effect; only _2 through _5 below still feed the scroll-cross-
+  // fade tour in CinematicHero).
   const tourImages = [
     siteImages.home_hero_chapter_2,
     siteImages.home_hero_chapter_3,
@@ -105,7 +106,7 @@ export default async function Home() {
 
   return (
     <main>
-      <Hero image={heroImage} />
+      <Hero />
       <CinematicHero images={tourImages.length === 4 ? tourImages : undefined} />
 
       {/* First-time-visitor welcome — short and warm; the fuller "what to

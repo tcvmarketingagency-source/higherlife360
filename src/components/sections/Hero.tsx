@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { UNSPLASH_HERO_CROSS_AURORA } from '@/lib/unsplash-placeholders';
+import { CREST_LOGO_SRC } from '@/lib/brand';
 
 // The homepage's first screen: the church's crest, then its name and
 // tagline underneath it, nothing overlapping. Deliberately a plain static
@@ -9,22 +9,39 @@ import { UNSPLASH_HERO_CROSS_AURORA } from '@/lib/unsplash-placeholders';
 // continues right below in CinematicHero, now starting from "Encounter
 // God."
 //
+// This crest is now the same static file (public/brand/crest-logo.png,
+// via lib/brand.ts's CREST_LOGO_SRC) that HeaderCrest.tsx uses for the
+// spinning navbar icon — deliberately decoupled from the site_images DB
+// row (there is no more per-request Supabase lookup for this image), so
+// it can never go stale and never depends on the admin panel's upload
+// path. One consequence worth knowing: because it's the SAME file, this
+// is also now the source of truth for the navbar crest — replacing this
+// file changes both places at once.
+//
 // The crest renders via `object-contain` inside an aspect-locked box,
-// never `object-cover` — this is the actual fix for the reported bug
-// (the crown getting cropped off on desktop): object-cover fills its box
-// by cropping whatever doesn't fit, which is fine for a wide landscape
-// photo but actively wrong for a badge-shaped image where EVERY edge
-// matters. object-contain guarantees the full image is always visible,
-// letterboxed if the container's aspect ratio doesn't exactly match the
-// source's, regardless of what aspect ratio the admin's uploaded file
-// actually has. This box carries no bg-*/border/ring of its own — only
+// never `object-cover` — this is the actual fix for the original reported
+// bug (the crown getting cropped off on desktop): object-cover fills its
+// box by cropping whatever doesn't fit, which is fine for a wide
+// landscape photo but actively wrong for a badge-shaped image where every
+// edge matters. This box carries no bg-*/border/ring of its own — only
 // `bg-navy` on the section behind it — so there is nothing here that can
-// render as a visible rectangle behind the crest; any hard-edged box
-// around the emblem is baked into the source image's own pixels, not
-// something this component is drawing.
-export function Hero({ image }: { image?: string }) {
-  const crestImage = image ?? UNSPLASH_HERO_CROSS_AURORA;
-
+// render as a visible rectangle behind the crest.
+//
+// Sizing math: the current crest-logo.png is a 500x500 canvas, but the
+// artwork's own alpha bounds only fill ~58% of its width and ~63% of its
+// height (measured) — the rest is transparent padding, same crop style
+// as the file it replaced. Since object-contain scales the WHOLE canvas
+// (padding included) to fit this box, the box has to be sized larger than
+// the visible-crest target size to compensate — a box height of H
+// renders a visible emblem roughly 0.63 * H tall, not H. Every width
+// below accounts for that 0.63 factor so the visible crest — not the
+// invisible padded box — lands at roughly 30-35% of viewport height on
+// desktop, where height (not width) is the natural constraint; on
+// portrait mobile/tablet, available width is the tighter constraint, so
+// those sizes are picked to look proportionate rather than to hit a
+// vh target that would force the crest wider than is sensible for a
+// narrow screen.
+export function Hero() {
   return (
     <section className="relative flex h-[100svh] flex-col overflow-hidden bg-navy">
       <div
@@ -41,19 +58,19 @@ export function Hero({ image }: { image?: string }) {
           state with the "Sundays 9AM & 11AM" bar still showing), no matter
           how large the crest itself gets. justify-center still centers the
           crest+text block within whatever space remains below that floor. */}
-      <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-5 px-6 pb-6 pt-24 text-center sm:gap-6 sm:pb-8 sm:pt-28 lg:pt-36">
-        {/* Crest — sized to read as a confident focal point, not a small
-            floating icon. aspect-square matches the actual current asset
-            (500x500) and the crest artwork's own natural badge shape, so
-            object-contain has no letterboxing to hide — the full box is
-            the emblem. */}
-        <div className="relative w-[52vw] max-w-[230px] aspect-square sm:w-[280px] sm:max-w-none lg:w-[340px] xl:w-[400px] 2xl:w-[440px]">
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-4 px-6 pb-6 pt-24 text-center sm:gap-5 sm:pb-8 sm:pt-28 lg:pt-32">
+        {/* Crest — aspect-square matches the source canvas exactly (not
+            just the visible artwork, which is inset within it — see the
+            file-level comment above), so object-contain has no letterboxing
+            of its own to add on top of the padding already baked into the
+            file. */}
+        <div className="relative aspect-square w-[38vw] max-w-[165px] sm:w-[190px] sm:max-w-none md:w-[220px] lg:w-[250px] min-[1280px]:w-[300px] min-[1440px]:w-[430px] min-[1920px]:w-[520px]">
           <Image
-            src={crestImage}
+            src={CREST_LOGO_SRC}
             alt=""
             fill
             priority
-            sizes="(min-width: 1536px) 440px, (min-width: 1280px) 400px, (min-width: 1024px) 340px, (min-width: 640px) 280px, 52vw"
+            sizes="(min-width: 1920px) 520px, (min-width: 1440px) 430px, (min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 220px, (min-width: 640px) 190px, 38vw"
             className="object-contain"
           />
         </div>
