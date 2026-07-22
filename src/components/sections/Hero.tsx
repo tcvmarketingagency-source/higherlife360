@@ -57,25 +57,42 @@ export function Hero() {
           mobile/tablet; ~120px on lg+ in its unscrolled, homepage-top
           state with the "Sundays 9AM & 11AM" bar still showing), no matter
           how large the crest itself gets. justify-center still centers the
-          crest+text block within whatever space remains below that floor. */}
-      <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-4 px-6 pb-6 pt-24 text-center sm:gap-5 sm:pb-8 sm:pt-28 lg:pt-32">
+          crest+text block within whatever space remains below that floor —
+          which is what makes the negative margins below "safe": shrinking
+          the group's total height only ever redistributes the freed space
+          as extra room above and below (justify-center splits it evenly),
+          it never leaves it stranded at one end. */}
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pb-6 pt-24 text-center sm:pb-8 sm:pt-28 lg:pt-32">
         {/* Crest — aspect-square matches the source canvas exactly (not
             just the visible artwork, which is inset within it — see the
             file-level comment above), so object-contain has no letterboxing
             of its own to add on top of the padding already baked into the
             file. */}
-        <div className="relative aspect-square w-[38vw] max-w-[165px] sm:w-[190px] sm:max-w-none md:w-[220px] lg:w-[250px] min-[1280px]:w-[300px] min-[1440px]:w-[430px] min-[1920px]:w-[520px]">
+        <div className="relative aspect-square w-[60vw] max-w-[250px] sm:w-[190px] sm:max-w-none md:w-[220px] lg:w-[250px] min-[1280px]:w-[300px] min-[1440px]:w-[430px] min-[1920px]:w-[520px]">
           <Image
             src={CREST_LOGO_SRC}
             alt=""
             fill
             priority
-            sizes="(min-width: 1920px) 520px, (min-width: 1440px) 430px, (min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 220px, (min-width: 640px) 190px, 38vw"
+            sizes="(min-width: 1920px) 520px, (min-width: 1440px) 430px, (min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 220px, (min-width: 640px) 190px, 60vw"
             className="object-contain"
           />
         </div>
 
-        <div className="max-w-xs sm:max-w-md lg:max-w-2xl">
+        {/* Negative margin, not `gap` — the crest's own transparent PNG
+            padding (see file comment: content fills only ~63% of the
+            500x500 canvas, sitting roughly in the middle 15%-82% band
+            vertically) means the box's bottom edge already sits ~22% of
+            its own height below the visible artwork. A `gap` measures
+            from that invisible box edge, not the artwork itself, so it
+            reads as a much bigger optical gap than its px value suggests
+            — this was the "crest and headline read as disconnected"
+            complaint. Pulling the text up by (box-height * 0.218 - ~20px
+            target optical gap) cancels that padding out per breakpoint
+            (the box is a different size at each one, so this can't be a
+            single fixed value) and leaves a small, deliberate ~20px gap
+            between the actual visible crest and the headline instead. */}
+        <div className="-mt-[29px] max-w-xs sm:-mt-[21px] sm:max-w-md md:-mt-[28px] lg:-mt-[35px] lg:max-w-2xl min-[1280px]:-mt-[45px] min-[1440px]:-mt-[74px] min-[1920px]:-mt-[93px]">
           <h1 className="text-balance font-display text-heroBrand font-semibold tracking-[-0.015em] text-cream [text-shadow:0_4px_28px_rgb(0_0_0_/_45%)]">
             HigherLife Fellowship International
           </h1>
