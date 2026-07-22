@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { CREST_LOGO_SRC } from '@/lib/brand';
+import { HeroParticlesCanvas } from '@/components/three/HeroParticlesCanvas';
 
 // The homepage's first screen: the church's crest, then its name and
 // tagline underneath it, nothing overlapping. Deliberately a plain static
@@ -44,13 +45,39 @@ import { CREST_LOGO_SRC } from '@/lib/brand';
 export function Hero() {
   return (
     <section className="relative flex h-[100svh] flex-col overflow-hidden bg-navy">
+      {/* A restrained gold glow behind the crest, not a wash across the
+          whole section — 0.2 opacity spreading to 62% previously lifted a
+          large enough share of the canvas that the section read as a
+          lightened grey rather than a true dark navy. Cut both the
+          opacity and the spread so the glow stays a hint centered behind
+          the crest, then layered a second, darkening vignette on top that
+          deepens toward the edges/corners — bg-navy (the section's own
+          background) is what's actually visible almost everywhere now. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
-          background: 'radial-gradient(circle at 50% 32%, rgba(242,184,94,0.2), transparent 62%)',
+          background: 'radial-gradient(circle at 50% 30%, rgba(242,184,94,0.09), transparent 42%)',
         }}
       />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 45%, transparent 35%, rgba(0,0,0,0.4) 100%)',
+        }}
+      />
+
+      {/* Same gold-dust particle field used in CinematicHero below —
+          circular soft sprites (never squares — see HeroParticles.tsx's
+          canvas-drawn radial-gradient texture), capped at 400 points and
+          dpr [1, 1.5], reduced-motion aware, dynamically imported with
+          ssr:false so it never blocks this section's initial paint. Sits
+          between the background layers above and the z-10 content below
+          — pure atmosphere, low enough opacity (0.55 per-particle, over a
+          tiny fraction of pixels) that it has no measurable effect on the
+          crest/text contrast beneath it. */}
+      <HeroParticlesCanvas />
 
       {/* pt-24/28/36 is a deliberate floor, not vertical-centering slack —
           it guarantees the crest always clears the fixed Header (80px on
@@ -68,13 +95,13 @@ export function Hero() {
             file-level comment above), so object-contain has no letterboxing
             of its own to add on top of the padding already baked into the
             file. */}
-        <div className="relative aspect-square w-[60vw] max-w-[250px] sm:w-[190px] sm:max-w-none md:w-[220px] lg:w-[250px] min-[1280px]:w-[300px] min-[1440px]:w-[430px] min-[1920px]:w-[520px]">
+        <div className="relative aspect-square w-[68vw] max-w-[218px] min-[375px]:w-[255px] min-[375px]:max-w-none min-[414px]:w-[280px] sm:w-[190px] md:w-[220px] lg:w-[250px] min-[1280px]:w-[300px] min-[1440px]:w-[430px] min-[1920px]:w-[520px]">
           <Image
             src={CREST_LOGO_SRC}
             alt=""
             fill
             priority
-            sizes="(min-width: 1920px) 520px, (min-width: 1440px) 430px, (min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 220px, (min-width: 640px) 190px, 60vw"
+            sizes="(min-width: 1920px) 520px, (min-width: 1440px) 430px, (min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 220px, (min-width: 640px) 190px, (min-width: 414px) 280px, (min-width: 375px) 255px, 68vw"
             className="object-contain"
           />
         </div>
@@ -92,7 +119,7 @@ export function Hero() {
             (the box is a different size at each one, so this can't be a
             single fixed value) and leaves a small, deliberate ~20px gap
             between the actual visible crest and the headline instead. */}
-        <div className="-mt-[29px] max-w-xs sm:-mt-[21px] sm:max-w-md md:-mt-[28px] lg:-mt-[35px] lg:max-w-2xl min-[1280px]:-mt-[45px] min-[1440px]:-mt-[74px] min-[1920px]:-mt-[93px]">
+        <div className="-mt-[28px] max-w-xs min-[375px]:-mt-[36px] min-[414px]:-mt-[41px] sm:-mt-[21px] sm:max-w-md md:-mt-[28px] lg:-mt-[35px] lg:max-w-2xl min-[1280px]:-mt-[45px] min-[1440px]:-mt-[74px] min-[1920px]:-mt-[93px]">
           <h1 className="text-balance font-display text-heroBrand font-semibold tracking-[-0.015em] text-cream [text-shadow:0_4px_28px_rgb(0_0_0_/_45%)]">
             HigherLife Fellowship International
           </h1>

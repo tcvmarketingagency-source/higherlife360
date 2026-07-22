@@ -10,6 +10,7 @@ import { HigherLifePathway } from '@/components/sections/HigherLifePathway';
 import founderPortraitPlaceholder from '@/assets/placeholders/founder-portrait.svg';
 import { UNSPLASH_HERO_CATHEDRAL_INTERIOR, UNSPLASH_CANDLE } from '@/lib/unsplash-placeholders';
 import { getSiteImageMap } from '@/lib/site-images';
+import { cn } from '@/lib/utils';
 
 const ScrollReveal = dynamic(() =>
   import('@/components/motion/ScrollReveal').then((mod) => mod.ScrollReveal)
@@ -35,34 +36,49 @@ export const metadata: Metadata = {
   },
 };
 
-// PLACEHOLDER: swap first-letter monograms for a real icon set when one is
-// chosen. PLACEHOLDER: this wording is a faithful, generic evangelical
-// statement of faith — please review each line against HigherLife360's
-// actual doctrinal statement (if a more formal one exists) before launch.
-const beliefs = [
+// The church's real, client-provided four-part vision statement — replaces
+// the earlier generic/placeholder "What We Believe" doctrinal cards. Each
+// entry is one of the four numbered sections on the page; `supporting` is
+// deliberately an array (Section 3 has three short declarative lines,
+// Section 2 has none at all) rather than a single optional string, so the
+// render below doesn't need special-casing per section.
+const visionStatement: {
+  heading: string;
+  supporting: string[];
+  reference: string;
+  quote: string;
+}[] = [
   {
-    title: 'God',
-    text: 'One God, eternally present as Father, Son, and Holy Spirit — not distant, but near. He knows you fully and loves you completely, and everything we do flows from that relationship.',
+    heading: "Taking God's Divine Presence to the Nations",
+    supporting: ['God has all authority over all the nations of the world.'],
+    reference: 'Matthew 28:18 (NKJV)',
+    quote:
+      "And Jesus came and spoke to them, saying, 'All authority has been given to Me in heaven and on earth.'",
   },
   {
-    title: 'The Bible',
-    text: 'God’s living Word, given to guide, correct, and grow us. We don’t just read it on Sundays — we build our lives on it, trusting it to speak into every season we walk through.',
+    heading: 'Distribution of the Mantles',
+    supporting: [],
+    reference: 'Matthew 28:19-20 (NKJV)',
+    quote:
+      'Go therefore and make disciples of all the nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe all things that I have commanded you; and lo, I am with you always, even to the end of the age. Amen.',
   },
   {
-    title: 'Salvation',
-    text: 'Freely given through Jesus — not earned by effort, religion, or good behavior. It’s available to absolutely everyone who believes, no matter where they’ve been or what they’ve done.',
+    heading: 'Uniting the Body of Christ',
+    supporting: [
+      'We are the one family of God on this earth.',
+      "Execute God's plans for nations.",
+      'Fulfill His will and His purpose in all nations.',
+    ],
+    reference: 'Ephesians 3:14-19 (NKJV)',
+    quote:
+      'For this reason I bow my knees to the Father of our Lord Jesus Christ, from whom the whole family in heaven and earth is named, that He would grant you, according to the riches of His glory, to be strengthened with might through His Spirit in the inner man, that Christ may dwell in your hearts through faith; that you, being rooted and grounded in love, may be able to comprehend with all the saints what is the width and length and depth and height to know the love of Christ which passes knowledge; that you may be filled with all the fullness of God.',
   },
   {
-    title: 'The Church',
-    text: 'A family, not a building. We gather to worship, but we belong to one another beyond the walls — carrying each other through joy, loss, doubt, and everything in between.',
-  },
-  {
-    title: 'Generosity',
-    text: 'We give because we were first given to, without measure. That shapes how we handle money, time, and attention — open-handed, not clenched, trusting there is always more where that came from.',
-  },
-  {
-    title: 'The Higher Life',
-    text: 'A life of purpose, freedom, and lasting impact — not perfection. It’s the ongoing journey of becoming who God made you to be, one step of obedience and faith at a time.',
+    heading: 'Healing to the Nations',
+    supporting: ["Healing is the demonstration of God's love, compassion and word."],
+    reference: 'Acts 10:38 (NKJV)',
+    quote:
+      'How God anointed Jesus of Nazareth with the Holy Spirit and with power, who went about doing good and healing all who were oppressed by the devil, for God was with Him.',
   },
 ];
 
@@ -216,33 +232,77 @@ export default async function VisionPage() {
         </Container>
       </Section>
 
-      {/* 3. What We Believe */}
-      <Section tone="navy" id="believe">
-        <Container>
-          <SectionTitle
-            eyebrow="Our Foundation"
-            title="What We Believe"
-            subtitle="The truths that anchor everything we do."
-          />
-          <StaggerReveal className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {beliefs.map((belief) => (
-              <div
-                key={belief.title}
-                className="border border-gold/20 bg-navy p-8 transition-all duration-300 hover:-translate-y-2 hover:border-gold hover:shadow-[0_0_40px_-10px_rgba(232,163,61,0.5)]"
-              >
-                {/* PLACEHOLDER: icon — currently a first-letter monogram */}
-                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-gold/60">
-                  <span className="font-display text-xl text-gold">{belief.title.charAt(0)}</span>
+      {/* 3. Our Vision — the client's real four-part vision statement, one
+          numbered section per point, alternating cream/navy so each reads
+          as its own moment rather than one long scroll of scripture. See
+          the visionStatement array above for the content itself. */}
+      {visionStatement.map((point, i) => {
+        const tone = i % 2 === 0 ? 'cream' : 'navy';
+        const isNavy = tone === 'navy';
+        return (
+          <Section key={point.heading} tone={tone} id={i === 0 ? 'vision-statement' : undefined}>
+            <Container>
+              <ScrollReveal>
+                <div className="mx-auto max-w-3xl text-center">
+                  <p className="font-display text-h2 font-semibold text-accent/25">
+                    {String(i + 1).padStart(2, '0')}
+                  </p>
+                  <h2
+                    className={cn(
+                      'text-balance mt-2 font-display text-h3 font-semibold uppercase leading-snug tracking-wide',
+                      isNavy ? 'text-cream' : 'text-ink'
+                    )}
+                  >
+                    {point.heading}
+                  </h2>
+
+                  {point.supporting.length > 0 && (
+                    <div className="mt-6 space-y-2">
+                      {point.supporting.map((line) => (
+                        <p
+                          key={line}
+                          className={cn(
+                            'text-body-lg',
+                            isNavy ? 'text-cream/80' : 'text-ink/75'
+                          )}
+                        >
+                          {line}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Scripture pull-quote — a gold rule + indent + lighter
+                      italic serif sets it visibly apart from the heading
+                      and supporting lines above, so a passage as long as
+                      Ephesians 3:14-19 still reads as a distinct, scannable
+                      quotation rather than more body copy. Citation is its
+                      own smaller, tracked, non-italic line so it reads as
+                      an attribution, not part of the quoted text. */}
+                  <blockquote
+                    className={cn(
+                      'mx-auto mt-10 max-w-2xl border-l-2 py-1 pl-6 text-left sm:pl-8',
+                      isNavy ? 'border-gold/60' : 'border-gold-deep/50'
+                    )}
+                  >
+                    <p
+                      className={cn(
+                        'font-display text-lg italic leading-relaxed sm:text-xl',
+                        isNavy ? 'text-cream/90' : 'text-ink/85'
+                      )}
+                    >
+                      &ldquo;{point.quote}&rdquo;
+                    </p>
+                    <footer className="mt-4 font-sans text-sm font-semibold uppercase tracking-[0.15em] text-accent">
+                      {point.reference}
+                    </footer>
+                  </blockquote>
                 </div>
-                <h3 className="mt-6 font-display text-h4 font-semibold text-cream">
-                  {belief.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-cream/70">{belief.text}</p>
-              </div>
-            ))}
-          </StaggerReveal>
-        </Container>
-      </Section>
+              </ScrollReveal>
+            </Container>
+          </Section>
+        );
+      })}
 
       {/* 4. Core Values */}
       <Section tone="cream" id="values">
