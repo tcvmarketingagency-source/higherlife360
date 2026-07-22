@@ -10,8 +10,6 @@ import { CinematicHero } from '@/components/sections/CinematicHero';
 import { SermonCard } from '@/components/sections/SermonCard';
 import { EventCard } from '@/components/sections/EventCard';
 import { HigherLifePathway } from '@/components/sections/HigherLifePathway';
-import { MinistriesShowcase } from '@/components/sections/MinistriesShowcase';
-import { ministries } from '@/lib/ministries-data';
 import { isPastEvent } from '@/lib/event-time';
 import { supabase } from '@/lib/supabase';
 import { UNSPLASH_WORSHIP, UNSPLASH_HERO_CHURCH_EXTERIOR } from '@/lib/unsplash-placeholders';
@@ -98,11 +96,6 @@ export default async function Home() {
     siteImages.home_hero_chapter_4,
     siteImages.home_hero_chapter_5,
   ].filter((url): url is string => Boolean(url));
-
-  const featuredMinistries = ministries.slice(0, 8).map((ministry) => ({
-    ...ministry,
-    image: siteImages[`ministry_${ministry.slug.replace(/-/g, '_')}`] ?? ministry.image,
-  }));
 
   return (
     <main>
@@ -284,26 +277,6 @@ export default async function Home() {
           </div>
         </Container>
       </section>
-
-      {/* Get Connected and Grow — ministries showcase (subset; full list on /ministries). */}
-      <Section tone="navy">
-        <Container>
-          <SectionTitle
-            eyebrow="Get Connected"
-            title="Get Connected"
-            titleAccent="and Grow"
-            subtitle="Ministry here isn’t about filling a program — it’s about surrounding you with the right people for whatever season you’re in."
-          />
-          <div className="mt-16">
-            <MinistriesShowcase items={featuredMinistries} tone="dark" />
-          </div>
-          <div className="mt-12 text-center">
-            <Button href="/ministries" variant="outline-light" showArrow>
-              See All Ministries
-            </Button>
-          </div>
-        </Container>
-      </Section>
 
       <HigherLifePathway tone="navy" />
 

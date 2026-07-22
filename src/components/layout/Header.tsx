@@ -67,14 +67,22 @@ export function Header() {
           cramped/wrapping inline nav — MobileNavDrawer.tsx's own `xl:hidden`
           must stay matched to this breakpoint. */}
       <Container className="flex h-20 items-center justify-between gap-4">
-        <div className="flex flex-shrink-0 items-center gap-2">
+        <div className="flex flex-shrink-0 items-center gap-0">
           {/* CSS-animated, not a second WebGL canvas — this sits on every
               page for as long as it's open, unlike the homepage's old
               few-seconds-long 3D reveal (since removed), so a persistent
               R3F/Three.js context here would be a standing GPU/battery
               cost site-wide for a tiny decorative icon. See HeaderCrest.tsx
               for the full reasoning. Shown at every breakpoint, including
-              mobile — only its own size scales down, never hidden. */}
+              mobile — only its own size scales down, never hidden.
+
+              No explicit gap to the wordmark next to it (down from gap-2,
+              8px) — crest-logo.png has ~21% transparent padding baked in
+              on each side (measured from its alpha bounds), so the crest's
+              own box already provides roughly 8-9px of real optical space
+              at these icon sizes (36-44px) before the wordmark starts. An
+              explicit gap on top of that invisible padding was reading as
+              two disconnected elements instead of one brand lockup. */}
           <HeaderCrest />
           <Link
             href="/"

@@ -11,9 +11,9 @@ import type { Database } from './database.types';
 // route's own dynamic/static setting. The fix belongs on this one query,
 // not on the shared client — pointing the shared client's every request
 // at `no-store` was tried first and reverted, because it also forced
-// every *other* page that happens to call this function (ministries,
-// vision, donate, join, events, branches, recording, live — none of
-// which need per-request freshness) out of static generation entirely.
+// every *other* page that happens to call this function (vision, donate,
+// join, events, branches, recording, live — none of which need
+// per-request freshness) out of static generation entirely.
 const siteImagesClient = createClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,

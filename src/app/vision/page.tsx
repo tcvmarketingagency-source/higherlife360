@@ -6,7 +6,6 @@ import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { HeroTextReveal } from '@/components/motion/HeroTextReveal';
-import { HigherLifePathway } from '@/components/sections/HigherLifePathway';
 import founderPortraitPlaceholder from '@/assets/placeholders/founder-portrait.svg';
 import { UNSPLASH_HERO_CATHEDRAL_INTERIOR, UNSPLASH_CANDLE } from '@/lib/unsplash-placeholders';
 import { getSiteImageMap } from '@/lib/site-images';
@@ -14,9 +13,6 @@ import { cn } from '@/lib/utils';
 
 const ScrollReveal = dynamic(() =>
   import('@/components/motion/ScrollReveal').then((mod) => mod.ScrollReveal)
-);
-const StaggerReveal = dynamic(() =>
-  import('@/components/motion/StaggerReveal').then((mod) => mod.StaggerReveal)
 );
 const StoryTimeline = dynamic(() =>
   import('@/components/sections/StoryTimeline').then((mod) => mod.StoryTimeline)
@@ -79,29 +75,6 @@ const visionStatement: {
     reference: 'Acts 10:38 (NKJV)',
     quote:
       'How God anointed Jesus of Nazareth with the Holy Spirit and with power, who went about doing good and healing all who were oppressed by the devil, for God was with Him.',
-  },
-];
-
-const coreValues = [
-  {
-    number: '01',
-    title: 'Presence',
-    text: 'We pursue God above everything else — before strategy, before numbers, before anything we could build ourselves. Everything else follows from this one priority.',
-  },
-  {
-    number: '02',
-    title: 'People',
-    text: 'Everyone matters, always — not as a program to run, but as a person to know. We slow down for the one, because that’s exactly how Jesus led.',
-  },
-  {
-    number: '03',
-    title: 'Excellence',
-    text: 'We honor God with our best, not our leftovers. From how we plan a service to how we care for a single conversation, small details are never an afterthought here.',
-  },
-  {
-    number: '04',
-    title: 'Generosity',
-    text: 'We live open-handed — with our resources, our homes, and our time. Generosity isn’t a giving campaign to us; it’s simply how we’ve chosen to move through the world.',
   },
 ];
 
@@ -304,25 +277,7 @@ export default async function VisionPage() {
         );
       })}
 
-      {/* 4. Core Values */}
-      <Section tone="cream" id="values">
-        <Container>
-          <SectionTitle eyebrow="How We Live" title="What We Value" />
-          <StaggerReveal className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-            {coreValues.map((value) => (
-              <div key={value.number} className="text-center sm:text-left">
-                <p className="font-display text-h3 font-semibold text-accent/40">{value.number}</p>
-                <h3 className="mt-2 font-display text-h3 font-semibold text-ink">{value.title}</h3>
-                <p className="mt-3 text-sm text-ink/70">{value.text}</p>
-              </div>
-            ))}
-          </StaggerReveal>
-        </Container>
-      </Section>
-
-      <HigherLifePathway />
-
-      {/* 5. Our Story — animated timeline */}
+      {/* 4. Our Story — animated timeline */}
       <Section tone="navy" id="story" className="relative overflow-hidden">
         {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 photo.
             See src/lib/unsplash-placeholders.ts for the source. */}
@@ -347,7 +302,7 @@ export default async function VisionPage() {
         </Container>
       </Section>
 
-      {/* 6. Our Global Reach (formerly "Vision 2030") */}
+      {/* 5. Our Global Reach (formerly "Vision 2030") */}
       <Section tone="navy" id="global-reach" className="relative overflow-hidden pt-0">
         <div
           aria-hidden

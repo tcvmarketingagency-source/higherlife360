@@ -23,7 +23,7 @@ export async function updateSiteImage(
   if (error) return { error: 'Could not save that image — please try again.' };
 
   // site_images can affect nearly every public route (homepage hero,
-  // every page's hero band, the ministry cards, the founder portrait) —
+  // every page's hero band, the founder portrait) —
   // revalidating the whole app's layout is the simplest correct fix, and
   // costs nothing extra since Next only actually re-renders a route on its
   // next visit, not immediately. See the admin Site Images page for the

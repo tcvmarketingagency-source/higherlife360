@@ -95,13 +95,13 @@ export function Hero() {
             file-level comment above), so object-contain has no letterboxing
             of its own to add on top of the padding already baked into the
             file. */}
-        <div className="relative aspect-square w-[68vw] max-w-[218px] min-[375px]:w-[255px] min-[375px]:max-w-none min-[414px]:w-[280px] sm:w-[190px] md:w-[220px] lg:w-[250px] min-[1280px]:w-[300px] min-[1440px]:w-[430px] min-[1920px]:w-[520px]">
+        <div className="relative aspect-square w-[78vw] max-w-[250px] min-[375px]:w-[300px] min-[375px]:max-w-none min-[414px]:w-[336px] sm:w-[190px] md:w-[220px] lg:w-[250px] min-[1280px]:w-[300px] min-[1440px]:w-[430px] min-[1920px]:w-[520px]">
           <Image
             src={CREST_LOGO_SRC}
             alt=""
             fill
             priority
-            sizes="(min-width: 1920px) 520px, (min-width: 1440px) 430px, (min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 220px, (min-width: 640px) 190px, (min-width: 414px) 280px, (min-width: 375px) 255px, 68vw"
+            sizes="(min-width: 1920px) 520px, (min-width: 1440px) 430px, (min-width: 1280px) 300px, (min-width: 1024px) 250px, (min-width: 768px) 220px, (min-width: 640px) 190px, (min-width: 414px) 336px, (min-width: 375px) 300px, 78vw"
             className="object-contain"
           />
         </div>
@@ -114,12 +114,13 @@ export function Hero() {
             from that invisible box edge, not the artwork itself, so it
             reads as a much bigger optical gap than its px value suggests
             — this was the "crest and headline read as disconnected"
-            complaint. Pulling the text up by (box-height * 0.218 - ~20px
-            target optical gap) cancels that padding out per breakpoint
-            (the box is a different size at each one, so this can't be a
-            single fixed value) and leaves a small, deliberate ~20px gap
-            between the actual visible crest and the headline instead. */}
-        <div className="-mt-[28px] max-w-xs min-[375px]:-mt-[36px] min-[414px]:-mt-[41px] sm:-mt-[21px] sm:max-w-md md:-mt-[28px] lg:-mt-[35px] lg:max-w-2xl min-[1280px]:-mt-[45px] min-[1440px]:-mt-[74px] min-[1920px]:-mt-[93px]">
+            complaint. Pulling the text up by (box-height * 0.218 - target
+            optical gap) cancels that padding out per breakpoint (the box
+            is a different size at each one, so this can't be a single
+            fixed value). Mobile targets a tighter ~14px optical gap (the
+            larger crest reads best locked close to the headline); sm+
+            keeps the ~20px gap already verified there. */}
+        <div className="-mt-[41px] max-w-xs min-[375px]:-mt-[51px] min-[414px]:-mt-[59px] sm:-mt-[21px] sm:max-w-md md:-mt-[28px] lg:-mt-[35px] lg:max-w-2xl min-[1280px]:-mt-[45px] min-[1440px]:-mt-[74px] min-[1920px]:-mt-[93px]">
           <h1 className="text-balance font-display text-heroBrand font-semibold tracking-[-0.015em] text-cream [text-shadow:0_4px_28px_rgb(0_0_0_/_45%)]">
             HigherLife Fellowship International
           </h1>

@@ -4,7 +4,6 @@ import { NewsletterForm } from './NewsletterForm';
 
 const quickLinks = [
   { label: 'Vision', href: '/vision' },
-  { label: 'Ministries', href: '/ministries' },
   { label: 'Live', href: '/live' },
   { label: 'Messages', href: '/recording' },
   { label: 'Branches', href: '/branches' },
