@@ -115,6 +115,50 @@ export type SiteImageInsert = Omit<SiteImageRow, 'id' | 'updated_at'> & {
 };
 export type SiteImageUpdate = Partial<SiteImageInsert>;
 
+export type AboutPageRow = {
+  id: string;
+  singleton: boolean;
+  hero_eyebrow: string;
+  hero_title: string;
+  hero_subtitle: string;
+  hero_image_url: string | null;
+  story_eyebrow: string;
+  story_title: string;
+  story_body: string;
+  founder_eyebrow: string;
+  founder_title: string;
+  founder_message: string;
+  founder_signature: string;
+  founder_image_url: string | null;
+  founder_cta_label: string;
+  founder_cta_url: string;
+  gallery_eyebrow: string;
+  gallery_title: string;
+  gallery_subtitle: string;
+  font_pairing_key: string;
+  heading_color: string;
+  body_color: string;
+  updated_at: string;
+};
+export type AboutPageInsert = Omit<AboutPageRow, 'id' | 'updated_at'> & {
+  id?: string;
+  updated_at?: string;
+};
+export type AboutPageUpdate = Partial<AboutPageInsert>;
+
+export type AboutGalleryRow = {
+  id: string;
+  image_url: string;
+  alt_text: string;
+  sort_order: number;
+  created_at: string;
+};
+export type AboutGalleryInsert = Omit<AboutGalleryRow, 'id' | 'created_at'> & {
+  id?: string;
+  created_at?: string;
+};
+export type AboutGalleryUpdate = Partial<AboutGalleryInsert>;
+
 export type Database = {
   public: {
     Tables: {
@@ -178,6 +222,18 @@ export type Database = {
         Row: SiteImageRow;
         Insert: SiteImageInsert;
         Update: SiteImageUpdate;
+        Relationships: [];
+      };
+      about_page: {
+        Row: AboutPageRow;
+        Insert: AboutPageInsert;
+        Update: AboutPageUpdate;
+        Relationships: [];
+      };
+      about_gallery: {
+        Row: AboutGalleryRow;
+        Insert: AboutGalleryInsert;
+        Update: AboutGalleryUpdate;
         Relationships: [];
       };
     };

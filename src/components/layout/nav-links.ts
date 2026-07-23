@@ -13,5 +13,6 @@ export const navLinks: NavLink[] = [
   },
   { label: 'Branches', href: '/branches' },
   { label: 'Events', href: '/events' },
+  { label: 'About Us', href: '/about' },
   { label: 'Join Us', href: '/join' },
 ];

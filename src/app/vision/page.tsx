@@ -1,12 +1,10 @@
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 import { Section } from '@/components/ui/Section';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { HeroTextReveal } from '@/components/motion/HeroTextReveal';
-import founderPortraitPlaceholder from '@/assets/placeholders/founder-portrait.svg';
 import { UNSPLASH_HERO_CATHEDRAL_INTERIOR, UNSPLASH_CANDLE } from '@/lib/unsplash-placeholders';
 import { getSiteImageMap } from '@/lib/site-images';
 import { cn } from '@/lib/utils';
@@ -87,7 +85,6 @@ const globalReachStats = [
 export default async function VisionPage() {
   const siteImages = await getSiteImageMap();
   const heroImage = siteImages.vision_hero ?? UNSPLASH_HERO_CATHEDRAL_INTERIOR;
-  const founderImage = siteImages.founder_portrait ?? founderPortraitPlaceholder;
 
   return (
     <main>
@@ -123,7 +120,7 @@ export default async function VisionPage() {
         </Container>
 
         <a
-          href="#founder"
+          href="#vision-statement"
           aria-label="Scroll down"
           className="absolute bottom-8 left-1/2 -translate-x-1/2 text-cream/60 transition-colors hover:text-gold motion-safe:animate-bounce"
         >
@@ -133,79 +130,7 @@ export default async function VisionPage() {
         </a>
       </section>
 
-      {/* 2. Apostle / Founder's Message */}
-      <Section tone="cream" id="founder">
-        <Container>
-          <ScrollReveal>
-            <div className="grid items-center gap-16 md:grid-cols-2">
-              <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl border-2 border-gold">
-                {/* PLACEHOLDER: replace with the real portrait photo via
-                    /admin/site-images (key: founder_portrait) */}
-                <Image
-                  src={founderImage}
-                  alt="Portrait of Pastor Sushil, Founder & Lead Pastor"
-                  fill
-                  sizes="(min-width: 768px) 400px, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <div>
-                <p className="text-eyebrow font-semibold uppercase text-accent">
-                  A Word From Our Pastor
-                </p>
-                <h2 className="mt-3 font-display text-h2 font-semibold text-ink">
-                  A Personal Welcome
-                </h2>
-                {/* PLACEHOLDER — WRITTEN IN PASTOR SUSHIL'S VOICE AS A STAND-IN.
-                    This is high-quality placeholder copy built only from the
-                    confirmed facts (Pune, Maharashtra, founded 2017) — it is
-                    NOT anything Pastor Sushil has actually said or written.
-                    Please replace this entire block with his real words (or
-                    have him review/edit this draft) before launch. */}
-                <div className="mt-6 space-y-4 text-body text-ink/80">
-                  <p>
-                    In 2017, in a small rented hall in Pune, Maharashtra, a handful of us gathered
-                    with nothing but a conviction: that God wasn’t finished with this city, or with
-                    the people in it. We didn’t have a building, a budget, or a plan beyond that
-                    Sunday — just a hunger to see lives changed, and a belief that if we made room
-                    for God’s presence, He would show up. He did. And He hasn’t stopped since.
-                  </p>
-                  <p>
-                    I didn’t start HigherLife360 to build an organization. I started it because I’d
-                    seen what happens when ordinary people encounter God for themselves — not
-                    through a program, but through a real, tangible presence — and I couldn’t shake
-                    the conviction that everyone deserved that same chance. That’s still the
-                    heartbeat behind every branch we plant and every service we hold, whether it’s
-                    in Pune or on the other side of the world.
-                  </p>
-                  <p>
-                    So whatever brought you here today — curiosity, a friend’s invitation, a hard
-                    season, or a quiet search for something more — you are welcome, exactly as you
-                    are. This isn’t a place you have to clean yourself up to enter. It’s a family,
-                    and there is a seat for you at the table.
-                  </p>
-                  <p>
-                    My prayer is that HigherLife360 becomes a light in every city it touches —
-                    raising up a generation that lives free, gives generously, and carries hope
-                    wherever they go. I’m honored you’re here. Let’s take this next step together.
-                  </p>
-                </div>
-                <p className="mt-6 font-display text-h4 italic text-navy-elevated">
-                  — Pastor Sushil, Founder &amp; Lead Pastor, HigherLife
-                </p>
-                <div className="mt-6">
-                  {/* PLACEHOLDER: link to the real founder message video once available. */}
-                  <Button href="#" variant="outline">
-                    Watch the Full Message
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </ScrollReveal>
-        </Container>
-      </Section>
-
-      {/* 3. Our Vision — the client's real four-part vision statement, one
+      {/* 2. Our Vision — the client's real four-part vision statement, one
           numbered section per point, alternating cream/navy so each reads
           as its own moment rather than one long scroll of scripture. See
           the visionStatement array above for the content itself. */}
@@ -277,7 +202,7 @@ export default async function VisionPage() {
         );
       })}
 
-      {/* 4. Our Story — animated timeline */}
+      {/* 3. Our Story — animated timeline */}
       <Section tone="navy" id="story" className="relative overflow-hidden">
         {/* TEMPORARY STOCK PHOTO — replace with a real HigherLife360 photo.
             See src/lib/unsplash-placeholders.ts for the source. */}
@@ -302,7 +227,7 @@ export default async function VisionPage() {
         </Container>
       </Section>
 
-      {/* 5. Our Global Reach (formerly "Vision 2030") */}
+      {/* 4. Our Global Reach (formerly "Vision 2030") */}
       <Section tone="navy" id="global-reach" className="relative overflow-hidden pt-0">
         <div
           aria-hidden

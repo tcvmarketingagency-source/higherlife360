@@ -20,8 +20,7 @@ export type SiteImageGroup =
   | 'Branches'
   | 'Events'
   | 'Donate'
-  | 'Join'
-  | 'Founder';
+  | 'Join';
 
 export type SiteImageKeyDef = {
   key: string;
@@ -123,14 +122,6 @@ export const SITE_IMAGE_KEYS: SiteImageKeyDef[] = [
     label: 'Join Us Page Hero',
     description: 'Full-bleed background behind "You Belong Here."',
     fallback: UNSPLASH_HERO_FELLOWSHIP,
-  },
-  {
-    key: 'founder_portrait',
-    group: 'Founder',
-    label: 'Founder Portrait — Pastor Sushil',
-    description:
-      'Portrait photo on the Vision page’s "A Word From Our Pastor" section. Currently a placeholder graphic — upload a real photo to replace it.',
-    fallback: null,
   },
 ];
 

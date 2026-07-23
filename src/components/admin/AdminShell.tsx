@@ -14,6 +14,7 @@ const navItems = [
   { href: '/admin/events', label: 'Events' },
   { href: '/admin/media', label: 'Media Library' },
   { href: '/admin/site-images', label: 'Site Images' },
+  { href: '/admin/about', label: 'About Page' },
 ];
 
 function isActive(pathname: string, href: string) {
